@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 
-//testing git in eclipse
+//test of git in eclipse
 
 public class Main extends Application {
 	@Override
