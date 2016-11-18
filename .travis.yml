@@ -14,4 +14,5 @@ addons:
     packages:
       - oracle-java8-installer
 notifications:
+  email: false
   slack: softwarecide-squad:e6DkZLvLTYpIRMH8KOJSmuWR
