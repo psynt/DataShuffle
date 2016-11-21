@@ -18,7 +18,6 @@ gradle/
 .settings
 gradlew*
 bin/
-<<<<<<< HEAD
 
 #LaTeX ignore:
 ## Core latex/pdflatex auxiliary files:
@@ -201,5 +200,3 @@ TSWLatexianTemp*
 
 # KBibTeX
 *~[0-9]*
-=======
->>>>>>> ee20f958d2237c4e5448fe6209a6a90f14c27b6d
