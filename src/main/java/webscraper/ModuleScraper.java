@@ -5,16 +5,15 @@ import org.jsoup.select.Elements;
 
 public class ModuleScraper extends PageScraper {
 
-	private Document doc;
 	private DataDoc dataDoc;
 	
-	public ModuleScraper(){
+	public ModuleScraper(Document doc){
+		super(doc);
 		dataDoc = new DataDoc();
 	}
 	
 	@Override
-	public DataDoc scrapeDocument(Document doc) {
-		this.doc = doc;
+	public DataDoc scrapeDocument() {
 		
 		Elements modTitle = doc.select("H2");
 		String myString[] = modTitle.text().split(" ", 2);
@@ -32,9 +31,7 @@ public class ModuleScraper extends PageScraper {
 			if(paras.get(i).text().split(":").length == 2){
 				dataDoc.addField(fieldData[0], fieldData[1]);
 			}
-		}
-		
+		}	
 		return dataDoc;
 	}
-
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class DataDoc {
 
-	private Map<String, String> dataFields;
+	private HashMap<String, String> dataFields;
 	
 	public DataDoc(){
 		dataFields = new HashMap<String, String>();
