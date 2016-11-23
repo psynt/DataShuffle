@@ -15,8 +15,14 @@ public class ModuleScraper extends PageScraper {
 	@Override
 	public DataDoc scrapeDocument(Document doc) {
 		this.doc = doc;
-		Elements paras = doc.select("p");
 		
+		Elements modTitle = doc.select("H2");
+		String myString[] = modTitle.text().split(" ", 2);
+		dataDoc.addField("Module Code", myString[0]);
+		myString[1] = myString[1].replaceAll("\\(.*\\)","");
+		dataDoc.addField("Module Name", myString[1]);
+		
+		Elements paras = doc.select("p");
 		for(int i = 0; i < paras.size(); i++){
 			System.out.println(paras.get(i).text());
 		}
