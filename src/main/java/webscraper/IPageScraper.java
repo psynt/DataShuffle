@@ -4,6 +4,6 @@ import org.jsoup.nodes.Document;
 
 public interface IPageScraper {
 
-	public DataDoc scrapeDocument(Document doc);
+	public DataDoc scrapeDocument();
 	
 }
