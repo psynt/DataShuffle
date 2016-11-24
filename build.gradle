@@ -23,6 +23,10 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.21'
     // jsoup HTML parser library @ http://jsoup.org/
 	compile 'org.jsoup:jsoup:1.10.1'
+	// https://mvnrepository.com/artifact/org.apache.poi/poi
+	compile group: 'org.apache.poi', name: 'poi', version: '3.15'
+	// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
 
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the
