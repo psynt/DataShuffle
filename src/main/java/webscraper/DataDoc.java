@@ -1,7 +1,6 @@
 package webscraper;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class DataDoc {
 

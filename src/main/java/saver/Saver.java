@@ -30,7 +30,7 @@ public interface Saver <T extends Item>{
 	/**
 	 * output buffered contents to file
 	 * @param f file to write to
-	 * @throws IOException if problems were wncountered with file handling
+	 * @throws IOException if problems were encountered with file handling
 	 */
 	void writeToFile(File f) throws IOException;
 	

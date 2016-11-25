@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import content.Attribute;
 import content.Item;
 
+
 /**
  * Saves to .xls files
  * @author nichita
@@ -30,21 +31,45 @@ public class ExcelSaver<T extends Item> implements Saver<T> {
 	/**
 	 * Constructs an object that will save to spreadsheet
 	 * @param itemsToSave list of items to be saved
+	 * @param threshold minimum Selected-ness for an item/attribute to be printed out
 	 */
-	public ExcelSaver(ArrayList<T> itemsToSave) {
-		threshold = 0;
+	public ExcelSaver(ArrayList<T> itemsToSave,int threshold) {
+		this.threshold = threshold;
 		wb = new HSSFWorkbook();
 		s = wb.createSheet();
 		setHeaders(itemsToSave.get(0).getAttributes());
 		save(itemsToSave);
 	}
-	public ExcelSaver(T itemToSave) {
-		threshold = 0;
+	
+	/**
+	 * Constructs an object that will save to spreadsheet
+	 * @param itemToSave item to be saved
+	 * @param threshold minimum Selected-ness for an item/attribute to be printed out
+	 */
+	public ExcelSaver(T itemToSave, int threshold) {
+		this.threshold = threshold;
 		wb = new HSSFWorkbook();
 		s = wb.createSheet();
 		setHeaders(itemToSave.getAttributes());
 		save(itemToSave);
 	}
+
+	/**
+	 * Constructs an object that will save to spreadsheet with minimum Selected-ness Maybe
+	 * @param itemsToSave list of items to be saved
+	 */
+	public ExcelSaver(ArrayList<T> itemsToSave){
+		this(itemsToSave,0);
+	}
+	
+	/**
+	 * Constructs an object that will save to spreadsheet with minimum Selected-ness Maybe
+	 * @param itemToSave item to be saved
+	 */
+	public ExcelSaver(T itemToSave){
+		this(itemToSave,0);
+	}
+	
 	
 	private void setHeaders(ArrayList<Attribute> a){
 		Row r=s.createRow(rowcount++);

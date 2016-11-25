@@ -7,7 +7,6 @@ package content;
  */
 public enum Selected {
 	Yes,No,Maybe;
-	
 	public int value(){
 		int r;
 		switch(this){
