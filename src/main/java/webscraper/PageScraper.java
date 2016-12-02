@@ -1,5 +1,11 @@
 package webscraper;
 
+/**
+ * Abstract class for scraping webpages
+ * @author zane
+ *
+ */
+
 import org.jsoup.nodes.Document;
 
 public abstract class PageScraper implements IPageScraper{

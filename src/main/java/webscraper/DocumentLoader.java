@@ -1,5 +1,11 @@
 package webscraper;
 
+/**
+ * Class that provides functions for loading pages into JSoup Document objects.
+ * @author zane
+ *
+ */
+
 import java.io.File;
 import java.io.IOException;
 

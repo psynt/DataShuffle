@@ -1,5 +1,11 @@
 package webscraper;
 
+/**
+ * Scraper for university Module Webpages.  Loads all data into a datadoc object.
+ * @author zane
+ *
+ */
+
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
