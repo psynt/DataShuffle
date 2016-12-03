@@ -28,9 +28,13 @@ public class StaffScraper extends PageScraper {
 
 	String name = doc.getElementsByClass("fn n").text();
 	String room = doc.getElementById("staffprofile-address").getElementsByClass("street-address").text();
+	String jobTitle = doc.select("p").get(1).text().split(",")[0];
+	String faculty = doc.getElementsByClass("org").text();
 
 	dataDoc.addField("Name", name);
 	dataDoc.addField("room", room);
+	dataDoc.addField("JobTitle", jobTitle);
+	dataDoc.addField("Faculty", faculty);
 	
 	return dataDoc;
 	}
