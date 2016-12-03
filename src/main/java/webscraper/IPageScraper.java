@@ -1,7 +1,7 @@
 package webscraper;
 
 /**
- * Interface for scraping webpages
+ * Interface for scraping webpages for data
  * @author zane
  *
  */

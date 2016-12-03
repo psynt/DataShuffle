@@ -1,7 +1,7 @@
 package webscraper;
 
 /**
- * Abstract class for scraping webpages
+ * Abstract class for scraping webpages for data
  * @author zane
  *
  */
