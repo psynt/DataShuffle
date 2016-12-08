@@ -5,12 +5,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class CourseScraper extends PageScraper {
-
-	private DataDoc dataDoc;
 	
 	public CourseScraper(Document doc){
 		super(doc);
-		dataDoc = new DataDoc();
 	}
 	
 	@Override

@@ -11,9 +11,11 @@ import org.jsoup.nodes.Document;
 public abstract class PageScraper implements IPageScraper{
 
 	protected Document doc;
+	protected DataDoc dataDoc;
 	
 	public PageScraper(Document doc){
 		this.doc = doc;
+		dataDoc = new DataDoc();
 	}
 	
 	@Override
