@@ -1,10 +1,10 @@
 package application;
 	
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 
 //lets see if this change works at all
 
@@ -23,7 +23,6 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		//new ModuleScraper().scrapeDocument(DocumentLoader.loadDocFromUrl("http://www.nottingham.ac.uk/ugstudy/courses/computerscience/bsc-computer-science.aspx"));
-		//launch(args);
+		launch(args);
 	}
 }

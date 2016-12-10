@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HoloDesk.iml" filepath="$PROJECT_DIR$/.idea/modules/HoloDesk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HoloDesk_main.iml" filepath="$PROJECT_DIR$/.idea/modules/HoloDesk_main.iml" group="HoloDesk" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HoloDesk_test.iml" filepath="$PROJECT_DIR$/.idea/modules/HoloDesk_test.iml" group="HoloDesk" />
+    </modules>
+  </component>
+</project>
