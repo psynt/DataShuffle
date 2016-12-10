@@ -13,9 +13,11 @@ import org.jsoup.nodes.Document;
 public abstract class LinkScraper implements ILinkScraper {
 
 	protected Document doc;
+	protected ArrayList<String> urls;
 	
 	public LinkScraper(Document doc){
 		this.doc = doc;
+		urls = new ArrayList<String>();
 	}
 	
 	@Override
