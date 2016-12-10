@@ -22,5 +22,12 @@ public interface Item {
 	 * @return List containing all of the item's Attributes that are to be saved to file
 	 */
 	ArrayList<Attribute> getAttributes();
+	
+	/**
+	 * 
+	 * @return List containing all of the item's Attributes that are to be saved to file
+	 */
+	
+	void addAttribute(Attribute a);
 
 }

@@ -6,9 +6,31 @@ package content;
  * @author nichita
  *
  */
-public interface Attribute {
-	public Selected getSelected();
-	public String getValue();
-	public String getName();
+public class Attribute< T > {
+	
+	private T t;
+	private String name;
+	
+	public Attribute(String name, T t){
+		this.name = name;
+		this.t = t;
+	}
+	
+	public Selected getSelected() {
+		return null;
+	}
+	public void setValue(T t){
+		this.t = t;
+	}
+	public T getValue() {
+		return t;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	public String getName() {
+		return null;
+	}
 
 }

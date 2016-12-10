@@ -14,28 +14,45 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import content.Attribute;
+import content.Item;
+
 public class StaffScraper extends PageScraper {
 
 	private DataDoc dataDoc;
 	
 	public StaffScraper(Document doc){
 		super(doc);
-		dataDoc = new DataDoc();
+		item = new Staff();
 	}
 	
 	@Override
-	public DataDoc scrapeDocument() {
+	public Item scrapeDocument() {
+		getName();	
+		getRoom();	
+		getJobTitle();
+		getFaculty();
+		
+		return item;
+	}
 
-	String name = doc.getElementsByClass("fn n").text();
-	String room = doc.getElementById("staffprofile-address").getElementsByClass("street-address").text();
-	String jobTitle = doc.select("p").get(1).text().split(",")[0];
-	String faculty = doc.getElementsByClass("org").text();
+	private void getFaculty() {
+		String faculty = doc.getElementsByClass("org").text();
+		item.addAttribute(new Attribute<String>("Faculty", faculty));
+	}
 
-	dataDoc.addField("Name", name);
-	dataDoc.addField("room", room);
-	dataDoc.addField("JobTitle", jobTitle);
-	dataDoc.addField("Faculty", faculty);
-	
-	return dataDoc;
+	private void getJobTitle() {
+		String jobTitle = doc.select("p").get(1).text().split(",")[0];
+		item.addAttribute(new Attribute<String>("JobTitle", jobTitle));
+	}
+
+	private void getRoom() {
+		String room = doc.getElementById("staffprofile-address").getElementsByClass("street-address").text();
+		item.addAttribute(new Attribute<String>("room", room));
+	}
+
+	private void getName() {
+		String name = doc.getElementsByClass("fn n").text();
+		item.addAttribute(new Attribute<String>("Name", name));
 	}
 }

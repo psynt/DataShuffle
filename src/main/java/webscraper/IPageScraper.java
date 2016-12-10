@@ -1,5 +1,7 @@
 package webscraper;
 
+import content.Item;
+
 /**
  * Interface for scraping webpages for data
  * @author zane
@@ -8,6 +10,6 @@ package webscraper;
 
 public interface IPageScraper {
 
-	public DataDoc scrapeDocument();
+	public Item scrapeDocument();
 	
 }
