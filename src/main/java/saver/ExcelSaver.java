@@ -1,18 +1,17 @@
 package saver;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-
+import content.Attribute;
+import content.Item;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import content.Attribute;
-import content.Item;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -101,10 +100,10 @@ public class ExcelSaver<T extends Item> implements Saver<T> {
 		c.setCellValue(item.getSelected().toString());
 		int colcount=1;
 		for(Attribute e :item.getAttributes()){
-			if(e.getSelected().value()<threshold)
+			if(!(e.getValue() instanceof String) || e.getSelected().value()<threshold)
 				continue;
 			c = r.createCell(colcount++);
-			c.setCellValue(e.getValue());
+			c.setCellValue(e.getValue().toString());
 		}
 	}
 

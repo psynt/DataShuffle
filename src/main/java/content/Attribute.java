@@ -6,9 +6,9 @@ package content;
  * @author nichita
  *
  */
-public interface Attribute {
+public interface Attribute<T> {
 	public Selected getSelected();
-	public String getValue();
+	public T getValue();
 	public String getName();
 
 }

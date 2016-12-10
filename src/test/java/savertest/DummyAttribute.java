@@ -3,7 +3,7 @@ package savertest;
 import content.Attribute;
 import content.Selected;
 
-public class DummyAttribute implements Attribute {
+public class DummyAttribute implements Attribute<String> {
 
 	@Override
 	public Selected getSelected() {
