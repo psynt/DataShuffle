@@ -1,9 +1,16 @@
 package webscraper;
 
+/**
+ * Scraper for Ebay Item Webpages.  Loads all data into a Ttem object.
+ * @author zane
+ *
+ */
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import content.Attribute;
+import content.EbayItem;
 import content.Item;
 import content.Module;
 
