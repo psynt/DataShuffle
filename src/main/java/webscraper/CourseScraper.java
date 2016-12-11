@@ -5,14 +5,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import content.Attribute;
-import content.Course;
 import content.Item;
 
 public class CourseScraper extends PageScraper {
 	
 	public CourseScraper(Document doc){
 		super(doc);
-		item = new Course();
+		item = new Item();
 	}
 	
 	@Override

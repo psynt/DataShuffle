@@ -10,15 +10,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import content.Attribute;
-import content.EbayItem;
 import content.Item;
-import content.Module;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 public class EbayItemScraper extends PageScraper {
 	
 	public EbayItemScraper(Document doc) {
 		super(doc);
-		item = new EbayItem();
+		item = new Item();
 	}
 
 	@Override

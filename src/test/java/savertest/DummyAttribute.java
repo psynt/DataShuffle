@@ -3,21 +3,10 @@ package savertest;
 import content.Attribute;
 import content.Selected;
 
-public class DummyAttribute implements Attribute<String> {
+public class DummyAttribute extends Attribute {
 
-	@Override
-	public Selected getSelected() {
-		return Selected.Maybe;
-	}
-
-	@Override
-	public String getValue() {
-		return "foo";
-	}
-
-	@Override
-	public String getName() {
-		return "bar";
+	public DummyAttribute() {
+		super("foo", "bar", Selected.Maybe);
 	}
 
 }
