@@ -4,32 +4,40 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import content.Attribute;
+import content.Course;
+import content.Item;
+
 public class CourseScraper extends PageScraper {
 	
 	public CourseScraper(Document doc){
 		super(doc);
+		item = new Course();
 	}
 	
 	@Override
-	public DataDoc scrapeDocument() {
+	public Item scrapeDocument() {
 				
-		//get course title
-		Elements courseTitle = doc.select("title");
-		String[] title = courseTitle.get(0).text().split(" -");
-		dataDoc.addField("Course Title", title[0]);
+		getCourseTitle();
+		getFactFileData();
+		//getModules
 		
-		//get factfile
+		return item;
+	}
+
+	private void getFactFileData() {
 		Element factFile = doc.getElementById("ugStudyFactfile");
 		Elements ffLabels = factFile.getElementsByClass("sys_factfileLabel");
 		Elements ffItems = factFile.getElementsByClass("sys_factfileTextField");
 		
 		for(int i = 0; i < ffItems.size()-1; i++){
-			dataDoc.addField(ffLabels.get(i+5).text(), ffItems.get(i+1).text());
+			item.addAttribute(new Attribute<String>(ffLabels.get(i+5).text(), ffItems.get(i+1).text()));
 		}
-		
-		//getModules
-		
-		
-		return dataDoc;
+	}
+
+	private void getCourseTitle() {
+		Elements courseTitle = doc.select("title");
+		String[] title = courseTitle.get(0).text().split(" -");
+		item.addAttribute(new Attribute<String>("Course Title", title[0]));
 	}
 }
