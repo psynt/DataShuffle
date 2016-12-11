@@ -7,31 +7,31 @@ package content;
  *
  */
 public class Attribute< T > {
-
-    private Selected sel;
+	private Selected sel;
 	private T t;
 	private String name;
 	
 	public Attribute(String name, T t, Selected s){
 		this.name = name;
 		this.t = t;
-		sel = s;
+		sel=s;
 	}
 
-	public Attribute(String name, T t){ this(name,t,Selected.Maybe); }
-
+	public Attribute(String name,T t){
+		this(name,t,Selected.Maybe);
+	}
+	
 	public Selected getSelected() {
 		return sel;
 	}
 
-	public void setSelected(Selected s){
-	    sel=s;
-    }
+	public void setSelected(Selected newS) {
+		sel = newS;
+	}
 
 	public T getValue() {
 		return t;
 	}
-
 
 	public String getName() {
 		return null;
