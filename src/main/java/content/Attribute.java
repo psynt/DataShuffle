@@ -17,6 +17,7 @@ public class Attribute< T > {
 		this.t = t;
 		sel = s;
 	}
+
 	public Attribute(String name, T t){ this(name,t,Selected.Maybe); }
 
 	public Selected getSelected() {
