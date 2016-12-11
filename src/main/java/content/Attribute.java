@@ -18,7 +18,6 @@ public class Attribute< T > {
 	}
 
 
-    //secondary constructor
 	public Attribute(String name,T t){
 		this(name,t,Selected.Maybe);
 	}
