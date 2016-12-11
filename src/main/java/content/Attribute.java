@@ -3,7 +3,7 @@ package content;
 
 /**
  * Represents each attribute of an Item, along with a getSelected
- * @author nichita
+ * @author nichita, zane
  *
  */
 public class Attribute< T > {

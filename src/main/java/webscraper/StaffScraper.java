@@ -16,6 +16,7 @@ import org.jsoup.select.Elements;
 
 import content.Attribute;
 import content.Item;
+import content.Staff;
 
 public class StaffScraper extends PageScraper {
 

@@ -1,5 +1,11 @@
 package content;
 
+/**
+ * Concrete Item for a Course
+ * @author zane
+ *
+ */
+
 import java.util.ArrayList;
 
 public class Course implements Item {

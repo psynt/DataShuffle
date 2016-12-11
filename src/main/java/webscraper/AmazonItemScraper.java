@@ -3,6 +3,9 @@ package webscraper;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import content.Attribute;
+import content.Item;
+
 public class AmazonItemScraper extends PageScraper {
 
 	public AmazonItemScraper(Document doc) {
@@ -10,12 +13,12 @@ public class AmazonItemScraper extends PageScraper {
 	}
 
 	@Override
-	public DataDoc scrapeDocument() {
+	public Item scrapeDocument() {
 		addName();
 		addPrice();
 		addShipping();
 		
-		return dataDoc;
+		return item;
 	}
 
 	private void addShipping() {
@@ -27,14 +30,14 @@ public class AmazonItemScraper extends PageScraper {
 		Element price = null;
 		price = doc.getElementById("priceblock_ourprice");
 		String priceText = price.text();
-		dataDoc.addField("price", priceText);
+		item.addAttribute(new Attribute<String>("price", priceText));
 		
 	}
 
 	private void addName() {
 		Element itemName = null;
 		itemName = doc.getElementById("title");
-		dataDoc.addField("name", itemName.text());
+		item.addAttribute(new Attribute<String>("name", itemName.text()));
 	}
 
 }

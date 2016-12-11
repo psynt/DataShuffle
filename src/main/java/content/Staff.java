@@ -1,26 +1,17 @@
 package content;
 
 /**
- * Concrete Item for a Module
+ * Concrete Item for a Staff Member
  * @author zane
  *
  */
 
 import java.util.ArrayList;
 
-public class Module implements Item {
-
+public class Staff implements Item {
+	
 	ArrayList<Attribute> attributes;
 
-	public Module(){
-		attributes = new ArrayList<Attribute>();
-	}
-	
-	@Override
-	public void addAttribute(Attribute a) {
-		attributes.add(a);
-	}
-	
 	@Override
 	public Selected getSelected() {
 		// TODO Auto-generated method stub
@@ -29,7 +20,14 @@ public class Module implements Item {
 
 	@Override
 	public ArrayList<Attribute> getAttributes() {
-		return attributes;
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addAttribute(Attribute a) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
