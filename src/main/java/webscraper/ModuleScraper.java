@@ -11,7 +11,6 @@ import org.jsoup.select.Elements;
 
 import content.Attribute;
 import content.Item;
-import content.Module;
 
 public class ModuleScraper extends PageScraper {
 
@@ -19,7 +18,7 @@ public class ModuleScraper extends PageScraper {
 	
 	public ModuleScraper(Document doc){
 		super(doc);
-		item = new Module();
+		item = new Item();
 	}
 	
 	@Override

@@ -6,17 +6,10 @@ package webscraper;
  *
  */
 
-import java.io.IOException;
-
-import org.jsoup.Jsoup;
-
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import content.Attribute;
 import content.Item;
-import content.Staff;
 
 public class StaffScraper extends PageScraper {
 
@@ -24,7 +17,7 @@ public class StaffScraper extends PageScraper {
 	
 	public StaffScraper(Document doc){
 		super(doc);
-		item = new Staff();
+		item = new Item();
 	}
 	
 	@Override

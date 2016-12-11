@@ -6,7 +6,7 @@ package content;
  * @author nichita, zane
  *
  */
-public class Attribute< T > {
+public class Attribute<T> {
 	private Selected sel;
 	private T t;
 	private String name;
