@@ -106,8 +106,6 @@ acs-*.bib
 # gnuplottex
 *-gnuplottex-*
 
-# hyperref
-*.brf
 
 # knitr
 *-concordance.tex
@@ -139,8 +137,6 @@ _minted*
 # morewrites
 *.mw
 
-# mylatexformat
-*.fmt
 
 # nomencl
 *.nlo
@@ -200,3 +196,4 @@ TSWLatexianTemp*
 
 # KBibTeX
 *~[0-9]*
+!/Doc/Pictures/
