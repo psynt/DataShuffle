@@ -15,7 +15,12 @@ import java.net.URI;
 import java.net.URL;
 
 public class DocumentLoader {
-	
+
+	/**
+	 * Loads from http or https. For loading from a file, please use load(URI)
+	 * @param url http or https only, please
+	 * @return Document that scrapers can then use
+	 */
 	public static Document load(URL url){
 		Document newDoc = null;
 		try {
@@ -25,7 +30,12 @@ public class DocumentLoader {
 		}
 		return newDoc;
 	}
-	
+
+	/**
+	 * Loads from file, as opposed to http/https webpages. For loading from a file, please use the URI loader
+	 * @param filePath or URIs other than http or https
+	 * @return Document that scrapers can then use
+	 */
 	public static Document load(URI filePath){
 		Document newDoc = null;
 		try {
