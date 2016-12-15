@@ -6,25 +6,27 @@ package webscraper;
  *
  */
 
-import java.io.File;
-import java.io.IOException;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+
 public class DocumentLoader {
 	
-	public static Document loadDocFromUrl(String url){
+	public static Document load(URL url){
 		Document newDoc = null;
 		try {
-			newDoc = Jsoup.connect(url).ignoreContentType(true).ignoreHttpErrors(true).get();
+			newDoc = Jsoup.connect(url.toString()).ignoreContentType(true).ignoreHttpErrors(true).get();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return newDoc;
 	}
 	
-	public static Document loadDocFromFile(String filePath){
+	public static Document load(URI filePath){
 		Document newDoc = null;
 		try {
 
