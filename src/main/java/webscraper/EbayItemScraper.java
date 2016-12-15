@@ -7,7 +7,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 /**
- * Scraper for Ebay Item Webpages.  Loads all data into a Item object.
+ * Scraper for Ebay listings.
+ * Loads all data into a Item object.
  * @author zane
  *
  */

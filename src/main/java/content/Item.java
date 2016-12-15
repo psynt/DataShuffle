@@ -1,6 +1,7 @@
 package content;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Item will be the interface that all the different types of entries that we will have to deal with will implement
@@ -47,7 +48,7 @@ public class Item {
 	 * Adds attributes to list
 	 * @param a Attributes to be added
 	 */
-	public void addAttributes(ArrayList<Attribute> a){
+	public void addAttributes(List<Attribute> a){
 		attributes.addAll(a);
 	}
 

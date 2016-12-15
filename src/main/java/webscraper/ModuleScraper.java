@@ -7,7 +7,8 @@ import content.Attribute;
 import content.Item;
 
 /**
- * Scraper for university Module Webpages.  Loads all data into an Item object.
+ * Scraper for individual Module pages form the module catalog.
+ * Loads all data into an Item object.
  * @author zane
  *
  */
