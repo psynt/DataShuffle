@@ -6,6 +6,12 @@ import org.jsoup.nodes.Element;
 import content.Attribute;
 import content.Item;
 
+/**
+ *
+ * Amazon has captcha in place to prevent robots from gathering data.
+ * Work on this class is suspended.
+ * @author zane
+ */
 public class AmazonItemScraper extends PageScraper {
 
 	public AmazonItemScraper(Document doc) {

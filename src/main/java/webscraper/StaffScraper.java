@@ -12,8 +12,6 @@ import content.Attribute;
 import content.Item;
 
 public class StaffScraper extends PageScraper {
-
-	private DataDoc dataDoc;
 	
 	public StaffScraper(Document doc){
 		super(doc);

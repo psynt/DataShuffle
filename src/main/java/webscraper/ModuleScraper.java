@@ -13,8 +13,6 @@ import content.Attribute;
 import content.Item;
 
 public class ModuleScraper extends PageScraper {
-
-	private DataDoc dataDoc;
 	
 	public ModuleScraper(Document doc){
 		super(doc);

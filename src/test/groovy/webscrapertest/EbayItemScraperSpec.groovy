@@ -12,7 +12,7 @@ import webscraper.EbayItemScraper
 class EbayItemScraperSpec extends Specification {
 
     @Unroll
-    def "Test sttributes returned (for single item listings) URL: #testURL .html"(){
+    def "Test attributes returned (for single item listings) URL: #testURL .html"(){
         given:
         @Subject
         def sc = new EbayItemScraper(DocumentLoader.load(this.getClass().getResource("/" + testURL + ".html").toURI()))
