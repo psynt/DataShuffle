@@ -10,11 +10,13 @@ import content.Item;
 import java.util.ArrayList;
 
 /**
- * Scraper for university Course Webpages.  Loads all data into an Item object.
+ * Scraper for University of Nottingham Course Webpages.  Loads all data into an Item object.
  * @author zane
  *
  */
 public class CourseScraper extends PageScraper {
+	
+	public static final int NUM_FIELDS = 5;
 	
 	public CourseScraper(Document doc){
 		super(doc);
@@ -35,6 +37,10 @@ public class CourseScraper extends PageScraper {
 		return item;
 	}
 
+	/**
+	 * Function to scrape all data from the course fact file.
+	 * @return ArrayList of attributes in the course fact file.
+	 */
 	private ArrayList<Attribute> getFactFileData() {
 		ArrayList<Attribute> atts = new ArrayList<>();
 		Element factFile = doc.getElementById("ugStudyFactfile");
@@ -48,6 +54,10 @@ public class CourseScraper extends PageScraper {
 		return atts;
 	}
 
+	/**
+	 * Function to scrape the title of the course.
+	 * @return Attribute containing the title of the course.
+	 */
 	private Attribute<String> getCourseTitle() {
 		Elements courseTitle = doc.select("title");
 		String[] title = courseTitle.get(0).text().split(" -");

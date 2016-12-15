@@ -23,6 +23,5 @@ class EbayResultScraperSpec extends Specification {
         testURL             ||   expectedOutput
         "ebaySearch"   ||  1
 
-
     }
 }
