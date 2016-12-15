@@ -1,13 +1,10 @@
 package webscrapertest
 
-import static org.junit.Assert.*
-
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 import webscraper.CourseScraper
 import webscraper.DocumentLoader
-
 /**
  * @Author Zane
  */
@@ -15,7 +12,7 @@ import webscraper.DocumentLoader
 class CourseScraperSpec extends Specification {
 
     @Unroll
-    def "Test attributes returned (for single course) URL: #testURL .html"(){
+    def "Test attributes returned URL: #testURL .html"(){
         given:
         @Subject
         def sc = new CourseScraper(DocumentLoader.load(this.getClass().getResource("/" + testURL + ".html").toURI()))
@@ -27,7 +24,7 @@ class CourseScraperSpec extends Specification {
         it.getAttributes().size() == CourseScraper.NUM_FIELDS;
 
         where:
-        testURL << ["Course", "CourseTrimmed"]
+        testURL << ["CourseTrimmed","Course"]
 
     }
 

@@ -16,11 +16,10 @@ import java.util.ArrayList;
  */
 public class CourseScraper extends PageScraper {
 	
-	public static final int NUM_FIELDS = 5;
+	public static final int NUM_FIELDS = 10;
 	
 	public CourseScraper(Document doc){
 		super(doc);
-		item = new Item();
 	}
 	
 	@Override
