@@ -1,17 +1,16 @@
 package webscraper;
 
-/**
- * Scraper for university Module Webpages.  Loads all data into a Ttem object.
- * @author zane
- *
- */
-
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import content.Attribute;
 import content.Item;
 
+/**
+ * Scraper for university Module Webpages.  Loads all data into an Item object.
+ * @author zane
+ *
+ */
 public class ModuleScraper extends PageScraper {
 	
 	public ModuleScraper(Document doc){

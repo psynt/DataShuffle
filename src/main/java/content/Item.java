@@ -43,4 +43,12 @@ public class Item {
 		attributes.add(a);
 	}
 
+	/**
+	 * Adds attributes to list
+	 * @param a Attributes to be added
+	 */
+	public void addAttributes(ArrayList<Attribute> a){
+		attributes.addAll(a);
+	}
+
 }

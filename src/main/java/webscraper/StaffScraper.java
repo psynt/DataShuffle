@@ -1,16 +1,16 @@
 package webscraper;
 
-/**
- * Scraper for university Staff Webpages.  Loads all data into a datadoc object.
- * @author zane
- *
- */
 
 import org.jsoup.nodes.Document;
 
 import content.Attribute;
 import content.Item;
 
+/**
+ * Scraper for university Staff Webpages.  Loads all data into an Item object.
+ * @author zane
+ *
+ */
 public class StaffScraper extends PageScraper {
 	
 	public StaffScraper(Document doc){
@@ -20,31 +20,32 @@ public class StaffScraper extends PageScraper {
 	
 	@Override
 	public Item scrapeDocument() {
-		getName();	
-		getRoom();	
-		getJobTitle();
-		getFaculty();
+
+		item.addAttribute(getName());
+		item.addAttribute(getRoom());
+		item.addAttribute(getJobTitle());
+		item.addAttribute(getFaculty());
 		
 		return item;
 	}
 
-	private void getFaculty() {
+	private Attribute<String> getFaculty() {
 		String faculty = doc.getElementsByClass("org").text();
-		item.addAttribute(new Attribute<String>("Faculty", faculty));
+		return new Attribute<String>("Faculty", faculty);
 	}
 
-	private void getJobTitle() {
+	private Attribute<String> getJobTitle() {
 		String jobTitle = doc.select("p").get(1).text().split(",")[0];
-		item.addAttribute(new Attribute<String>("JobTitle", jobTitle));
+		return new Attribute<String>("JobTitle", jobTitle);
 	}
 
-	private void getRoom() {
+	private Attribute<String> getRoom() {
 		String room = doc.getElementById("staffprofile-address").getElementsByClass("street-address").text();
-		item.addAttribute(new Attribute<String>("room", room));
+		return new Attribute<String>("room", room);
 	}
 
-	private void getName() {
+	private Attribute<String> getName() {
 		String name = doc.getElementsByClass("fn n").text();
-		item.addAttribute(new Attribute<String>("Name", name));
+		return new Attribute<String>("Name", name);
 	}
 }
