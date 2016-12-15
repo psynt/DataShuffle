@@ -22,7 +22,7 @@ class ItemSpec extends Specification {
         then:
         it.getAttributes().size() == 1
         it.getAttributes().get(0) == att
-        it.getSelected() == Selected.No
+        it.getSelected() == Selected.Yes
 
     }
 
