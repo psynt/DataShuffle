@@ -197,3 +197,8 @@ TSWLatexianTemp*
 # KBibTeX
 *~[0-9]*
 !/Doc/Pictures/
+!/.idea/
+/.idea/
+.idea/modules/
+HoloDesk.ipr
+HoloDesk.iws
