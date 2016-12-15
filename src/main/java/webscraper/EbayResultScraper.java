@@ -1,10 +1,10 @@
 package webscraper;
 
-import java.util.ArrayList;
-
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
 
 /**
  * Class that scrapes a list of links from an ebay search results page
@@ -20,6 +20,12 @@ public class EbayResultScraper extends LinkScraper {
 
 	@Override
 	public ArrayList<String> scrapeLinks() {
+
+		if(this.urls!=null){
+			return urls;
+		}
+
+		urls = new ArrayList<>();
 		Element name = doc.getElementById("ListViewInner");
 		Elements listItems = name.getElementsByClass("lvtitle");
 		String url;
@@ -28,7 +34,7 @@ public class EbayResultScraper extends LinkScraper {
 			url = link.attr("href");
 			urls.add(url);
 		}
-		
+
 		return urls;
 	}
 

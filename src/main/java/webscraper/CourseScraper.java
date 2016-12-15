@@ -23,7 +23,12 @@ public class CourseScraper extends PageScraper {
 	
 	@Override
 	public Item scrapeDocument() {
-				
+
+		if (item!=null){
+			return item;
+		}
+
+		item = new Item();
 		item.addAttribute(getCourseTitle());
 		item.addAttributes(getFactFileData());
 		

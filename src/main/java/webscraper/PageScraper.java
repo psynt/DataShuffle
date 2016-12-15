@@ -13,7 +13,7 @@ import content.Item;
 public abstract class PageScraper implements IPageScraper{
 
 	protected Document doc;
-	protected Item item;
+	protected Item item = null;
 	
 	public PageScraper(Document doc){
 		this.doc = doc;

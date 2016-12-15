@@ -15,11 +15,16 @@ public class StaffScraper extends PageScraper {
 	
 	public StaffScraper(Document doc){
 		super(doc);
-		item = new Item();
 	}
 	
 	@Override
 	public Item scrapeDocument() {
+
+		if (item!=null){
+			return item;
+		}
+
+		item = new Item();
 
 		item.addAttribute(getName());
 		item.addAttribute(getRoom());

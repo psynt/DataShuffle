@@ -15,12 +15,16 @@ public class ModuleScraper extends PageScraper {
 	
 	public ModuleScraper(Document doc){
 		super(doc);
-		item = new Item();
 	}
 	
 	@Override
 	public Item scrapeDocument() {
-		
+
+		if (item != null){
+			return item;
+		}
+
+		item = new Item();
 		Elements modTitle = doc.select("H2");
 		String myString[] = modTitle.text().split(" ", 2);
 		item.addAttribute(new Attribute<String>("Module Code", myString[0]));
