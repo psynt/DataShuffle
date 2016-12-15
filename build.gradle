@@ -10,6 +10,7 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'groovy'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 

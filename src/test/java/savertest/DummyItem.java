@@ -1,12 +1,12 @@
 package savertest;
 
-import java.util.ArrayList;
-
 import content.Attribute;
 import content.Item;
 import content.Selected;
 
-public class DummyItem implements Item {
+import java.util.ArrayList;
+
+public class DummyItem extends Item {
 
 	@Override
 	public Selected getSelected() {

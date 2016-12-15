@@ -1,41 +1,56 @@
 package webscraper;
 
+
+import org.jsoup.nodes.Document;
+
+import content.Attribute;
+import content.Item;
+
 /**
- * Scraper for university Staff Webpages.  Loads all data into a datadoc object.
+ * Scraper for university Staff Webpages.  Loads all data into an Item object.
  * @author zane
  *
  */
-
-import java.io.IOException;
-
-import org.jsoup.Jsoup;
-
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 public class StaffScraper extends PageScraper {
-
-	private DataDoc dataDoc;
 	
 	public StaffScraper(Document doc){
 		super(doc);
-		dataDoc = new DataDoc();
 	}
 	
 	@Override
-	public DataDoc scrapeDocument() {
+	public Item scrapeDocument() {
 
-	String name = doc.getElementsByClass("fn n").text();
-	String room = doc.getElementById("staffprofile-address").getElementsByClass("street-address").text();
-	String jobTitle = doc.select("p").get(1).text().split(",")[0];
-	String faculty = doc.getElementsByClass("org").text();
+		if (item!=null){
+			return item;
+		}
 
-	dataDoc.addField("Name", name);
-	dataDoc.addField("room", room);
-	dataDoc.addField("JobTitle", jobTitle);
-	dataDoc.addField("Faculty", faculty);
-	
-	return dataDoc;
+		item = new Item();
+
+		item.addAttribute(getName());
+		item.addAttribute(getRoom());
+		item.addAttribute(getJobTitle());
+		item.addAttribute(getFaculty());
+		
+		return item;
+	}
+
+	private Attribute<String> getFaculty() {
+		String faculty = doc.getElementsByClass("org").text();
+		return new Attribute<String>("Faculty", faculty);
+	}
+
+	private Attribute<String> getJobTitle() {
+		String jobTitle = doc.select("p").get(1).text().split(",")[0];
+		return new Attribute<String>("JobTitle", jobTitle);
+	}
+
+	private Attribute<String> getRoom() {
+		String room = doc.getElementById("staffprofile-address").getElementsByClass("street-address").text();
+		return new Attribute<String>("room", room);
+	}
+
+	private Attribute<String> getName() {
+		String name = doc.getElementsByClass("fn n").text();
+		return new Attribute<String>("Name", name);
 	}
 }

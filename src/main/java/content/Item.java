@@ -1,6 +1,7 @@
 package content;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Item will be the interface that all the different types of entries that we will have to deal with will implement
@@ -10,17 +11,45 @@ import java.util.ArrayList;
  *
  */
 
-public interface Item {
+public class Item {
+	private Selected sel;
+	private ArrayList<Attribute> attributes;
+
+	public Item(Selected sel) {
+		this.sel = sel;
+		this.attributes = new ArrayList<>();
+	}
+	public Item() { this(Selected.Maybe); }
 	/**
 	 * 
 	 * @return User's classification of this item, either yes, no, or maybe
 	 */
-	Selected getSelected();
+	public Selected getSelected(){
+		return sel;
+	}
 	
 	/**
 	 * 
-	 * @return List containing all of the item's Attributes that are to be saved to file
+	 * @return List containing all of the item's Attributes
 	 */
-	ArrayList<Attribute> getAttributes();
+	public ArrayList<Attribute> getAttributes(){
+		return attributes;
+	}
+
+	/**
+	 * Adds attribute to list
+	 * @param a Attribute to be added
+	 */
+	public void addAttribute(Attribute a){
+		attributes.add(a);
+	}
+
+	/**
+	 * Adds attributes to list
+	 * @param a Attributes to be added
+	 */
+	public void addAttributes(List<Attribute> a){
+		attributes.addAll(a);
+	}
 
 }

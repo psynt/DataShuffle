@@ -1,23 +1,22 @@
 package webscraper;
 
+import org.jsoup.nodes.Document;
+
 import java.util.ArrayList;
 
 /**
  * Abstract class for scraping webpages for links
- * @author zane
  *
+ * @author zane
  */
-
-import org.jsoup.nodes.Document;
 
 public abstract class LinkScraper implements ILinkScraper {
 
 	protected Document doc;
-	protected ArrayList<String> urls;
+	protected ArrayList<String> urls=null;
 	
 	public LinkScraper(Document doc){
 		this.doc = doc;
-		urls = new ArrayList<String>();
 	}
 	
 	@Override

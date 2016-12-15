@@ -1,43 +1,45 @@
 package webscraper;
 
-/**
- * Scraper for university Module Webpages.  Loads all data into a datadoc object.
- * @author zane
- *
- */
-
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class ModuleScraper extends PageScraper {
+import content.Attribute;
+import content.Item;
 
-	private DataDoc dataDoc;
+/**
+ * Scraper for individual Module pages form the module catalog.
+ * Loads all data into an Item object.
+ * @author zane
+ *
+ */
+public class ModuleScraper extends PageScraper {
 	
 	public ModuleScraper(Document doc){
 		super(doc);
-		dataDoc = new DataDoc();
 	}
 	
 	@Override
-	public DataDoc scrapeDocument() {
-		
+	public Item scrapeDocument() {
+
+		if (item != null){
+			return item;
+		}
+
+		item = new Item();
 		Elements modTitle = doc.select("H2");
 		String myString[] = modTitle.text().split(" ", 2);
-		dataDoc.addField("Module Code", myString[0]);
+		item.addAttribute(new Attribute<String>("Module Code", myString[0]));
 		myString[1] = myString[1].replaceAll("\\(.*\\)","");
-		dataDoc.addField("Module Name", myString[1]);
+		item.addAttribute(new Attribute<String>("Module Name", myString[1]));
 		
 		Elements paras = doc.select("p");
-		for(int i = 0; i < paras.size(); i++){
-			System.out.println(paras.get(i).text());
-		}
 		
 		for(int i = 0; i < paras.size(); i++){
 			String fieldData[] = paras.get(i).text().split(":");
 			if(paras.get(i).text().split(":").length == 2){
-				dataDoc.addField(fieldData[0], fieldData[1]);
+				item.addAttribute(new Attribute<String>(fieldData[0], fieldData[1]));
 			}
 		}	
-		return dataDoc;
+		return item;
 	}
 }

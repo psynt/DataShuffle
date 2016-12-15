@@ -8,17 +8,18 @@ package webscraper;
 
 import org.jsoup.nodes.Document;
 
+import content.Item;
+
 public abstract class PageScraper implements IPageScraper{
 
 	protected Document doc;
-	protected DataDoc dataDoc;
+	protected Item item = null;
 	
 	public PageScraper(Document doc){
 		this.doc = doc;
-		dataDoc = new DataDoc();
 	}
 	
 	@Override
-	public abstract DataDoc scrapeDocument();
+	public abstract Item scrapeDocument();
 
 }
