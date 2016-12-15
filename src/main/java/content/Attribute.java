@@ -35,7 +35,7 @@ public class Attribute<T> {
 	}
 
 	public String getName() {
-		return null;
+		return name;
 	}
 
 }
