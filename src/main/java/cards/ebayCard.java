@@ -10,11 +10,22 @@ public class ebayCard extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("ebayCard.fxml"));
+
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ebayCard.fxml"));
+        Parent root = (Parent) loader.load();
+        Scene scene = new Scene(root, 250,350);
+
+        ebayController controller = loader.<ebayController>getController();
+
+
+        controller.setCardProperties("Acoustic Guitar", "£577", "Good as New", "5 days", "£25");
 
         primaryStage.setTitle("Hello World");
 
-        primaryStage.setScene(new Scene(root, 250, 350));
+       // primaryStage.setScene(new Scene(root, 250, 350));
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

@@ -5,11 +5,11 @@ import javafx.scene.control.Label;
 
 public class ebayController {
     //Mock fields
-    String id = "Acoustic Guitar";
-    String cost = "£577";
-    String condition = "Good as New";
-    String remainingTime = "5 days";
-    String shippingCost = "£25";
+    String id ; //"Acoustic Guitar";
+    String cost ;// "£577";
+    String condition ;// "Good as New";
+    String remainingTime ;// "5 days";
+    String shippingCost ;// "£25";
 
 
 
@@ -21,6 +21,15 @@ public class ebayController {
     @FXML private Label shipping;
 
 
+    @FXML
+    public void setCardProperties(String idx, String cost,String  condition, String remainingTime, String shippingCost){
+        id = idx;
+        this.cost = cost;
+        this.condition = condition;
+        this.remainingTime = remainingTime;
+        this.shippingCost = shippingCost;
+
+    }
 
     @FXML
     private void  initialize() {
