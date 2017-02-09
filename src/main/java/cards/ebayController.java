@@ -23,7 +23,7 @@ public class ebayController {
 
     @FXML
     public void setCardProperties(String idx, String cost,String  condition, String remainingTime, String shippingCost){
-        id = idx;
+        this.id=id;
         this.cost = cost;
         this.condition = condition;
         this.remainingTime = remainingTime;
