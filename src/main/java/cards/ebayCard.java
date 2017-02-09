@@ -13,7 +13,7 @@ public class ebayCard extends Application {
 
 
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ebayCard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ebayCard.fxml"));
         Parent root = (Parent) loader.load();
         Scene scene = new Scene(root, 250,350);
 
