@@ -1,4 +1,5 @@
-package main.java.cards;/**
+package cards;
+/**
  * Created by edwardbutcher on 2/5/17.
  */
 
@@ -45,9 +46,9 @@ public class Card extends Application {
         tabBox.setBackground(new Background(new BackgroundFill(Color.LIGHTSTEELBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
-        Image image = new Image("guitar.jpg");
+//        Image image = new Image("guitar.jpg");
         ImageView guitar = new ImageView();
-        guitar.setImage(image);
+//        guitar.setImage(image);
 
 
         tabBox.getChildren().addAll(

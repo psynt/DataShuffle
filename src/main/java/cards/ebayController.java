@@ -1,4 +1,4 @@
-package main.java.cards;
+package cards;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
