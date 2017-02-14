@@ -1,4 +1,4 @@
-package application;
+package splash;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,17 +15,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			 // Button button = new Button();
-		       //button.setText("Open a window");
-		       //button.setOnAction(e -> new AlertBox().display("title", "message"));
-
-		     AnchorPane layout = new AnchorPane();
-		      // layout.getChildren().add(button);
+			AnchorPane layout = new AnchorPane();
 
 			Scene scene = new Scene(layout,800,600);
 			
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			Parent content = FXMLLoader.load(getClass().getResource("Mymenu.fxml"));
+			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+			Parent content = FXMLLoader.load(getClass().getResource("/Mymenu.fxml"));
 			
 			layout.getChildren().add(content);
 			
