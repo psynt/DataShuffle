@@ -66,7 +66,7 @@ public class EbayItemScraper extends PageScraper {
 			Element price = doc.getElementById("vi-mskumap-none");
 			return new Attribute<String>("price", price.text());
 		} catch (NullPointerException e) {
-			return new Attribute<String>("condition", NOT_FOUND);
+			return new Attribute<String>("price", NOT_FOUND);
 		}
 	}
 	
@@ -75,7 +75,7 @@ public class EbayItemScraper extends PageScraper {
 			Element remainingTime = doc.getElementById("vi-cdown_timeLeft");
 			return new Attribute<String>("remaining time", remainingTime.text());
 		} catch (NullPointerException e) {
-			return new Attribute<String>("condition", NOT_FOUND);
+			return new Attribute<String>("remaining time", NOT_FOUND);
 		}
 	}
 	

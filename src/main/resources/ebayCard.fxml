@@ -15,9 +15,6 @@
                      <children>
                         <Label fx:id="name" text="Name:" />
                         <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../Desktop/guitar.jpg" />
-                           </image>
                         </ImageView>
                         <Label fx:id="cond" text="Condition:" />
                         <Label fx:id="price" text="Price: " />
