@@ -16,7 +16,7 @@ public class DragControl {
     final Text target = new Text(300, 100, "DROP HERE");
     source.setCursor(Cursor.HAND);
    
-    Main.root.getChildren().addAll(target, source);
+   // Main.root.getChildren().addAll(target, source);
     
     /* drag was detected, start a drag-and-drop gesture*/
     /* allow any transfer mode */
