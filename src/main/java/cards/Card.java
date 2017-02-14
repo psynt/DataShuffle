@@ -1,67 +1,136 @@
-package cards;
-/**
+package cards;/**
  * Created by edwardbutcher on 2/5/17.
  */
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
-public class Card extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+public class Card extends BorderPane {
 
-    @Override
-    public void start(Stage primaryStage) {
 
-        primaryStage.setTitle("Card");
-        Group root = new Group();
-        Scene scene = new Scene(root, 300, 300, Color.WHITE);
+
+    //Mock fields
+    private String id ;
+    private String cost ;// "£577";
+    private String condition ;// "Good as New";
+    private String remainingTime ;// "5 days";
+    private String shippingCost ;// "£25";
+
+
+    private Label name = new Label();
+    private Label price = new Label();
+    private Label cond = new Label();
+    private Label remTime = new Label();
+    private Label shipping = new Label();
+
+    public Card(String id, String cost,String  condition, String remainingTime, String shippingCost){
+        this.id = id;
+        this.cost = cost;
+        this.condition = condition;
+        this.remainingTime = remainingTime;
+        this.shippingCost = shippingCost;
+
+        name.setText(getID());
+        price.setText(getCost());
+        cond.setText(getCondition());
+        remTime.setText(getRemainingTime());
+        shipping.setText(getShippingCost());
+
+
 
 
         TabPane tabPane = new TabPane();
         BorderPane borderPane = new BorderPane();
-
-
-
         Tab tab = new Tab();
-        tab.setText("Tab");
+        tab.setClosable(false);
 
+
+        tab.setText(getID());
         VBox tabBox = new VBox();
-
         tabBox.setAlignment(Pos.TOP_CENTER);
         tabBox.setBackground(new Background(new BackgroundFill(Color.LIGHTSTEELBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
-//        Image image = new Image("guitar.jpg");
-        ImageView guitar = new ImageView();
-//        guitar.setImage(image);
+        tabBox.getChildren().addAll(
+                name,
+                price,
+                cond,
+                remTime,
+                shipping
+        );
+
+
+        tab.setContent(tabBox);
+        tabPane.getTabs().add(tab);
+
+
+
+
+
+
+
+
+
+        borderPane.setCenter(tabPane);
+       // root.getChildren().add(borderPane);
+
+
+
+    }
+
+
+    public String getCost(){
+        return cost;
+    }
+    public String getID(){
+        return id;
+    }
+    public String getCondition(){
+        return condition;
+    }
+    public String getRemainingTime(){
+        return remainingTime;
+    }
+    public String getShippingCost(){
+        return shippingCost;
+    }
+
+
+    public void start() {
+
+        //setCardProperties("Acoustic Guitar", "£577", "Good as New", "5 days", "£25");
+
+
+
+        Group root = new Group();
+        Scene scene = new Scene(root, 300, 300, Color.WHITE);
+
+        TabPane tabPane = new TabPane();
+        BorderPane borderPane = new BorderPane();
+        Tab tab = new Tab();
+        tab.setClosable(false);
+
+
+        tab.setText(getID());
+        VBox tabBox = new VBox();
+        tabBox.setAlignment(Pos.TOP_CENTER);
+        tabBox.setBackground(new Background(new BackgroundFill(Color.LIGHTSTEELBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
         tabBox.getChildren().addAll(
-                new Label("Name: Hot and sexy Guitar"),
-
-                guitar,
-                new Label("Price: £155.00"),
-                new Label("Good Condition"),
-                new Label("Remaining time: 10 days"),
-                new Label("8 bids")
-
-
-
+                name,
+                price,
+                cond,
+                remTime,
+                shipping
         );
 
 
@@ -79,8 +148,6 @@ public class Card extends Application {
 
         borderPane.setCenter(tabPane);
         root.getChildren().add(borderPane);
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
 
     }
