@@ -24,7 +24,7 @@ class EbayItemScraperSpec extends Specification {
         it.getAttributes().size() == EbayItemScraper.NUM_FIELDS;
 
         where:
-        testURL << ["ebayItem"]
+        testURL << ["ebayimgtest"]
 
 
     }

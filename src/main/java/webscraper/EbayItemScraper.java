@@ -17,7 +17,7 @@ import java.net.URL;
  */
 public class EbayItemScraper extends PageScraper {
 
-	public static final int NUM_FIELDS = 5;
+	public static final int NUM_FIELDS = 6;
 	public static final String NOT_FOUND = "Not mentioned";
 	
 	public EbayItemScraper(Document doc) {
@@ -92,15 +92,10 @@ public class EbayItemScraper extends PageScraper {
 		}
 	}
 
-	private Attribute<URL> getImageURL(){
+	private Attribute<String> getImageURL(){
 		Element im = doc.getElementById("icImg");
-		URL s = null;
-		try {
-			s = new URL(im.absUrl("src"));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		return new Attribute<URL>("image",s);
+		String s = im.absUrl("src");
+		return new Attribute<String>("image",s);
 	}
 
 }
