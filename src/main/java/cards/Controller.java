@@ -23,7 +23,7 @@ public class Controller {
         ebayCard c3 = new ebayCard("01","12.00","good","2 hours", "12.00");
         ebayCard c4 = new ebayCard("01","12.00","good","2 hours", "12.00");
         ebayCard c5 = new ebayCard("01","12.00","good","2 hours", "12.00");
-        ebayCard c6 = new ebayCard("01","12.00","good","2 hours", "12.00");*/
+        ebayCard c6 = new ebayCard("01","12.00","good","2 hours", "12.00");
 
         //add the left cards to the left vbox
         cardStackLeft.getChildren().add(0,c1);

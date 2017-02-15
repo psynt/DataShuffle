@@ -18,13 +18,15 @@ class CourseScraperSpec extends Specification {
         def sc = new CourseScraper(DocumentLoader.load(this.getClass().getResource("/" + testURL + ".html").toURI()))
 
         when:
-        def it = sc.scrapeDocument();
+        def it = sc.getReqModules();
+        println it
 
         then:
-        it.getAttributes().size() == CourseScraper.NUM_FIELDS;
+        it.size() == n
 
         where:
-        testURL << ["CourseTrimmed","Course"]
+        testURL  | n
+        "view_specification.asp" | 39
 
     }
 

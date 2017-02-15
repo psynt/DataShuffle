@@ -7,7 +7,8 @@ import org.jsoup.select.Elements;
 import content.Attribute;
 import content.Item;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Scraper for University of Nottingham Course Webpages.  Loads all data into an Item object.
@@ -30,9 +31,9 @@ public class CourseScraper extends PageScraper {
 		}
 
 		item = new Item();
-		item.addAttribute(getCourseTitle());
-		item.addAttributes(getFactFileData());
-		
+//		item.addAttribute(getCourseTitle());
+//		item.addAttributes(getFactFileData());
+
 		return item;
 	}
 
@@ -61,5 +62,28 @@ public class CourseScraper extends PageScraper {
 		Elements courseTitle = doc.select("title");
 		String[] title = courseTitle.get(0).text().split(" -");
 		return new Attribute<String>("Course Title", title[0]);
+	}
+
+
+	/*
+		first <td> in all <tr>s
+	 */
+	public List<String> getReqModules(){
+		Set<String> atts = new LinkedHashSet<>();
+
+		for (Element table : doc.select("table")) {
+			for (Element row : table.select("tr")) {
+				Elements tds = row.select("td");
+				if(tds.size()>0) {
+					String s = tds.get(0).text();
+					if (s.matches("[A-Z]\\d\\d[A-Z][A-Z][A-Z]")) {
+						atts.add(s);
+					}
+				}
+			}
+		}
+
+
+		return atts.parallelStream().collect(Collectors.toList());
 	}
 }

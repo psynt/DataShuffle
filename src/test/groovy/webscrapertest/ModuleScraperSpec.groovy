@@ -20,6 +20,7 @@ class ModuleScraperSpec extends Specification {
 
         when:
         def it = sc.scrapeDocument().getAttributes()
+        println it
 
         then:
         it.size() == 2

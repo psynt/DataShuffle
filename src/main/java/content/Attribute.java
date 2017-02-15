@@ -38,4 +38,8 @@ public class Attribute<T> {
 		return name;
 	}
 
+	@Override
+	public String toString() {
+		return t.toString();
+	}
 }
