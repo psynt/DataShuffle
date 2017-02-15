@@ -2,7 +2,7 @@
 
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CardMain.Controller">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cards.Controller">
    <children>
       <VBox fx:id="cardStackLeft" layoutX="0.0" prefHeight="1000.0" prefWidth="250.0" />
       <VBox fx:id="cardStackRight" layoutX="250.0" prefHeight="1000.0" prefWidth="250.0" />
