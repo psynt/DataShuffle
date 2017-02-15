@@ -38,6 +38,7 @@ public class EbayItemScraper extends PageScraper {
 		item.addAttribute(getPrice());
 		item.addAttribute(getRemainingTime());
 		item.addAttribute(getShipping());
+		item.addAttribute(getImageURL());
 		
 		return item;
 	}
@@ -91,7 +92,7 @@ public class EbayItemScraper extends PageScraper {
 		}
 	}
 
-	public Attribute<URL> getImageURL(){
+	private Attribute<URL> getImageURL(){
 		Element im = doc.getElementById("icImg");
 		URL s = null;
 		try {
