@@ -6,6 +6,9 @@ import content.Item;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
  * Scraper for Ebay listings.
  * Loads all data into a Item object.
@@ -86,6 +89,17 @@ public class EbayItemScraper extends PageScraper {
 		} catch (NullPointerException e) {
 			return new Attribute<String>("shipping", NOT_FOUND);
 		}
+	}
+
+	public Attribute<URL> getImageURL(){
+		Element im = doc.getElementById("icImg");
+		URL s = null;
+		try {
+			s = new URL(im.absUrl("src"));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return new Attribute<URL>("image",s);
 	}
 
 }
