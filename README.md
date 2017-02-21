@@ -3,7 +3,7 @@ SoftwareCide-Squad's solution for data visualisation
 We don't have a release yet, so most of our work is on the Development (dev) branch.
 
 Our project is nicely structured with the /src/main folder containing source files
- packaged according to purpose.
+ packaged nicely according to purpose.
 The 3 main components of the project each have their own package (webscraper, application and saver) 
 and work being completed by different parts of the team.
 
