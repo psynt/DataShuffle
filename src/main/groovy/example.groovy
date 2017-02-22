@@ -29,8 +29,8 @@ for(String link:links){
 }
 
 
-ArrayList<Item> things = links.parallelStream().map( e -> new EbayItemScraper(DocumentLoader.load(new URL(e))) ).collect(Collectors.toList())
+ArrayList<Item> things = links.parallelStream().map{ e -> new EbayItemScraper(DocumentLoader.load(new URL(e))) }.collect(Collectors.toList())
 
 Item f= new Item();
 f.addAttribute(new Attribute("Foo","Bar"))
-f.getAttributes().parallelStream().map(e -> e.getValue()).forEach( e -> println(e)) // or e.toString()
+f.getAttributes().parallelStream().map{e -> e.getValue()}.forEach{ e -> println(e)} // or e.toString()
