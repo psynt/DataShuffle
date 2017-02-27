@@ -24,7 +24,11 @@ for (Element table : doc.select(":contains(Compulsory)~tr:not(:contains(restrict
     }
 }
 
-println doc.select(":contains(Compulsory)~tr").not(":contains(Restricted)~tr")
+//println doc.select(":contains(Compulsory)~tr").not(":contains(Restricted)~tr")
+
+println doc.select( ":contains(Restricted)~tr:not(:contains(Assessment criteria)~tr)")
+
+//println doc.select(":contains(Assessment criteria)")
 
 
-println atts
+//println atts
