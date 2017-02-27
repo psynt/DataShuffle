@@ -69,21 +69,23 @@ public class CourseScraper extends PageScraper {
 		first <td> in all <tr>s
 	 */
 	public List<String> getReqModules(){
-		Set<String> atts = new LinkedHashSet<>();
+		ArrayList<String> atts = new ArrayList<>();
 
-		for (Element table : doc.select("table")) {
-			for (Element row : table.select("tr")) {
-				Elements tds = row.select("td");
-				if(tds.size()>0) {
-					String s = tds.get(0).text();
-					if (s.matches("[A-Z]\\d\\d[A-Z][A-Z][A-Z]")) {
-						atts.add(s);
-					}
-				}
-			}
+		for (Element row : doc.select(":contains(Compulsory)~tr:not(:contains(Assessment criteria)~tr)")) {
+			//for (Element row : ) {
+				//Elements tds = ;
+				//if(tds.size()>0) {
+				//table.select("tr").forEach(row -> {
+					row.select("td").forEach (it -> {
+						if (it.text().matches("[A-Z]\\d\\d[A-Z][A-Z][A-Z]") || it.text().matches("Students.*")) {
+							atts.add(it.text());
+						}
+					});
+				//}
+			//});
 		}
 
 
-		return atts.parallelStream().collect(Collectors.toList());
+		return atts;//.parallelStream().collect(Collectors.toList());
 	}
 }
