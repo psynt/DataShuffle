@@ -1,22 +1,21 @@
 package cards;
 
 import content.Attribute;
+import content.Item;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import webscraper.*;
 import org.jsoup.nodes.Document;
-import content.Item;
+import webscraper.DocumentLoader;
+import webscraper.EbayItemScraper;
+import webscraper.EbayResultScraper;
 
-import javax.print.DocFlavor;
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
-public class Controller {
+public class Controller2 {
 
 
 

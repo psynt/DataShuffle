@@ -10,9 +10,6 @@ import java.util.stream.Collectors
 /**
  * Created by nichita on 15/02/17.
  */
-class eg {
-}
-
 
 
 ArrayList<Item> whatYouWant = new ArrayList<>()
