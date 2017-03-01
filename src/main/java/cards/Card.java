@@ -1,6 +1,8 @@
 package cards;
 
+import content.Attribute;
 import content.Item;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -15,56 +17,36 @@ import java.util.ArrayList;
  * Created by nichita on 01/03/17.
  *
  */
-public class Card extends TabPane {
+public class Card extends Tab {
 
-
-    private ArrayList<Label> card = new ArrayList<>();
+	
+	private VBox layoutManager;
+    private ArrayList<Label> labels = new ArrayList<>();
 
     public Card(Item i){
+    	
+        layoutManager = new VBox();
+        layoutManager.setMinHeight(200);
+        layoutManager.setMinWidth(400);
+        
         i.getAttributes().stream().filter(e -> !e.getName().matches("(i|I)mage")).forEach(e ->
-                card.add(new Label(e.getName() + "\t:\t" + e.getValue()))
+        		addLabels(e)
         );
+        
 
-
-        Tab tab = new Tab();
-        tab.setClosable(false);
-        VBox thingy = new VBox();
-
-
-        thingy.getChildren().addAll(card);
-        tab.setContent(thingy);
-        tab.setClosable(false);
-
-        super.getTabs().add(tab);
+        layoutManager.getChildren().addAll(labels);
+        this.setContent(layoutManager);
+        this.setClosable(false);
+        
+        
     }
+    
+    private void addLabels(Attribute e) {
+        labels.add(new Label(e.getName() + "\t:\t" + e.getValue()));
+	}
 
-
-
-
-    public Card(Item i, String URL){
-        i.getAttributes().stream().filter(e -> !e.getName().matches("(i|I)mage")).forEach(e ->
-                card.add(new Label(e.getName() + "\t:\t" + e.getValue()))
-        );
-
-
-        Tab tab = new Tab();
-        tab.setClosable(false);
-        VBox thingy = new VBox();
-        ImageView cardImg = new ImageView(URL) ;
-        cardImg.setFitHeight(150);
-        cardImg.setFitWidth(150);
-
-
-
-
-
-        thingy.getChildren().addAll(card);
-        thingy.getChildren().add(cardImg);
-
-        tab.setContent(thingy);
-        tab.setClosable(false);
-
-        super.getTabs().add(tab);
+	public void addComponent(Node n){
+    	layoutManager.getChildren().add(n);
     }
 
 }
