@@ -10,8 +10,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import org.eclipse.fx.ui.controls.tabpane.DndTabPaneFactory;
-import org.eclipse.fx.ui.controls.tabpane.DndTabPaneFactory.FeedbackType;
 
 
 

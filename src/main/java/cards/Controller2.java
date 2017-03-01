@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class Controller2 {
+public class Controller2{
 
 
 

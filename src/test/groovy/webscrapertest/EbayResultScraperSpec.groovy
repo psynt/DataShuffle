@@ -31,7 +31,7 @@ class EbayResultScraperSpec extends Specification {
     def "Testing with a URL"(){
         given:
         @Subject
-        def sc = new EbayResultScraper(DocumentLoader.load(new URL("http://www.ebay.co.uk/itm/Rio-Acoustic-Guitar-Starter-Package-Pack-Outfit-Full-Size-Beginner-Adult-Student-/180936577416?var=&hash=item2a20a91188:m:m_1jdz_JLJwtDHhPoiVNFFA")))
+        def sc = new EbayResultScraper(DocumentLoader.load(new URL("http://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2050601.m570.l1313.TR0.TRC0.H0.Xguita.TRS0&_nkw=guitar&_sacat=0")))
         def result = sc.scrapeLinks().each { new EbayItemScraper(DocumentLoader.load(new URL(it))).scrapeDocument() }.toArray()
 
         expect:
