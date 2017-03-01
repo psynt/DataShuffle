@@ -22,7 +22,7 @@ public class Card extends TabPane{
 
     public Card(Item i){
         i.getAttributes().stream().forEach(e ->
-                card.add(new Label(e.getName() + ":" + e.getValue()))
+                card.add(new Label(e.getName() + "\t:\t" + e.getValue()))
         );
 
 

@@ -42,7 +42,7 @@ public class Controller {
         guitar.stream().forEach(e -> card.add(new EbayCard(e)));
 
         //add the left cards to the left vbox
-        cardStackLeft.getChildren().addAll(card);
+        cardStackLeft.getChildren().add(card.get(0));
 //        cardStackLeft.getChildren().add(1,card[1]);
 //        cardStackLeft.getChildren().add(2,card[2]);
 //
