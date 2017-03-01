@@ -9,7 +9,9 @@ public class EbayCard extends Card {
     public EbayCard(Item cardItem){
 
 
-        super(cardItem);
+        super(cardItem, cardItem.getAttributes().get(5).toString());
+
+
 
     }
 

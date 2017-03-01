@@ -1,9 +1,7 @@
 package cards;
 
-import content.Attribute;
 import content.Item;
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.jsoup.nodes.Document;
 import webscraper.DocumentLoader;
@@ -35,21 +33,22 @@ public class Controller {
         }
 
 
-//        Item x = guitar.get(1);
-//        ArrayList<Attribute> a = x.getAttributes();
+
         ArrayList<EbayCard> card  = new ArrayList<>();
 
         guitar.stream().forEach(e -> card.add(new EbayCard(e)));
 
         //add the left cards to the left vbox
-        cardStackLeft.getChildren().add(card.get(0));
-//        cardStackLeft.getChildren().add(1,card[1]);
-//        cardStackLeft.getChildren().add(2,card[2]);
+        for(int i=0 ; i<3 ; i++) {
+
+
+            cardStackLeft.getChildren().add(card.get(i));
+            cardStackRight.getChildren().add(card.get(i*2));
+
+        }
+
 //
-//        //add the right cards to the right vbox
-//        cardStackRight.getChildren().add(0,card[3]);
-//        cardStackRight.getChildren().add(1,card[4]);
-     //   cardStackRight.getChildren().add(2,);
+
 
 
     }
