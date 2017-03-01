@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 
 
 //The 'card'
-public class moduleCard extends TabPane {
+public class ModuleCard extends TabPane {
 
     private String moduleName ;
     private String moduleCode ;
@@ -27,7 +27,7 @@ public class moduleCard extends TabPane {
     private Label credits = new Label();
     private Label semester = new Label();
 
-    public moduleCard(String moduleName, String moduleCode, String  preRequisites, String numCredits, String moduleSemester){
+    public ModuleCard(String moduleName, String moduleCode, String  preRequisites, String numCredits, String moduleSemester){
 
 
         super();

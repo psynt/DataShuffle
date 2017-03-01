@@ -26,8 +26,8 @@ public class EbayResultScraper extends LinkScraper {
 		}
 
 		urls = new ArrayList<>();
-		//Element name = doc.getElementById("ListViewInner");
-		Elements listItems = doc.getElementsByClass("lvtitle");
+		Element name = doc.getElementById("ListViewInner");
+		Elements listItems = name.getElementsByClass("lvtitle");
 		String url;
 		for(Element item : listItems){
 			Element link = item.select("a").first();

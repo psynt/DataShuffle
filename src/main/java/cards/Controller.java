@@ -17,9 +17,6 @@ import java.util.ArrayList;
 
 public class Controller {
 
-
-
-    @FXML Pane mainPane;
     @FXML VBox cardStackLeft;
     @FXML VBox cardStackRight;
 
@@ -27,9 +24,6 @@ public class Controller {
 
     @FXML
     public void initialize(){
-
-        // Creating a card for each column of the two vbox's
-      //  DocumentLoader guitar = new DocumentLoader();
 
 
 
@@ -40,68 +34,27 @@ public class Controller {
             e.printStackTrace();
         }
 
-//        String x = guitar.get(1);
 
-        Item x = guitar.get(1);
-        ArrayList<Attribute> a = x.getAttributes();
-        /*
-        Attribute z = a.get(1);
-        String nem = a.get(0).toString();
-        String g = a.get(2).toString();
-        String gx = a.get(3).toString();
-        String gy = a.get(4).toString();
-        String gz = a.get(5).toString();
+//        Item x = guitar.get(1);
+//        ArrayList<Attribute> a = x.getAttributes();
+        ArrayList<EbayCard> card  = new ArrayList<>();
 
-        String something = z.toString();
+        guitar.stream().forEach(e -> card.add(new EbayCard(e)));
 
-        String gg = guitar.get(0).getAttributes().get(0).toString();
-        */
-
-
-
-
-
-
-
-//        guitar.get(0).getAttributes().stream().forEach(e -> );
-
-        ebayCard[] card  = new ebayCard[5];
-
-
-        for(int i = 0 ; i<5 ; i++){
-
-        }
-
-       /*         card[i] = new ebayCard(guitar.get(i).getAttributes().get(0).toString(),
-                        guitar.get(i).getAttributes().get(1).toString(), guitar.get(i).getAttributes().get(2).toString(),
-                        guitar.get(i).getAttributes().get(3).toString(), guitar.get(i).getAttributes().get(4).toString(),
-                        guitar.get(i).getAttributes().get(5).toString());
-
-        */
-
-       // ebayCard c1 = new ebayCard(something,g, gx, gy, nem );
-
-/*
-        ebayCard c3 = new ebayCard("01","12.00","good","2 hours", "12.00");
-        ebayCard c4 = new ebayCard("01","12.00","good","2 hours", "12.00");
-        ebayCard c5 = new ebayCard("01","12.00","good","2 hours", "12.00");
-        ebayCard c6 = new ebayCard("01","12.00","good","2 hours", "12.00");
-*/
         //add the left cards to the left vbox
-        cardStackLeft.getChildren().add(0,card[0]);
-        cardStackLeft.getChildren().add(1,card[1]);
-        cardStackLeft.getChildren().add(2,card[2]);
-
-        //add the right cards to the right vbox
-        cardStackRight.getChildren().add(0,card[3]);
-        cardStackRight.getChildren().add(1,card[4]);
+        cardStackLeft.getChildren().addAll(card);
+//        cardStackLeft.getChildren().add(1,card[1]);
+//        cardStackLeft.getChildren().add(2,card[2]);
+//
+//        //add the right cards to the right vbox
+//        cardStackRight.getChildren().add(0,card[3]);
+//        cardStackRight.getChildren().add(1,card[4]);
      //   cardStackRight.getChildren().add(2,);
 
 
-
-
-
     }
+
+
     public ArrayList<Item> scrape() throws MalformedURLException {
         ArrayList<Item> whatYouWant = new ArrayList<>();
         Document guitarSearch = DocumentLoader.load(new URL("http://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2050601.m570.l1313.TR0.TRC0.H0.Xguitar.TRS0&_nkw=guitar&_sacat=0"));
