@@ -21,7 +21,7 @@ public class Card extends TabPane{
     private ArrayList<Label> card = new ArrayList<>();
 
     public Card(Item i){
-        i.getAttributes().stream().forEach(e ->
+        i.getAttributes().stream().filter(e -> !e.getName().matches("(i|I)mage")).forEach(e ->
                 card.add(new Label(e.getName() + "\t:\t" + e.getValue()))
         );
 
