@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 
-
 //The 'card'
 public class ebayCard2 extends TabPane {
 

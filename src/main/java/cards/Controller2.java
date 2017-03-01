@@ -63,7 +63,7 @@ public class Controller2{
 
 
 
-        ebayCard c1 = new ebayCard(something,g, gx, gy, nem );
+      //  ebayCard c1 = new ebayCard(something,g, gx, gy, nem );
 
        // ebayCard c2 = new ebayCard("01","12.00","good","2 hours", "12.00");
         //ebayCard c3 = new ebayCard("01","12.00","good","2 hours", "12.00");
@@ -72,7 +72,7 @@ public class Controller2{
        // ebayCard c6 = new ebayCard("01","12.00","good","2 hours", "12.00");
 
         //add the left cards to the left vbox
-        cardStackLeft.getChildren().add(0,c1);
+      //  cardStackLeft.getChildren().add(0,c1);
         //cardStackLeft.getChildren().add(1,c2);
        // cardStackLeft.getChildren().add(2,c3);
 
