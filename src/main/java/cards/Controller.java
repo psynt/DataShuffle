@@ -51,7 +51,6 @@ public class Controller {
         box.getChildren().add(cardStackRight);
 
         centerPane.getChildren().add(box);
-        System.out.println("TEST");
         
         ArrayList<Item> guitar = new ArrayList<>();
         try {
@@ -137,7 +136,11 @@ public class Controller {
                 }
             }
         });
-        tabPane.setTabMaxWidth(50);
+        
+        
+        tabPane.setMinWidth(50);
+        tabPane.setTabMaxWidth(100);
+        
         return tabPane;
     }
 
