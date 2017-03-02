@@ -1,5 +1,11 @@
 package cards;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+
+import org.jsoup.nodes.Document;
+
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -8,22 +14,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import org.jsoup.nodes.Document;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 
 
 public class Controller {
@@ -31,7 +33,9 @@ public class Controller {
     private static final String TAB_DRAG_KEY = "tab";
     private ObjectProperty<Tab> draggingTab;
 
-    @FXML Pane mainPane;
+    @FXML BorderPane mainPane;
+    @FXML FlowPane centerPane;
+    @FXML ToolBar toolbar;
 
     @FXML
     public void initialize(){
@@ -46,7 +50,8 @@ public class Controller {
         box.getChildren().add(cardStackLeft);
         box.getChildren().add(cardStackRight);
 
-        mainPane.getChildren().add(box);
+        centerPane.getChildren().add(box);
+        System.out.println("TEST");
         
         ArrayList<Item> guitar = new ArrayList<>();
         try {
@@ -57,7 +62,7 @@ public class Controller {
 
         ArrayList<Card> cards  = new ArrayList<>();
 
-        guitar.stream().forEach(e -> cards.add( createCard("Test", e)));
+        guitar.stream().forEach(e -> cards.add( createCard(e.getAttributes().get(0).toString(), e)));
 
         //add the left cards to the left vbox
         for(int i=0 ; i<3 ; i++) {
@@ -132,6 +137,7 @@ public class Controller {
                 }
             }
         });
+        tabPane.setTabMaxWidth(50);
         return tabPane;
     }
 
