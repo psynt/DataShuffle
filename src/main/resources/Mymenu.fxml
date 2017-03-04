@@ -4,14 +4,23 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="splash.Controller">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
-      <Button layoutX="518.0" layoutY="285.0" mnemonicParsing="false" onAction="#clickEvent" prefHeight="30.0" prefWidth="80.0" text="Taobao" />
-      <Button layoutX="360.0" layoutY="285.0" mnemonicParsing="false" onAction="#clickEvent" prefHeight="30.0" prefWidth="80.0" text="Ebay" />
-      <Button layoutX="194.0" layoutY="285.0" mnemonicParsing="false" onAction="#clickEvent" text="Amazon" />
-      <MenuBar layoutY="2.0" prefHeight="33.0" prefWidth="800.0">
+      <Button layoutX="109.0" layoutY="465.0" mnemonicParsing="false" onAction="#clickEvent" prefHeight="30.0" prefWidth="180.0" text="Module" />
+      <Button layoutX="142.0" layoutY="352.0" mnemonicParsing="false" onAction="#clickEvent" prefHeight="30.0" prefWidth="180.0" text="Ebay">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@ebay.png" />
+               </source>
+            </ImageInput>
+         </effect></Button>
+      <MenuBar layoutY="-2.0" prefHeight="33.0" prefWidth="400.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -30,5 +39,10 @@
           </Menu>
         </menus>
       </MenuBar>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@illustration.gif" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
