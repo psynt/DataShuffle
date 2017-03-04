@@ -9,12 +9,15 @@ and work being completed by different parts of the team.
 
 Spock unit tests have been written for many of the web scraper tests.
 
-Links to the documentation can be found in the Project wiki.
-~Our main Trello board contains major discussion and information about the project, such
+Links to the documentation can be found in the Project wiki
+
+1.Our main Trello board contains major discussion and information about the project, such
  as task breakdowns and work allocation.
-~Minutes are included for each of our 2 weekly whole team meetings, with notes on what
- was discussed and what is to be completed in the coming development week.
-~A link can also be found to our google drive folder, where our main documentation PDF can
+ 
+2.Minutes are included for each of our 2 weekly whole team meetings, with notes on what
+ was discussed and what is to be completed in the coming development week. 
+ 
+3.A link can also be found to our google drive folder, where our main documentation PDF can
  be found along with resources such as our initial gantt chart and other diagrams.
 
  
