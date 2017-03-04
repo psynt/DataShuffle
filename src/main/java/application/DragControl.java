@@ -1,8 +1,6 @@
 package application;
 
-import javafx.event.EventHandler;
 import javafx.scene.Cursor;
-import javafx.scene.input.DragEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
