@@ -22,11 +22,12 @@ class CourseScraperSpec extends Specification {
         println it
 
         then:
-        it.size() == n
+        it.parallelStream().filter{e -> e.matches(/G5\d\w\w\w/)}.toArray().length == n
+        it.parallelStream().filter{e -> e.equals("Students must take all modules in this group")}.toArray().length == years
 
         where:
-        testURL  | n
-        "view_specification.asp" | 39
+        testURL  | n | years
+        "view_specification.asp" | 39 | 3
 
     }
 
