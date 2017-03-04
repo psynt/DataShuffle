@@ -14,12 +14,14 @@ public class Attribute<T> implements Map.Entry<String,T>{
 	private String name;
 	private static Map<String,Selected> selectedAtts = new HashMap<>();
 	
-	public Attribute(String name, T t){
+	public Attribute(String name, T t, Selected s){
 		this.name = name;
 		this.t = t;
-		selectedAtts.putIfAbsent(name,Selected.Maybe);
+		selectedAtts.putIfAbsent(name,s);
 	}
-
+	public Attribute(String name, T t){
+		this(name,t,Selected.Maybe);
+	}
 	public Attribute(Map.Entry<String,T> x){
 		this(x.getKey(),x.getValue());
 	}

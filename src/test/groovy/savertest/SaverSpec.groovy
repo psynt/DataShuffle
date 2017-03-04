@@ -1,5 +1,6 @@
 package savertest
 
+import content.Item
 import saver.Saver
 import spock.lang.Specification
 import spock.lang.Subject
@@ -11,11 +12,11 @@ class SaverSpec extends Specification {
 	def "Basic test"(){
 		given:
 		@Subject
-		Saver<DummyItem> saver = Mock();
+		Saver<Item> saver = Mock();
 		
 		when:
 		for(int i= 0; i<n ; i++)
-			saver.save(new DummyItem());
+			saver.save(new Item());
 		
 		then:
 		(n) * saver.save(_)
