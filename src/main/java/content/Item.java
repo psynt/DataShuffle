@@ -1,7 +1,7 @@
 package content;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Item will be the interface that all the different types of entries that we will have to deal with will implement
@@ -11,13 +11,12 @@ import java.util.List;
  *
  */
 
-public class Item {
+public class Item extends HashMap{
 	private Selected sel;
-	private ArrayList<Attribute> attributes;
 
 	public Item(Selected sel) {
+		super();
 		this.sel = sel;
-		this.attributes = new ArrayList<>();
 	}
 	public Item() { this(Selected.Maybe); }
 	/**
@@ -32,24 +31,36 @@ public class Item {
 	 * 
 	 * @return List containing all of the item's Attributes
 	 */
-	public ArrayList<Attribute> getAttributes(){
-		return attributes;
+	public Map<String, String> getAttributes(){
+		return this;
 	}
+
 
 	/**
 	 * Adds attribute to list
 	 * @param a Attribute to be added
 	 */
 	public void addAttribute(Attribute a){
-		attributes.add(a);
+		put(a.getKey(),a.getValue());
+	}
+
+	private void addAttribute(Map.Entry<String, String> a){
+		put(a.getKey(),a.getValue());
+	}
+
+	private void addAttribute(String k, String v){
+		put(k,v);
 	}
 
 	/**
 	 * Adds attributes to list
 	 * @param a Attributes to be added
 	 */
-	public void addAttributes(List<Attribute> a){
-		attributes.addAll(a);
+	public void addAttributes(List<Map.Entry<String,String>> a){
+		a.parallelStream().forEach(e -> addAttribute(e));
 	}
 
+	public void addAttributes(Map<String,String> a){
+		a.entrySet().parallelStream().forEach(e -> addAttribute(e));
+	}
 }

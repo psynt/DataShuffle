@@ -1,14 +1,12 @@
 package cards;
 
-import content.Attribute;
 import content.Item;
 import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The 'card'
@@ -21,8 +19,8 @@ public class Card extends TabPane{
     private ArrayList<Label> card = new ArrayList<>();
 
     public Card(Item i){
-        i.getAttributes().stream().filter(e -> !e.getName().matches("(i|I)mage")).forEach(e ->
-                card.add(new Label(e.getName() + "\t:\t" + e.getValue()))
+        i.getAttributes().entrySet().stream().filter(e -> !e.getKey().matches("(i|I)mage")).forEach(e ->
+                card.add(new Label(e.toString()))
         );
 
 
