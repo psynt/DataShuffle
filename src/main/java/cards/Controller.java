@@ -33,138 +33,87 @@ import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
 
-
 public class Controller {
-	
-    private static final String TAB_DRAG_KEY = "tab";
-    private ObjectProperty<Tab> draggingTab;
 
-    @FXML BorderPane mainPane;
-    @FXML FlowPane centerPane;
-    @FXML ToolBar toolbar;
+	private static final String TAB_DRAG_KEY = "tab";
+	private ObjectProperty<Tab> draggingTab;
 
-    @FXML
-    public void initialize(){
+	@FXML
+	BorderPane mainPane;
+	@FXML
+	FlowPane centerPane;
+	@FXML
+	ToolBar toolbar;
 
-    	draggingTab = new SimpleObjectProperty<>();
-    	
-    	HBox box = new HBox();
-    	
-        TabPane cardStackLeft = createDeck();
-        TabPane cardStackRight = createDeck();
-        
-        box.getChildren().add(cardStackLeft);
-        box.getChildren().add(cardStackRight);
+	@FXML
+	public void initialize() {
 
-        centerPane.getChildren().add(box);
-        
-        ArrayList<Item> guitar = new ArrayList<>();
-        try {
-            guitar = scrape();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+		draggingTab = new SimpleObjectProperty<>();
 
-        ArrayList<Card> cards  = new ArrayList<>();
+		HBox box = new HBox();
 
-        guitar.stream().forEach(e -> cards.add( createCard(e.get("name"), e)));
+		Deck cardStackLeft = new Deck(draggingTab);
+		Deck cardStackRight = new Deck(draggingTab);
 
-        //add the left cards to the left vbox
-        for(int i=0 ; i<3 ; i++) {
-            cardStackLeft.getTabs().add(cards.get(i));
-        }
-        for(int i=3 ; i<6 ; i++) {
-            cardStackRight.getTabs().add(cards.get(i));
-        }
+		box.getChildren().add(cardStackLeft);
+		box.getChildren().add(cardStackRight);
 
-    }
+		centerPane.getChildren().add(box);
 
-    public ArrayList<Item> scrape() throws MalformedURLException {
-        ArrayList<Item> whatYouWant = new ArrayList<>();
-        Document guitarSearch = DocumentLoader.load(new URL("http://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2050601.m570.l1313.TR0.TRC0.H0.Xguitar.TRS0&_nkw=guitar&_sacat=0"));
-        EbayResultScraper thing1 = new EbayResultScraper(guitarSearch);
-        ArrayList<String> links = thing1.scrapeLinks();
+		ArrayList<Item> guitar = new ArrayList<>();
+		try {
+			guitar = scrape();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 
-        for(String link:links){
-            Document res = DocumentLoader.load(new URL(link));
-            EbayItemScraper guitar = new EbayItemScraper(res);
+		ArrayList<Card> cards = new ArrayList<>();
 
-            whatYouWant.add(guitar.scrapeDocument());
+		guitar.stream().forEach(e -> cards.add(createCard(e.get("name"), e)));
 
-        }
-        return whatYouWant;
-    }
-    
-    private TabPane createDeck()
-    {
-        final TabPane tabPane = new TabPane();
-        tabPane.setOnDragOver(new EventHandler<DragEvent>()
-        {
-            @Override
-            public void handle(DragEvent event)
-            {
-                final Dragboard dragboard = event.getDragboard();
-                if (dragboard.hasString()
-                        && TAB_DRAG_KEY.equals(dragboard.getString())
-                        && draggingTab.get() != null
-                        && draggingTab.get().getTabPane() != tabPane)
-                {
-                    event.acceptTransferModes(TransferMode.MOVE);
-                    event.consume();
-                }
-            }
-        });
-        tabPane.setOnDragDropped(new EventHandler<DragEvent>()
-        {
-            @Override
-            public void handle(DragEvent event)
-            {
-                final Dragboard dragboard = event.getDragboard();
-                if (dragboard.hasString()
-                        && TAB_DRAG_KEY.equals(dragboard.getString())
-                        && draggingTab.get() != null
-                        && draggingTab.get().getTabPane() != tabPane)
-                {
-                    final Tab tab = draggingTab.get();
-                    tab.getTabPane().getTabs().remove(tab);
-                    tabPane.getTabs().add(tab);
-                    tabPane.getSelectionModel().select(tab);
-                    event.setDropCompleted(true);
-                    draggingTab.set(null);
-                    event.consume();
-                }
-            }
-        });
-        
-        
-        tabPane.setMinWidth(50);
-        tabPane.setMaxWidth(480);
-        tabPane.setTabMinWidth(50);
-        tabPane.setTabMaxWidth(100);
-        tabPane.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
-        
-        return tabPane;
-    }
+		// add the left cards to the left vbox
+		for (int i = 0; i < 3; i++) {
+			cardStackLeft.getTabs().add(cards.get(i));
+		}
+		for (int i = 3; i < 6; i++) {
+			cardStackRight.getTabs().add(cards.get(i));
+		}
 
-    private Card createCard(String text, Item item)
-    {
-        final Card card = new Card(item);
-        final Label label = new Label(text);
-        card.setGraphic(label);
-        label.setOnDragDetected(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
-                ClipboardContent clipboardContent = new ClipboardContent();
-                clipboardContent.putString(TAB_DRAG_KEY);
-                dragboard.setContent(clipboardContent);
-                draggingTab.set(card);
-                event.consume();
-            }
-        });
-        return card;
-    }
+	}
+
+	public ArrayList<Item> scrape() throws MalformedURLException {
+		ArrayList<Item> whatYouWant = new ArrayList<>();
+		Document guitarSearch = DocumentLoader.load(new URL(
+				"http://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2050601.m570.l1313.TR0.TRC0.H0.Xguitar.TRS0&_nkw=guitar&_sacat=0"));
+		EbayResultScraper thing1 = new EbayResultScraper(guitarSearch);
+		ArrayList<String> links = thing1.scrapeLinks();
+
+		for (String link : links) {
+			Document res = DocumentLoader.load(new URL(link));
+			EbayItemScraper guitar = new EbayItemScraper(res);
+
+			whatYouWant.add(guitar.scrapeDocument());
+
+		}
+		return whatYouWant;
+	}
+
+	private Card createCard(String text, Item item) {
+		final Card card = new Card(item);
+		final Label label = new Label(text);
+		card.setGraphic(label);
+		label.setOnDragDetected(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
+				ClipboardContent clipboardContent = new ClipboardContent();
+				clipboardContent.putString(TAB_DRAG_KEY);
+				dragboard.setContent(clipboardContent);
+				draggingTab.set(card);
+				event.consume();
+			}
+		});
+		return card;
+	}
 
 }
