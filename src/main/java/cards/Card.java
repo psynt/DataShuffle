@@ -7,7 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -37,9 +43,9 @@ public class Card extends Tab {
 
         layoutManager.getChildren().addAll(labels);
         this.setContent(layoutManager);
-        this.setClosable(false);
+        this.setClosable(true);
         
-        
+        //this.setStyle("-fx-border-color:red; -fx-background-color: blue;");
     }
     
     private void addLabel(Map.Entry<String,String> e) {

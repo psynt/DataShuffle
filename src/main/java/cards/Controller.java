@@ -20,9 +20,15 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
@@ -44,8 +50,8 @@ public class Controller {
     	
     	HBox box = new HBox();
     	
-        TabPane cardStackLeft = createTabPane();
-        TabPane cardStackRight = createTabPane();
+        TabPane cardStackLeft = createDeck();
+        TabPane cardStackRight = createDeck();
         
         box.getChildren().add(cardStackLeft);
         box.getChildren().add(cardStackRight);
@@ -89,14 +95,7 @@ public class Controller {
         return whatYouWant;
     }
     
-
-    
-    
-    
-    
-    
-    
-    private TabPane createTabPane()
+    private TabPane createDeck()
     {
         final TabPane tabPane = new TabPane();
         tabPane.setOnDragOver(new EventHandler<DragEvent>()
@@ -139,7 +138,10 @@ public class Controller {
         
         
         tabPane.setMinWidth(50);
+        tabPane.setMaxWidth(480);
+        tabPane.setTabMinWidth(50);
         tabPane.setTabMaxWidth(100);
+        tabPane.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
         
         return tabPane;
     }
