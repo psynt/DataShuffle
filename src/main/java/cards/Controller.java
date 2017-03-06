@@ -69,7 +69,7 @@ public class Controller {
 
 		ArrayList<Card> cards = new ArrayList<>();
 
-		guitar.stream().forEach(e -> cards.add(createCard(e.get("name"), e)));
+		guitar.stream().forEach(e -> cards.add(createCard(e.get("name"), e, "Ebay")));
 
 		// add the left cards to the left vbox
 		for (int i = 0; i < 3; i++) {
@@ -98,21 +98,26 @@ public class Controller {
 		return whatYouWant;
 	}
 
-	private Card createCard(String text, Item item) {
-		final Card card = new Card(item);
+	private Card createCard(String text, Item item, String type) {
+		final Card card;
+		switch (type){
+			case "Ebay":
+				card = new EbayCard(item);
+				break;
+			default:
+				card = new Card(item);
+				break;
+		}
 		final Label label = new Label(text);
 		card.setGraphic(label);
-		label.setOnDragDetected(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
-				ClipboardContent clipboardContent = new ClipboardContent();
-				clipboardContent.putString(TAB_DRAG_KEY);
-				dragboard.setContent(clipboardContent);
-				draggingTab.set(card);
-				event.consume();
-			}
-		});
+		label.setOnDragDetected(event -> {
+            Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
+            ClipboardContent clipboardContent = new ClipboardContent();
+            clipboardContent.putString(TAB_DRAG_KEY);
+            dragboard.setContent(clipboardContent);
+            draggingTab.set(card);
+            event.consume();
+        });
 		return card;
 	}
 
