@@ -11,6 +11,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -39,6 +40,8 @@ public class Controller {
 
 	private static final String TAB_DRAG_KEY = "tab";
 	private ObjectProperty<Tab> draggingTab;
+	
+	private HBox box;
 
 	@FXML
 	BorderPane mainPane;
@@ -46,13 +49,15 @@ public class Controller {
 	FlowPane centerPane;
 	@FXML
 	ToolBar toolbar;
+	@FXML 
+	Button newDeckButton;
 
 	@FXML
 	public void initialize() {
 
 		draggingTab = new SimpleObjectProperty<>();
 
-		HBox box = new HBox();
+		box = new HBox();
 
 		Deck cardStackLeft = new Deck(draggingTab);
 		Deck cardStackRight = new Deck(draggingTab);
@@ -113,4 +118,9 @@ public class Controller {
 		return card;
 	}
 
+	@FXML public void newDeck() {
+		Deck newDeck = new Deck(draggingTab);
+		box.getChildren().add(newDeck);
+	}
+	
 }
