@@ -39,7 +39,8 @@ public class Card extends Tab {
         i.entrySet().stream().filter(e -> !e.getKey().matches("(i|I)mage")).forEach(e ->
         		addLabel(e)
         );
-        
+
+//        setGraphic(i.get("name"));
 
         layoutManager.getChildren().addAll(labels);
         this.setContent(layoutManager);

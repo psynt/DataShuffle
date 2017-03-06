@@ -99,15 +99,7 @@ public class Controller {
 	}
 
 	private Card createCard(String text, Item item, String type) {
-		final Card card;
-		switch (type){
-			case "Ebay":
-				card = new EbayCard(item);
-				break;
-			default:
-				card = new Card(item);
-				break;
-		}
+		final Card card = createCard(text,item,type);
 		final Label label = new Label(text);
 		card.setGraphic(label);
 		label.setOnDragDetected(event -> {
