@@ -102,10 +102,8 @@ public class Controller {
 
 	private Card newCard(Item item, String type) {
 		final Card card = createCard(item,type);
-		final Label label = new Label(card.getName());
-		card.setGraphic(label);
-		label.setOnDragDetected(event -> {
-            Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
+		card.getGraphic().setOnDragDetected(event -> {
+            Dragboard dragboard = card.getGraphic().startDragAndDrop(TransferMode.MOVE);
             ClipboardContent clipboardContent = new ClipboardContent();
             clipboardContent.putString(TAB_DRAG_KEY);
             dragboard.setContent(clipboardContent);

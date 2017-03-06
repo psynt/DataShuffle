@@ -40,7 +40,8 @@ public class Card extends Tab {
         		addLabel(e)
         );
 
-        name = i.get("name");
+//        name = i.get("name");
+        setGraphic(new Label(i.get("name")));
 
         layoutManager.getChildren().addAll(labels);
         setContent(layoutManager);
