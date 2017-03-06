@@ -12,7 +12,7 @@ public class CardFactory {
 
     public static final String[] VERSIONS = { "Ebay" };
 
-    public static Card createCard(String text, Item item, String type){
+    public static Card createCard(Item item, String type){
 		final Card card;
 		switch (type) {
             case "Ebay":

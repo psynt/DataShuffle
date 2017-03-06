@@ -33,6 +33,8 @@ import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
 
+import static cards.CardFactory.createCard;
+
 public class Controller {
 
 	private static final String TAB_DRAG_KEY = "tab";
@@ -69,7 +71,7 @@ public class Controller {
 
 		ArrayList<Card> cards = new ArrayList<>();
 
-		guitar.stream().forEach(e -> cards.add(createCard(e.get("name"), e, "Ebay")));
+		guitar.forEach(e -> cards.add(newCard(e, "Ebay")));
 
 		// add the left cards to the left vbox
 		for (int i = 0; i < 3; i++) {
@@ -98,9 +100,9 @@ public class Controller {
 		return whatYouWant;
 	}
 
-	private Card createCard(String text, Item item, String type) {
-		final Card card = createCard(text,item,type);
-		final Label label = new Label(text);
+	private Card newCard(Item item, String type) {
+		final Card card = createCard(item,type);
+		final Label label = new Label(card.getName());
 		card.setGraphic(label);
 		label.setOnDragDetected(event -> {
             Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);

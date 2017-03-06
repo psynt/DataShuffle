@@ -26,7 +26,7 @@ import java.util.Map;
  */
 public class Card extends Tab {
 
-	
+	private String name;
 	private VBox layoutManager;
     private ArrayList<Label> labels = new ArrayList<>();
 
@@ -40,13 +40,12 @@ public class Card extends Tab {
         		addLabel(e)
         );
 
-//        setGraphic(i.get("name"));
+        name = i.get("name");
 
         layoutManager.getChildren().addAll(labels);
-        this.setContent(layoutManager);
-        this.setClosable(true);
-        
-        //this.setStyle("-fx-border-color:red; -fx-background-color: blue;");
+        setContent(layoutManager);
+        setClosable(true);
+
     }
     
     private void addLabel(Map.Entry<String,String> e) {
@@ -57,4 +56,7 @@ public class Card extends Tab {
     	layoutManager.getChildren().add(n);
     }
 
+    public String getName() {
+        return name;
+    }
 }
