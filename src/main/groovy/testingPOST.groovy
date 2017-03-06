@@ -5,6 +5,11 @@ import webscraper.clever.POSTRequest
  */
 
 
-def req = new POSTRequest(url:'http://programmespec.nottingham.ac.uk/nottingham/asp/course_search.asp')
-println req.getTheGoodies(['ucas_course':'g400'],['year_id':'000116'],)
+def req = new POSTRequest('http://programmespec.nottingham.ac.uk/nottingham/asp/course_search.asp')
+def res =  req.getTheGoodies(['ucas_course':'g400','year_id':'000116'],
+        'http://programmespec.nottingham.ac.uk/nottingham/asp/search_courses.asp?Type=Ucas').parse()
+
+res.select("a").each {
+    println it.attr ("abs:href")
+}
 

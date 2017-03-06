@@ -1,12 +1,9 @@
 package webscraper.clever;
 
-import org.jsoup.Jsoup;
 import org.jsoup.Connection.Response;
-import org.jsoup.nodes.Document;
-import webscraper.DocumentLoader;
+import org.jsoup.Jsoup;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,49 +18,29 @@ public class POSTRequest {
     /**
      * Constructs a POSTRequest to be fired at a later date... time... to be fired later
      * @param url url of the website that contains the POST form
+     * @throws IOException if stuff goes wrong
      */
     public POSTRequest(String url) {
         try {
-            //grab login form page first
             Response loginPageResponse =
-                    Jsoup.connect("http://programmespec.nottingham.ac.uk/nottingham/asp/course_search.asp")
-//                            .referrer("https://www.nottingham.ac.uk/academicservices/informationforformerstudents/programme-specifications.aspx")
+                    Jsoup.connect(url)
                             .userAgent("Mozilla/5.0")
                             .timeout(10 * 1000)
                             .followRedirects(true)
                             .execute();
 
-//            System.out.println("Fetched page with form");
-
-            //get the cookies from the response, which we will post to the action URL
             cookie = loginPageResponse.cookies();
-
-
-            //lets make data map containing all the parameters and its values found in the form
-//            Map<String, String> mapParams = new HashMap<>();
-//            mapParams.put("ucas_course", "g400");
-//            mapParams.put("year_id", "000116");
-
-            //URL found in form's action attribute
-//            String secondUrl = "http://programmespec.nottingham.ac.uk/nottingham/asp/search_courses.asp?Type=UCAS";
-
-
-//            System.out.println("HTTP Status Code: " + responsePostLogin.statusCode());
-
-            //parse the document from response
-//            Document document = responsePostLogin.parse();
-//            System.out.println(document);
-
-            //get the cookies
-//            Map<String, String> mapLoggedInCookies = responsePostLogin.cookies();
-
-            /*
-            * For all the subsequent requests, you need to send
-            * the mapLoggedInCookies containing cookies
-            */
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Allows you to chain these types of objects together. Uses the cookie form the previous response for the next one
+     * @param r previous request. Because chaining is nice.
+     */
+    public POSTRequest(Response r){
+        cookie = r.cookies();
     }
 
     /**
@@ -77,8 +54,10 @@ public class POSTRequest {
      * @param secondUrl URL where the form posts to. found in the "action" data field
      * @return the response from the webpage.
      *          Either response.parse() it to get a Document, or use it to build another one of these objects
+     *
+     * @throws IOException if something fails
      */
-    public Document getTheGoodies(Map<String,String> args, String secondUrl){
+    public Response getTheGoodies(Map<String,String> args, String secondUrl){
 
         try {
             Response response = Jsoup.connect(secondUrl)
@@ -96,7 +75,7 @@ public class POSTRequest {
                     .followRedirects(true)
                     .execute();
 
-            return response.parse();
+            return response;
 
         } catch (IOException e) {
             e.printStackTrace();
