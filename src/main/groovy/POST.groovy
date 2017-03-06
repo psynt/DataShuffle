@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 //grab login form page first
 Response loginPageResponse =
     Jsoup.connect("http://programmespec.nottingham.ac.uk/nottingham/asp/course_search.asp")
-        .referrer("https://www.nottingham.ac.uk/academicservices/informationforformerstudents/programme-specifications.aspx")
+//        .referrer("https://www.nottingham.ac.uk/academicservices/informationforformerstudents/programme-specifications.aspx")
         .userAgent("Mozilla/5.0")
         .timeout(10 * 1000)
         .followRedirects(true)
