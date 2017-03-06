@@ -20,8 +20,8 @@ class ItemSpec extends Specification {
         it.addAttribute(att);
 
         then:
-        it.getAttributes().size() == 1
-        it.getAttributes().get(0) == att
+        it.size() == 1
+        it.get(att.key) == att.value
         it.getSelected() == Selected.Yes
 
     }
@@ -39,7 +39,7 @@ class ItemSpec extends Specification {
 
         then:
         it.getAttributes().size() == 3
-        it.getAttributes() == att
+        it.getAttributes().each {it in att }
         it.getSelected() == Selected.Yes
 
     }

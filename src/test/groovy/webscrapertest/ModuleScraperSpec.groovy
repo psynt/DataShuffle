@@ -24,8 +24,8 @@ class ModuleScraperSpec extends Specification {
 
         then:
         it.size() == 2
-        it.get(0).getName() == "Module Code"
-        it.get(1).getName() == "Module Name"
+        "Module Code" in it
+        "Module Name" in it
 
         where:
         testURL << ["ModuleTest"]

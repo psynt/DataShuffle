@@ -28,7 +28,7 @@ class EbayResultScraperSpec extends Specification {
     }
 
 
-    def "Testing with a URL"(){
+    def "Testing with http"(){
         given:
         @Subject
         def sc = new EbayResultScraper(DocumentLoader.load(new URL("http://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2050601.m570.l1313.TR0.TRC0.H0.Xguita.TRS0&_nkw=guitar&_sacat=0")))
