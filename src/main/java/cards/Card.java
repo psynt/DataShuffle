@@ -24,6 +24,8 @@ public class Card extends Tab {
 	private String name;
 	private VBox layoutManager;
     private ArrayList<Label> labels = new ArrayList<>();
+    final Label label = new Label();
+    final TextField tabTitle = new TextField();
 
     public Card(Item i){
     	
@@ -37,6 +39,17 @@ public class Card extends Tab {
 
 //        name = i.get("name");
         setGraphic(new Label(i.get("name")));
+
+
+        tabTitle.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                label.setText(tabTitle.getText());
+                Card.super.setGraphic(label);
+            }
+        });
+
+
 
 
         ContextMenu rightClickMenu = new ContextMenu();
@@ -78,6 +91,16 @@ public class Card extends Tab {
             }
         });
         MenuItem renameCard = new MenuItem("Rename Card");
+        renameCard.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                tabTitle.setText("");
+                label.setText(i.get("name"));
+                Card.super.setGraphic(tabTitle);
+
+            }
+        });
+
 
         rightClickMenu.getItems().addAll(setColour,renameCard);
 
