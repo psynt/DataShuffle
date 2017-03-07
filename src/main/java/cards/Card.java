@@ -1,19 +1,14 @@
 package cards;
 
-import content.Attribute;
 import content.Item;
+import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Side;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -42,6 +37,62 @@ public class Card extends Tab {
 
 //        name = i.get("name");
         setGraphic(new Label(i.get("name")));
+
+
+        ContextMenu rightClickMenu = new ContextMenu();
+        Menu setColour = new Menu("Set Colour");
+        MenuItem red = new MenuItem("Red");
+        MenuItem blue = new MenuItem("Blue");
+        MenuItem green = new MenuItem("Green");
+        MenuItem orange = new MenuItem("Orange");
+        MenuItem yellow = new MenuItem("Yellow");
+        setColour.getItems().addAll(red, blue, green, orange, yellow);
+        red.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                Card.super.setStyle("-fx-background-color: tomato;");
+
+            }
+        });
+        blue.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                Card.super.setStyle("-fx-background-color: lightskyblue;");
+
+            }
+        });
+        green.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                Card.super.setStyle("-fx-background-color: mediumspringgreen;");
+
+            }
+        });
+        orange.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                Card.super.setStyle("-fx-background-color: lightsalmon;");
+
+            }
+        });
+        yellow.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                Card.super.setStyle("-fx-background-color: yellow;");
+
+            }
+        });
+        MenuItem renameCard = new MenuItem("Rename Card");
+
+        rightClickMenu.getItems().addAll(setColour,renameCard);
+
+        super.setContextMenu(rightClickMenu);
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+
+
+        pause.setOnFinished(e -> {
+
+            Node tab = super.getTabPane();
+
+            rightClickMenu.show(tab, Side.RIGHT, 0, 0);
+        });
+
+
 
         layoutManager.getChildren().addAll(labels);
         setContent(layoutManager);
