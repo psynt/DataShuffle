@@ -13,6 +13,7 @@ import java.util.Map;
 public class POSTRequest {
 
     Map<String,String> cookie;
+    Response from;
 
 
     /**
@@ -22,14 +23,13 @@ public class POSTRequest {
      */
     public POSTRequest(String url) {
         try {
-            Response loginPageResponse =
+            from =
                     Jsoup.connect(url)
                             .userAgent("Mozilla/5.0")
                             .timeout(10 * 1000)
                             .followRedirects(true)
                             .execute();
 
-            cookie = loginPageResponse.cookies();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,7 +40,7 @@ public class POSTRequest {
      * @param r previous request. Because chaining is nice.
      */
     public POSTRequest(Response r){
-        cookie = r.cookies();
+        from = r;
     }
 
     /**
@@ -70,7 +70,7 @@ public class POSTRequest {
                     //post parameters
                     .data(args)
                     //cookies received from login page
-                    .cookies(cookie)
+                    .cookies(from.cookies())
                     //many websites redirects the user after login, so follow them
                     .followRedirects(true)
                     .execute();

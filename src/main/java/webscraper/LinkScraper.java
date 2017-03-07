@@ -4,7 +4,6 @@ import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Abstract class for scraping webpages for links

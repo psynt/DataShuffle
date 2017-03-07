@@ -72,20 +72,14 @@ public class CourseScraper extends PageScraper {
 		ArrayList<String> atts = new ArrayList<>();
 
 		for (Element row : doc.select(":contains(Compulsory)~tr:not(:contains(Assessment criteria)~tr)")) {
-			//for (Element row : ) {
-				//Elements tds = ;
-				//if(tds.size()>0) {
-				//table.select("tr").forEach(row -> {
-					row.select("td").forEach (it -> {
-						if (it.text().matches("[A-Z]\\d\\d[A-Z][A-Z][A-Z]") || it.text().matches("Students.*")) {
-							atts.add(it.text());
-						}
-					});
-				//}
-			//});
+			row.select("td").forEach (it -> {
+				if (it.text().matches("[A-Z]\\d\\d[A-Z][A-Z][A-Z]") || it.text().matches("Students.*")) {
+					atts.add(it.text());
+				}
+			});
 		}
 
 
-		return atts;//.parallelStream().collect(Collectors.toList());
+		return atts;
 	}
 }

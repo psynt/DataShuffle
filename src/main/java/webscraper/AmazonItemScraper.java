@@ -11,7 +11,7 @@ import content.Item;
  * Amazon has captcha in place to prevent robots from gathering data.
  * Work on this class is suspended.
  * @author zane
- * @deprecated for now
+ * @deprecated work halted
  */
 @Deprecated
 public class AmazonItemScraper extends PageScraper {
