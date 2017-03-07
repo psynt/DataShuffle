@@ -12,8 +12,8 @@ import java.util.Map;
  */
 public class POSTRequest {
 
-    Map<String,String> cookie;
-    Response from;
+    protected Map<String,String> cookie;
+    protected Response from;
 
 
     /**
