@@ -49,9 +49,6 @@ public class Card extends Tab {
             }
         });
 
-
-
-
         ContextMenu rightClickMenu = new ContextMenu();
         Menu setColour = new Menu("Set Colour");
         MenuItem red = new MenuItem("Red");
