@@ -2,22 +2,12 @@ package cards;
 
 import javafx.animation.Animation;
 import javafx.animation.Transition;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 class SideMenu extends VBox {
