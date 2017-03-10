@@ -1,10 +1,19 @@
 package cards;
 
+import static cards.CardFactory.createCard;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+
+import org.jsoup.nodes.Document;
+
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.ClipboardContent;
@@ -13,16 +22,9 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import org.jsoup.nodes.Document;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-
-import static cards.CardFactory.createCard;
 
 public class Controller {
 
@@ -36,24 +38,27 @@ public class Controller {
 	@FXML
 	FlowPane centerPane;
 	@FXML
+	ScrollPane rightPane;
+	@FXML
 	ToolBar toolbar;
 	@FXML 
-	Button newDeckButton;
+	Button newGreenDeckButton;
+	@FXML 
+	Button newYellowDeckButton;
+	@FXML 
+	Button newRedDeckButton;
 
 	@FXML
 	public void initialize() {
 
 		draggingTab = new SimpleObjectProperty<>();
 
-		box = new HBox();
+		Deck cardStackLeft = new Deck(draggingTab, 0);
+		Deck cardStackRight = new Deck(draggingTab, 2);
 
-		Deck cardStackLeft = new Deck(draggingTab);
-		Deck cardStackRight = new Deck(draggingTab);
+		centerPane.getChildren().add(cardStackLeft);
+		centerPane.getChildren().add(cardStackRight);
 
-		box.getChildren().add(cardStackLeft);
-		box.getChildren().add(cardStackRight);
-
-		centerPane.getChildren().add(box);
 
 		ArrayList<Item> guitar = new ArrayList<>();
 		try {
@@ -110,10 +115,19 @@ public class Controller {
 		return card;
 	}
 
-	@FXML public void newDeck() {
-		Deck newDeck = new Deck(draggingTab);
-		box.getChildren().add(newDeck);
-
+	@FXML public void newGreenDeck() {
+		Deck newDeck = new Deck(draggingTab, 0);
+		centerPane.getChildren().add(newDeck);
+	}
+	
+	@FXML public void newYellowDeck() {
+		Deck newDeck = new Deck(draggingTab, 1);
+		centerPane.getChildren().add(newDeck);
+	}
+	
+	@FXML public void newRedDeck() {
+		Deck newDeck = new Deck(draggingTab, 2);
+		centerPane.getChildren().add(newDeck);
 	}
 	
 }
