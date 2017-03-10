@@ -1,14 +1,13 @@
 package webscraper;
 
+import content.Attribute;
+import content.Item;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import content.Attribute;
-import content.Item;
-
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Scraper for University of Nottingham Course Webpages.  Loads all data into an Item object.
@@ -32,6 +31,7 @@ public class CourseScraper extends PageScraper {
 
 		item = new Item();
 //		item.addAttribute(getCourseTitle());
+//		item.addAttribute(getReqModules());
 //		item.addAttributes(getFactFileData());
 
 		return item;
@@ -72,20 +72,14 @@ public class CourseScraper extends PageScraper {
 		ArrayList<String> atts = new ArrayList<>();
 
 		for (Element row : doc.select(":contains(Compulsory)~tr:not(:contains(Assessment criteria)~tr)")) {
-			//for (Element row : ) {
-				//Elements tds = ;
-				//if(tds.size()>0) {
-				//table.select("tr").forEach(row -> {
-					row.select("td").forEach (it -> {
-						if (it.text().matches("[A-Z]\\d\\d[A-Z][A-Z][A-Z]") || it.text().matches("Students.*")) {
-							atts.add(it.text());
-						}
-					});
-				//}
-			//});
+			row.select("td").forEach (it -> {
+				if (it.text().matches("[A-Z]\\d\\d[A-Z][A-Z][A-Z]") || it.text().matches("Students.*")) {
+					atts.add(it.text());
+				}
+			});
 		}
 
 
-		return atts;//.parallelStream().collect(Collectors.toList());
+		return atts;
 	}
 }

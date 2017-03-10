@@ -1,6 +1,6 @@
 package webscraper;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface for scraping for links
@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 
 public interface ILinkScraper {
-	public ArrayList<String> scrapeLinks();
+	List<String> scrapeLinks();
 }

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
@@ -16,8 +17,13 @@
    <top>
       <ToolBar fx:id="toolBar" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button mnemonicParsing="false" text="Button" />
+          <Button fx:id="newGreenPaneButton" mnemonicParsing="false" onAction="#newGreenDeck" text="New Green Deck" />
+          <Button fx:id="newYellowPaneButton" mnemonicParsing="false" onAction="#newYellowDeck" text="New Yellow Deck" />
+          <Button fx:id="newRedPaneButton" mnemonicParsing="false" onAction="#newRedDeck" text="New Red Deck" />
         </items>
       </ToolBar>
    </top>
+   <right>
+      <ScrollPane fx:id="rightPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>

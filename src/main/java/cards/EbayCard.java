@@ -1,15 +1,13 @@
 package cards;
 
-import java.util.ArrayList;
-
-import content.Attribute;
 import content.Item;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
-//The 'card'
+/**
+ * Cards for the ebay module... thingy... functionality
+ * Thsese will support adding the images in listings
+ *
+ */
 public class EbayCard extends Card {
 
 

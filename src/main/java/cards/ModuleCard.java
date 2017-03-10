@@ -13,6 +13,11 @@ import javafx.scene.paint.Color;
 
 
 //The 'card'
+
+/**
+ * @deprecated going to be either removed or redone very soon
+ */
+@Deprecated
 public class ModuleCard extends TabPane {
 
     private String moduleName ;
