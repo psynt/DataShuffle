@@ -2,6 +2,8 @@ package cards;
 
 import content.Item;
 import javafx.animation.PauseTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
@@ -38,14 +40,17 @@ public class Card extends Tab {
         );
 
 //        name = i.get("name");
-        setGraphic(new Label(i.get("name")));
+        label.setText(i.get("name"));
+        //setGraphic(new Label(i.get("name")));
+        setGraphic(label);
 
 
         tabTitle.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 label.setText(tabTitle.getText());
-                Card.super.setGraphic(label);
+                setGraphic(label);
+
             }
         });
 
@@ -94,10 +99,21 @@ public class Card extends Tab {
         renameCard.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                tabTitle.setText("");
-                label.setText(i.get("name"));
-                Card.super.setGraphic(tabTitle);
+                tabTitle.setText(label.getText());
+                setGraphic(tabTitle);
+                tabTitle.selectAll();
+                tabTitle.requestFocus();
 
+            }
+        });
+        tabTitle.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable,
+                                Boolean oldValue, Boolean newValue) {
+                if (! newValue) {
+                    label.setText(tabTitle.getText());
+                    setGraphic(label);
+                }
             }
         });
 
