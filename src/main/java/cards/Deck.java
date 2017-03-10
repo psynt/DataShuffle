@@ -55,7 +55,7 @@ public class Deck extends TabPane {
 		}
 		
 
-		setMinWidth(50);
+		setMinWidth(120);
 		setMaxWidth(480);
 		setMaxHeight(480);
 		setMinHeight(480);
