@@ -88,3 +88,4 @@ public class sideBarTest extends Application
         menuPane.setTop(accordion);
         return menuPane;
     }
+}
