@@ -19,7 +19,7 @@ public class Deck extends TabPane {
 
 	private static final String TAB_DRAG_KEY = "tab";
 
-	public Deck(ObjectProperty<Tab> draggingTab) {
+	public Deck(ObjectProperty<Tab> draggingTab, int colour) {
 
 		setOnDragOver( event -> {
 			final Dragboard dragboard = event.getDragboard();
@@ -45,16 +45,31 @@ public class Deck extends TabPane {
                 event.consume();
             }
         });
+		
+		switch(colour){
+		case 0:
+			setStyle("-fx-background-color: #b9eeb7;");
+			break;
+		case 1:
+			setStyle("-fx-background-color: #ffe766;");
+			break;
+		case 2:
+			setStyle("-fx-background-color: #d28f8f;");
+			break;
+		}
+		
 
 		setMinWidth(50);
 		setMaxWidth(480);
 		setMaxHeight(480);
+		setMinHeight(480);
 		
 		setTabMinWidth(50);
 		setTabMaxWidth(100);
 		setBorder(new Border(
 				new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1)))
 		);
+		
 
 	}
 }
