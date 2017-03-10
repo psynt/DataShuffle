@@ -45,15 +45,12 @@ public class Controller {
 
 		draggingTab = new SimpleObjectProperty<>();
 
-		box = new HBox();
-
 		Deck cardStackLeft = new Deck(draggingTab);
 		Deck cardStackRight = new Deck(draggingTab);
 
-		box.getChildren().add(cardStackLeft);
-		box.getChildren().add(cardStackRight);
+		centerPane.getChildren().add(cardStackLeft);
+		centerPane.getChildren().add(cardStackRight);
 
-		centerPane.getChildren().add(box);
 
 		ArrayList<Item> guitar = new ArrayList<>();
 		try {
@@ -112,7 +109,7 @@ public class Controller {
 
 	@FXML public void newDeck() {
 		Deck newDeck = new Deck(draggingTab);
-		box.getChildren().add(newDeck);
+		centerPane.getChildren().add(newDeck);
 
 	}
 	
