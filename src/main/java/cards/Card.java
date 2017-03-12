@@ -25,129 +25,118 @@ public class Card extends Tab {
 
 	private String name;
 	private VBox layoutManager;
-    private ArrayList<Label> labels = new ArrayList<>();
-    final Label label = new Label();
-    final TextField tabTitle = new TextField();
+	private ArrayList<Label> labels = new ArrayList<>();
+	final Label label = new Label();
+	final TextField tabTitle = new TextField();
 
-    public Card(Item i){
-    	
-        layoutManager = new VBox();
-        layoutManager.setMinHeight(200);
-        layoutManager.setMinWidth(400);
-        
-        i.entrySet().stream().filter(e -> !e.getKey().matches("(i|I)mage")).forEach(e ->
-        		addLabel(e)
-        );
+	public Card(Item i) {
 
-//        name = i.get("name");
-        label.setText(i.get("name"));
-        //setGraphic(new Label(i.get("name")));
-        setGraphic(label);
+		layoutManager = new VBox();
+		layoutManager.setMinHeight(200);
+		layoutManager.setMinWidth(400);
 
+		i.entrySet().stream().filter(e -> !e.getKey().matches("(i|I)mage")).forEach(e -> addLabel(e));
 
-        tabTitle.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                label.setText(tabTitle.getText());
-                setGraphic(label);
+		// name = i.get("name");
+		label.setText(i.get("name"));
+		// setGraphic(new Label(i.get("name")));
+		setGraphic(label);
 
-            }
-        });
+		tabTitle.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				label.setText(tabTitle.getText());
+				setGraphic(label);
 
+			}
+		});
 
+		ContextMenu rightClickMenu = new ContextMenu();
+		Menu setColour = new Menu("Set Colour");
+		MenuItem red = new MenuItem("Red");
+		MenuItem blue = new MenuItem("Blue");
+		MenuItem green = new MenuItem("Green");
+		MenuItem orange = new MenuItem("Orange");
+		MenuItem yellow = new MenuItem("Yellow");
+		setColour.getItems().addAll(red, blue, green, orange, yellow);
+		red.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Card.super.setStyle("-fx-background-color: tomato;");
 
+			}
+		});
+		blue.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Card.super.setStyle("-fx-background-color: lightskyblue;");
 
-        ContextMenu rightClickMenu = new ContextMenu();
-        Menu setColour = new Menu("Set Colour");
-        MenuItem red = new MenuItem("Red");
-        MenuItem blue = new MenuItem("Blue");
-        MenuItem green = new MenuItem("Green");
-        MenuItem orange = new MenuItem("Orange");
-        MenuItem yellow = new MenuItem("Yellow");
-        setColour.getItems().addAll(red, blue, green, orange, yellow);
-        red.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                Card.super.setStyle("-fx-background-color: tomato;");
+			}
+		});
+		green.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Card.super.setStyle("-fx-background-color: mediumspringgreen;");
 
-            }
-        });
-        blue.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                Card.super.setStyle("-fx-background-color: lightskyblue;");
+			}
+		});
+		orange.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Card.super.setStyle("-fx-background-color: lightsalmon;");
 
-            }
-        });
-        green.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                Card.super.setStyle("-fx-background-color: mediumspringgreen;");
+			}
+		});
+		yellow.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Card.super.setStyle("-fx-background-color: yellow;");
 
-            }
-        });
-        orange.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                Card.super.setStyle("-fx-background-color: lightsalmon;");
+			}
+		});
+		MenuItem renameCard = new MenuItem("Rename Card");
+		renameCard.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				tabTitle.setText(label.getText());
+				setGraphic(tabTitle);
+				tabTitle.selectAll();
+				tabTitle.requestFocus();
 
-            }
-        });
-        yellow.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                Card.super.setStyle("-fx-background-color: yellow;");
+			}
+		});
+		tabTitle.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (!newValue) {
+					label.setText(tabTitle.getText());
+					setGraphic(label);
+				}
+			}
+		});
 
-            }
-        });
-        MenuItem renameCard = new MenuItem("Rename Card");
-        renameCard.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                tabTitle.setText(label.getText());
-                setGraphic(tabTitle);
-                tabTitle.selectAll();
-                tabTitle.requestFocus();
+		rightClickMenu.getItems().addAll(setColour, renameCard);
 
-            }
-        });
-        tabTitle.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable,
-                                Boolean oldValue, Boolean newValue) {
-                if (! newValue) {
-                    label.setText(tabTitle.getText());
-                    setGraphic(label);
-                }
-            }
-        });
+		super.setContextMenu(rightClickMenu);
+		PauseTransition pause = new PauseTransition(Duration.seconds(2));
 
+		pause.setOnFinished(e -> {
 
-        rightClickMenu.getItems().addAll(setColour,renameCard);
+			Node tab = super.getTabPane();
 
-        super.setContextMenu(rightClickMenu);
-        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+			rightClickMenu.show(tab, Side.RIGHT, 0, 0);
+		});
 
+		layoutManager.getChildren().addAll(labels);
+		setContent(layoutManager);
+		setClosable(true);
 
-        pause.setOnFinished(e -> {
-
-            Node tab = super.getTabPane();
-
-            rightClickMenu.show(tab, Side.RIGHT, 0, 0);
-        });
-
-
-
-        layoutManager.getChildren().addAll(labels);
-        setContent(layoutManager);
-        setClosable(true);
-
-    }
-    
-    private void addLabel(Map.Entry<String,String> e) {
-        labels.add(new Label(e.getKey() + "\t:\t" + e.getValue()));
 	}
 
-	public void addComponent(Node n){
-    	layoutManager.getChildren().add(n);
-    }
+	private void addLabel(Map.Entry<String, String> e) {
+		labels.add(new Label(e.getKey() + "\t:\t" + e.getValue()));
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void addComponent(Node n) {
+		layoutManager.getChildren().add(n);
+	}
+
+	public String getName() {
+		return name;
+	}
 }

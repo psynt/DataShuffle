@@ -21,7 +21,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
@@ -30,8 +29,6 @@ public class Controller {
 
 	private static final String TAB_DRAG_KEY = "tab";
 	private ObjectProperty<Tab> draggingTab;
-	
-	private HBox box;
 
 	@FXML
 	BorderPane mainPane;
