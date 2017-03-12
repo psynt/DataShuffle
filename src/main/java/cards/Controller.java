@@ -12,8 +12,8 @@ import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.ClipboardContent;
@@ -21,6 +21,11 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
@@ -35,10 +40,11 @@ public class Controller {
 	@FXML
 	FlowPane centerPane;
 	@FXML
-	ScrollPane rightPane;
+	GridPane sideMenuContainer;
+	
 	@FXML
 	ToolBar toolbar;
-	@FXML 
+	@FXML
 	Button newGreenDeckButton;
 	@FXML 
 	Button newYellowDeckButton;
@@ -48,6 +54,8 @@ public class Controller {
 	@FXML
 	public void initialize() {
 
+        mainPane.setStyle("-fx-background-color: #2f4f4f;");
+        
 		draggingTab = new SimpleObjectProperty<>();
 
 		Deck cardStackLeft = new Deck(draggingTab, 0);
@@ -55,7 +63,21 @@ public class Controller {
 
 		centerPane.getChildren().add(cardStackLeft);
 		centerPane.getChildren().add(cardStackRight);
+	        
+	     // create a sidebar with some content in it.
+	        final Pane menuPane = SideMenuItems.createSidebarItems();
+	        SideMenu sideMenu = new SideMenu(250, menuPane);
+	        VBox.setVgrow(menuPane, Priority.ALWAYS);
+	        
+	     // layout the scene.
+	        StackPane buttonLocation = new StackPane();
+	        buttonLocation.getChildren().add(sideMenu.getDisplayMenuButton());
+	        buttonLocation.setAlignment(Pos.CENTER_RIGHT);
 
+	        //mainPane.getChildren().add(buttonLocation);
+	        sideMenuContainer.add(buttonLocation, 0, 0);
+	        sideMenuContainer.add(sideMenu, 1, 0);
+	        sideMenuContainer.setMinWidth(200);
 
 		ArrayList<Item> guitar = new ArrayList<>();
 		try {
@@ -105,9 +127,6 @@ public class Controller {
             draggingTab.set(card);
             event.consume();
         });
-
-
-
 
 		return card;
 	}
