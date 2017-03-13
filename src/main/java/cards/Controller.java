@@ -1,5 +1,7 @@
 package cards;
 
+import static cards.CardFactory.createCard;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,63 +11,73 @@ import org.jsoup.nodes.Document;
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
-
-import static cards.CardFactory.createCard;
 
 public class Controller {
 
 	private static final String TAB_DRAG_KEY = "tab";
 	private ObjectProperty<Tab> draggingTab;
-	
-	private HBox box;
 
 	@FXML
 	BorderPane mainPane;
 	@FXML
 	FlowPane centerPane;
 	@FXML
+	GridPane sideMenuContainer;
+	
+	@FXML
 	ToolBar toolbar;
+	@FXML
+	Button newGreenDeckButton;
 	@FXML 
-	Button newDeckButton;
+	Button newYellowDeckButton;
+	@FXML 
+	Button newRedDeckButton;
 
 	@FXML
 	public void initialize() {
 
+        mainPane.setStyle("-fx-background-color: #2f4f4f;");
+        
 		draggingTab = new SimpleObjectProperty<>();
 
-		box = new HBox();
+		Deck cardStackLeft = new Deck(draggingTab, 0);
+		Deck cardStackRight = new Deck(draggingTab, 2);
 
-		Deck cardStackLeft = new Deck(draggingTab);
-		Deck cardStackRight = new Deck(draggingTab);
+		centerPane.getChildren().add(cardStackLeft);
+		centerPane.getChildren().add(cardStackRight);
+	        
+	     // create a sidebar with some content in it.
+	        final Pane menuPane = SideMenuItems.createSidebarItems();
+	        SideMenu sideMenu = new SideMenu(250, menuPane);
+	        VBox.setVgrow(menuPane, Priority.ALWAYS);
+	        
+	     // layout the scene.
+	        StackPane buttonLocation = new StackPane();
+	        buttonLocation.getChildren().add(sideMenu.getDisplayMenuButton());
+	        buttonLocation.setAlignment(Pos.CENTER_RIGHT);
 
-		box.getChildren().add(cardStackLeft);
-		box.getChildren().add(cardStackRight);
-
-		centerPane.getChildren().add(box);
+	        //mainPane.getChildren().add(buttonLocation);
+	        sideMenuContainer.add(buttonLocation, 0, 0);
+	        sideMenuContainer.add(sideMenu, 1, 0);
+	        sideMenuContainer.setMinWidth(200);
 
 		ArrayList<Item> guitar = new ArrayList<>();
 		try {
@@ -115,12 +127,23 @@ public class Controller {
             draggingTab.set(card);
             event.consume();
         });
+
 		return card;
 	}
 
-	@FXML public void newDeck() {
-		Deck newDeck = new Deck(draggingTab);
-		box.getChildren().add(newDeck);
+	@FXML public void newGreenDeck() {
+		Deck newDeck = new Deck(draggingTab, 0);
+		centerPane.getChildren().add(newDeck);
+	}
+	
+	@FXML public void newYellowDeck() {
+		Deck newDeck = new Deck(draggingTab, 1);
+		centerPane.getChildren().add(newDeck);
+	}
+	
+	@FXML public void newRedDeck() {
+		Deck newDeck = new Deck(draggingTab, 2);
+		centerPane.getChildren().add(newDeck);
 	}
 	
 }

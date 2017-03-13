@@ -1,14 +1,13 @@
 package webscraper;
 
+import content.Attribute;
+import content.Item;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import content.Attribute;
-import content.Item;
-
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Scraper for University of Nottingham Course Webpages.  Loads all data into an Item object.
@@ -32,6 +31,7 @@ public class CourseScraper extends PageScraper {
 
 		item = new Item();
 //		item.addAttribute(getCourseTitle());
+//		item.addAttribute(getReqModules());
 //		item.addAttributes(getFactFileData());
 
 		return item;

@@ -33,9 +33,6 @@ dependencies {
 	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
 	// https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
 	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.7'
-	// https://mvnrepository.com/artifact/at.bestsolution.eclipse/org.eclipse.fx.ui.controls
-	compile group: 'at.bestsolution.eclipse', name: 'org.eclipse.fx.ui.controls', version: '2.2.0'
-
 
 	// Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the

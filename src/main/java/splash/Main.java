@@ -21,7 +21,7 @@ public class Main extends Application {
 			
 			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 			Parent content = FXMLLoader.load(getClass().getResource("/Mymenu.fxml"));
-			
+
 			layout.getChildren().add(content);
 			
 			primaryStage.setTitle("Menu");
