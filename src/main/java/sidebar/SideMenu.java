@@ -1,4 +1,4 @@
-package cards;
+package sidebar;
 
 import javafx.animation.Animation;
 import javafx.animation.Transition;
@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-class SideMenu extends VBox {
+public class SideMenu extends VBox {
 	// function to return the button that displays or hides the side menu
 	public Button getDisplayMenuButton() {
 		return displayMenuButton;
@@ -20,7 +20,7 @@ class SideMenu extends VBox {
 
 	// create a side menu containing a accordian menu list
 
-	SideMenu(final double newWidth, Node... nodes) {
+	public SideMenu(final double newWidth, Node... nodes) {
 		getStyleClass().add("sideMenu");
 		this.setPrefWidth(newWidth);
 		this.setMinWidth(0);

@@ -1,4 +1,4 @@
-package cards;
+package sidebar;
 
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;

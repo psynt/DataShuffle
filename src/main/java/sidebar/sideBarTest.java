@@ -1,4 +1,4 @@
-package cards;
+package sidebar;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;

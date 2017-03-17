@@ -13,6 +13,8 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import org.jsoup.nodes.Document;
+import sidebar.SideMenu;
+import sidebar.SideMenuItems;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
