@@ -1,13 +1,5 @@
 package cards;
 
-import static cards.CardFactory.createCard;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-
-import org.jsoup.nodes.Document;
-
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -19,19 +11,20 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import org.jsoup.nodes.Document;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
 
-public class Controller {
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 
+import static cards.CardFactory.createCard;
+
+public class Controller {
+	private int numDecks = 0;
 	private static final String TAB_DRAG_KEY = "tab";
 	private ObjectProperty<Tab> draggingTab;
 
@@ -59,6 +52,7 @@ public class Controller {
 		draggingTab = new SimpleObjectProperty<>();
 
 		Deck cardStackLeft = new Deck(draggingTab, 0);
+
 		Deck cardStackRight = new Deck(draggingTab, 2);
 
 		centerPane.getChildren().add(cardStackLeft);
@@ -88,7 +82,7 @@ public class Controller {
 
 		ArrayList<Card> cards = new ArrayList<>();
 
-		guitar.forEach(e -> cards.add(newCard(e, "Ebay")));
+		guitar.forEach(e -> cards.add(newCard(e, "Ebay", getNumDecks())));
 
 		// add the left cards to the left vbox
 		for (int i = 0; i < 3; i++) {
@@ -117,8 +111,8 @@ public class Controller {
 		return whatYouWant;
 	}
 
-	private Card newCard(Item item, String type) {
-		final Card card = createCard(item,type);
+	private Card newCard(Item item, String type, int g) {
+		final Card card = createCard(item,type, g);
 		card.getGraphic().setOnDragDetected(event -> {
             Dragboard dragboard = card.getGraphic().startDragAndDrop(TransferMode.MOVE);
             ClipboardContent clipboardContent = new ClipboardContent();
@@ -144,6 +138,11 @@ public class Controller {
 	@FXML public void newRedDeck() {
 		Deck newDeck = new Deck(draggingTab, 2);
 		centerPane.getChildren().add(newDeck);
+	}
+
+	int getNumDecks(){
+	numDecks++;
+	return numDecks;
 	}
 	
 }

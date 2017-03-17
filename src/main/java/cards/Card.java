@@ -23,19 +23,22 @@ import java.util.Map;
  */
 public class Card extends Tab {
 
-	private String name;
+
 	private VBox layoutManager;
 	private ArrayList<Label> labels = new ArrayList<>();
 	final Label label = new Label();
 	final TextField tabTitle = new TextField();
 
-	public Card(Item i) {
+	public Card(Item i, int g) {
+		Label cardName = new Label("Deck " + g);
+
 
 		layoutManager = new VBox();
 		layoutManager.setMinHeight(200);
 		layoutManager.setMinWidth(400);
 
 		i.entrySet().stream().filter(e -> !e.getKey().matches("(i|I)mage")).forEach(e -> addLabel(e));
+
 
 		// name = i.get("name");
 		label.setText(i.get("name"));
@@ -110,6 +113,8 @@ public class Card extends Tab {
 			}
 		});
 
+
+
 		rightClickMenu.getItems().addAll(setColour, renameCard);
 
 		super.setContextMenu(rightClickMenu);
@@ -121,7 +126,7 @@ public class Card extends Tab {
 
 			rightClickMenu.show(tab, Side.RIGHT, 0, 0);
 		});
-
+		layoutManager.getChildren().add(cardName);
 		layoutManager.getChildren().addAll(labels);
 		setContent(layoutManager);
 		setClosable(true);
@@ -136,7 +141,8 @@ public class Card extends Tab {
 		layoutManager.getChildren().add(n);
 	}
 
-	public String getName() {
+	/*public String getName() {
 		return name;
-	}
+	}*/
+
 }

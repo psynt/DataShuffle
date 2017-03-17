@@ -1,8 +1,9 @@
 package cards;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
@@ -39,6 +40,8 @@ public class Deck extends TabPane {
 			}
 		});
 
+
+
 		switch (colour) {
 		case 0:
 			setStyle("-fx-background-color: #b9eeb7;");
@@ -58,6 +61,34 @@ public class Deck extends TabPane {
 
 		setTabMinWidth(50);
 		setTabMaxWidth(100);
+
+		ContextMenu rightClickMenu = new ContextMenu();
+		Menu resizeCard = new Menu("Resize Deck");
+		MenuItem incSize = new MenuItem("Increase Size");
+		MenuItem decSize = new MenuItem("Decrease Size");
+		resizeCard.getItems().addAll(incSize, decSize);
+		rightClickMenu.getItems().add(resizeCard);
+
+		incSize.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				setHeight(getHeight() + 50);
+				setWidth(getWidth() + 100);
+			}
+		});
+		decSize.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				setPrefHeight(getHeight() - 50);
+
+				setPrefWidth(getWidth() - 100);
+			}
+		});
+
+		super.setContextMenu(rightClickMenu);
+
+
+
 		setBorder(new Border(
 				new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 
