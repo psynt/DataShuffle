@@ -10,10 +10,11 @@ import java.util.Map;
  * Created by nichita on 06/03/17.
  * Base class to deal with websites that require POST in order to get to the goodies
  */
-public class POSTRequest {
+public class POSTRequest{
 
     protected Map<String,String> cookie;
     protected Response from;
+    protected String origin;
 
 
     /**
@@ -22,6 +23,7 @@ public class POSTRequest {
      * @throws IOException if stuff goes wrong
      */
     public POSTRequest(String url) {
+        origin = url;
         try {
             from =
                     Jsoup.connect(url)
@@ -62,7 +64,7 @@ public class POSTRequest {
         try {
             Response response = Jsoup.connect(secondUrl)
                     //referrer will be the login page's URL
-                    .referrer("http://programmespec.nottingham.ac.uk/nottingham/asp/course_search.asp")
+                    .referrer(origin)
                     //user agent
                     .userAgent("Mozilla/5.0")
                     //connect and read time out
