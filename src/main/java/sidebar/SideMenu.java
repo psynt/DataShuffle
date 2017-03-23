@@ -16,29 +16,30 @@ public class SideMenu extends VBox {
 		return displayMenuButton;
 	}
 
-	private final Button displayMenuButton;
+	//toggle side menu button created
+	final static Button displayMenuButton = new Button("Close");
 
-	// create a side menu containing a accordian menu list
-
+	// create a Vbox panel to contain the side menu, set to the width passed in
 	public SideMenu(final double newWidth, Node... nodes) {
-		getStyleClass().add("sideMenu");
+		getStyleClass().add("sideMenu");//for CSS styling
 		this.setPrefWidth(newWidth);
 		this.setMinWidth(0);
 
-		// panel created to hide and show.
+		// Set the panel in the centre(of the right side of the borderpane) and add sidemenu items
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(nodes);
 
-		// button created to toggle if the side menu is displayed.
-		displayMenuButton = new Button("Close");
+		// menu toggle button style added and orientation changed.
 		displayMenuButton.getStyleClass().add("hide-left");
 		displayMenuButton.setRotate(270);
-
+		
+		//initialize sideMenu controller, passing in current width and sideMenu panel
+		
+		
+	}
 		// apply the animations when the button is pressed.
-		displayMenuButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent actionEvent) {
-				// animation to close side menu
+			final void collapseSideMenu(double newWidth, Node...sideMenu ){
+				
 				final Animation hideSideMenu = new Transition() {
 					{
 						setCycleDuration(Duration.millis(250));
@@ -91,10 +92,10 @@ public class SideMenu extends VBox {
 				}
 			}
 
+	
 			private boolean menuAnimationFinished(final Animation hideSideMenu, final Animation showSideMenu) {
 				return showSideMenu.statusProperty().get() == Animation.Status.STOPPED
 						&& hideSideMenu.statusProperty().get() == Animation.Status.STOPPED;
 			}
-		});
-	}
+		
 }

@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -14,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class sideBarTest extends Application {
-	BorderPane mainScreen = new BorderPane();
+	
 
 	public static void main(String[] args) throws Exception {
 		launch(args);
@@ -22,16 +23,22 @@ public class sideBarTest extends Application {
 
 	@Override
 	public void start(final Stage stage) throws Exception {
+		BorderPane mainScreen = new BorderPane();
 		stage.setTitle("Side menu test");
 
-		// create a WebView to show to the right of the SideBar.
+		// create a WebView to show to the left of the SideBar.
 		mainScreen.setStyle("-fx-background-color: #2f4f4f;");
 		mainScreen.setPrefSize(800, 600);
 
 		// create a sidebar with some content in it.
-		final Pane menuPane = createSidebarItems();
-		SideMenu sideMenu = new SideMenu(250, menuPane);
-		VBox.setVgrow(menuPane, Priority.ALWAYS);
+		int sideMenuWidth = 250;
+		final Pane menuPane = SideMenuItems.createSidebarItems();//create pane containing menu buttons
+		SideMenu sideMenu = new SideMenu(sideMenuWidth, menuPane);//create interactive side menu, passing its width and the button pane
+		VBox.setVgrow(menuPane, Priority.ALWAYS);//will always be at maximum vertical height
+		
+		/*initialize sideMenu controller, passing in current width, sideMenu panel and buttons
+		 * these are needed to call methods in contoller class*/
+		SideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane);
 
 		// layout the scene.
 		final BorderPane layout = new BorderPane();
@@ -47,30 +54,6 @@ public class sideBarTest extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-
-	private BorderPane createSidebarItems() {
-		// buttons created and added to side menu
-		/*
-		 * final Button addCard = new Button("Add card to...");
-		 * addCard.getStyleClass().add("addCard");
-		 * addCard.setMaxWidth(Double.MAX_VALUE); addCard.setOnAction(new
-		 * EventHandler<ActionEvent>() {
-		 * 
-		 * @Override public void handle(ActionEvent actionEvent) {
-		 * System.out.println("i like big buttons and can not lie"); } });
-		 * addCard.fire();
-		 */
-
-		final BorderPane menuPane = new BorderPane();
-		TitledPane t1 = new TitledPane("add card to...", new Button("add card to..."));
-		TitledPane t2 = new TitledPane("Show only..", new Button("Title"));
-		TitledPane t3 = new TitledPane("Export to...", new Button("Excel"));
-		final Button price = new Button("Price");
-
-		Accordion accordion = new Accordion();
-		accordion.getPanes().addAll(t1, t2, t3);
-
-		menuPane.setTop(accordion);
-		return menuPane;
-	}
+	
+	
 }
