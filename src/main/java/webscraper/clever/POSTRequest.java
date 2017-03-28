@@ -14,8 +14,30 @@ public class POSTRequest{
 
     protected Map<String,String> cookie;
     protected Response from;
-    protected String origin;
+    protected String ref;
 
+
+    /**
+     * Constructs a POSTRequest to be fired at a later date... time... to be fired later
+     * @param url url of the website that contains the POST form
+     * @param referrer the website that "sent you here"... heee, hee, hee
+     * @throws IOException if stuff goes wrong
+     */
+    public POSTRequest(String url, String referrer) {
+        ref = url;
+        try {
+            from =
+                    Jsoup.connect(url)
+                            .referrer(referrer)
+                            .userAgent("Mozilla/5.0")
+                            .timeout(10 * 1000)
+                            .followRedirects(true)
+                            .execute();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Constructs a POSTRequest to be fired at a later date... time... to be fired later
@@ -23,7 +45,7 @@ public class POSTRequest{
      * @throws IOException if stuff goes wrong
      */
     public POSTRequest(String url) {
-        origin = url;
+        ref = url;
         try {
             from =
                     Jsoup.connect(url)
@@ -36,12 +58,22 @@ public class POSTRequest{
             e.printStackTrace();
         }
     }
+    /**
+     * Allows you to chain these types of objects together. Uses the cookie form the previous response for the next one
+     * @param r previous request. Because chaining is nice.
+     * @param referrer POST referrer
+     */
+    public POSTRequest(Response r, String referrer){
+        ref = referrer;
+        from = r;
+    }
 
     /**
      * Allows you to chain these types of objects together. Uses the cookie form the previous response for the next one
      * @param r previous request. Because chaining is nice.
      */
     public POSTRequest(Response r){
+        ref = "null";
         from = r;
     }
 
@@ -64,7 +96,7 @@ public class POSTRequest{
         try {
             Response response = Jsoup.connect(secondUrl)
                     //referrer will be the login page's URL
-                    .referrer(origin)
+                    .referrer(ref)
                     //user agent
                     .userAgent("Mozilla/5.0")
                     //connect and read time out
@@ -73,9 +105,11 @@ public class POSTRequest{
                     .data(args)
                     //cookies received from login page
                     .cookies(from.cookies())
-                    //many websites redirects the user after login, so follow them
+                    //many websites redirects the user after login, so follow them (module catalog also redirects)
                     .followRedirects(true)
                     .execute();
+
+            ref = secondUrl;
 
             return response;
 
