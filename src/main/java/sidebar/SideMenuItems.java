@@ -1,8 +1,5 @@
 package sidebar;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -11,29 +8,29 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class SideMenuItems {
-			//project buttons
-			static Button newProjectButton = new Button("New");
-			static Button saveButton = new Button("Save");
-			static Button saveAsButton = new Button("Save As..");
-			static Button openButton = new Button("Open");
-			
-			//add to buttons
-			static Button yesButton = new Button("Yes");
-			static Button noButton = new Button("No");
-			static Button maybeButton = new Button("Maybe");
-			
-			//ebay show only buttons
-			static Button showPriceButton = new Button("Price");
-			static Button showTitleButton = new Button("Title");
-			static Button showImageButton = new Button("Image");
-			static Button showRemainingTimeButton = new Button("Remaining Time");
-			
-			static //export to buttons
-			Button exportExcelButton = new Button("Excel");
+	//project buttons
+	static Button newProjectButton = new Button("New");
+	static Button saveButton = new Button("Save");
+	static Button saveAsButton = new Button("Save As..");
+	static Button openButton = new Button("Open");
+
+	//add to buttons
+	static Button yesButton = new Button("Yes");
+	static Button noButton = new Button("No");
+	static Button maybeButton = new Button("Maybe");
+
+	//ebay show only buttons
+	static Button showPriceButton = new Button("Price");
+	static Button showTitleButton = new Button("Title");
+	static Button showImageButton = new Button("Image");
+	static Button showRemainingTimeButton = new Button("Remaining Time");
+
+	//export to buttons
+	static Button exportExcelButton = new Button("Excel");
 	
 	public static BorderPane createSidebarItems()
     {
-final BorderPane menuPane = new BorderPane();
+		final BorderPane menuPane = new BorderPane();
 		/*This function creates the item inside the side menu and places them in a pane, the menupane. This menupane is 
 		 * returned when the function is called, to be put inside the side menu.
 		 */

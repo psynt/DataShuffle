@@ -1,12 +1,13 @@
 package webscrapertest
 
-import content.Attribute
+import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 import webscraper.DocumentLoader
 import webscraper.EbayItemScraper
 import webscraper.EbayResultScraper
+
 /**
  * Created by nichita on 15.12.2016.
  */
@@ -27,7 +28,7 @@ class EbayResultScraperSpec extends Specification {
 
     }
 
-
+    @Ignore
     def "Testing with http"(){
         given:
         @Subject

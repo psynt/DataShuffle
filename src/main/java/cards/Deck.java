@@ -1,8 +1,6 @@
 package cards;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -69,21 +67,15 @@ public class Deck extends TabPane {
 		resizeCard.getItems().addAll(incSize, decSize);
 		rightClickMenu.getItems().add(resizeCard);
 
-		incSize.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				setHeight(getHeight() + 50);
-				setWidth(getWidth() + 100);
-			}
-		});
-		decSize.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				setPrefHeight(getHeight() - 50);
+		incSize.setOnAction(event -> {
+            setHeight(getHeight() + 50);
+            setWidth(getWidth() + 100);
+        });
+		decSize.setOnAction(event -> {
+            setPrefHeight(getHeight() - 50);
 
-				setPrefWidth(getWidth() - 100);
-			}
-		});
+            setPrefWidth(getWidth() - 100);
+        });
 
 		super.setContextMenu(rightClickMenu);
 

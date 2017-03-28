@@ -2,8 +2,6 @@ package sidebar;
 
 import javafx.animation.Animation;
 import javafx.animation.Transition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -17,7 +15,7 @@ public class SideMenu extends VBox {
 	}
 
 	//toggle side menu button created
-	final static Button displayMenuButton = new Button("Close");
+	final static Button displayMenuButton = new Button("Collapse");
 
 	// create a Vbox panel to contain the side menu, set to the width passed in
 	public SideMenu(final double newWidth, Node... nodes) {
@@ -32,70 +30,68 @@ public class SideMenu extends VBox {
 		// menu toggle button style added and orientation changed.
 		displayMenuButton.getStyleClass().add("hide-left");
 		displayMenuButton.setRotate(270);
+		displayMenuButton.setMinWidth(75);
 		
 		//initialize sideMenu controller, passing in current width and sideMenu panel
 		
 		
 	}
-		// apply the animations when the button is pressed.
-			final void collapseSideMenu(double newWidth, Node...sideMenu ){
-				
-				final Animation hideSideMenu = new Transition() {
-					{
-						setCycleDuration(Duration.millis(250));
-					}
 
-					@Override
-					protected void interpolate(double frac) {
-						final double currentWidth = newWidth * (1.0 - frac);
-						setPrefWidth(currentWidth);
-						setTranslateY(currentWidth - newWidth);
-					}
-				};
-				hideSideMenu.onFinishedProperty().set(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent actionEvent) {
-						setVisible(false);
-						displayMenuButton.setText("Open");
-						displayMenuButton.getStyleClass().remove("hide-left");
-						displayMenuButton.getStyleClass().add("show-right");
-					}
-				});
-				// animation to display side menu
-				final Animation displaySideMenu = new Transition() {
-					{
-						setCycleDuration(Duration.millis(250));
-					}
+	// apply the animations when the button is pressed.
+	final void collapseSideMenu(double newWidth, Node...sideMenu ){
 
-					@Override
-					protected void interpolate(double frac) {
-						final double currentWidth = newWidth * frac;
-						setPrefWidth(currentWidth);
-						setTranslateY(currentWidth - newWidth);
-					}
-				};
-				displaySideMenu.onFinishedProperty().set(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent actionEvent) {
-						displayMenuButton.setText("Collapse");
-						displayMenuButton.getStyleClass().add("hide-left");
-						displayMenuButton.getStyleClass().remove("show-right");
-					}
-				});
-				if (menuAnimationFinished(hideSideMenu, displaySideMenu)) {
-					if (isVisible()) {
-						hideSideMenu.play();
-					} else {
-						setVisible(true);
-						displaySideMenu.play();
-					}
-				}
+		final Animation hideSideMenu = new Transition() {
+			{
+				setCycleDuration(Duration.millis(250));
 			}
+
+			@Override
+			protected void interpolate(double frac) {
+				final double currentWidth = newWidth * (1.0 - frac);
+				setPrefWidth(currentWidth);
+				setTranslateY(currentWidth - newWidth);
+			}
+		};
+		hideSideMenu.onFinishedProperty().set(actionEvent -> {
+			setVisible(false);
+			displayMenuButton.setText("Open");
+			displayMenuButton.getStyleClass().remove("hide-left");
+			displayMenuButton.getStyleClass().add("show-right");
+			displayMenuButton.setMinWidth(40);
+		});
+		// animation to display side menu
+		final Animation displaySideMenu = new Transition() {
+			{
+				setCycleDuration(Duration.millis(250));
+			}
+
+			@Override
+			protected void interpolate(double frac) {
+				final double currentWidth = newWidth * frac;
+				setPrefWidth(currentWidth);
+				setTranslateY(currentWidth - newWidth);
+			}
+		};
+		displaySideMenu.onFinishedProperty().set(actionEvent -> {
+			displayMenuButton.setText("Collapse");
+			displayMenuButton.getStyleClass().add("hide-left");
+			displayMenuButton.getStyleClass().remove("show-right");
+			displayMenuButton.setMinWidth(75);
+		});
+		if (menuAnimationFinished(hideSideMenu, displaySideMenu)) {
+			if (isVisible()) {
+				hideSideMenu.play();
+			} else {
+				setVisible(true);
+				displaySideMenu.play();
+			}
+		}
+	}
 
 	
-			private boolean menuAnimationFinished(final Animation hideSideMenu, final Animation showSideMenu) {
-				return showSideMenu.statusProperty().get() == Animation.Status.STOPPED
-						&& hideSideMenu.statusProperty().get() == Animation.Status.STOPPED;
-			}
+	private boolean menuAnimationFinished(final Animation hideSideMenu, final Animation showSideMenu) {
+		return showSideMenu.statusProperty().get() == Animation.Status.STOPPED
+				&& hideSideMenu.statusProperty().get() == Animation.Status.STOPPED;
+	}
 		
 }

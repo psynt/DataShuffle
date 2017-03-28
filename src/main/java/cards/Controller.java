@@ -14,6 +14,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import org.jsoup.nodes.Document;
 import sidebar.SideMenu;
+import sidebar.SideMenuController;
 import sidebar.SideMenuItems;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
@@ -35,7 +36,7 @@ public class Controller {
 	@FXML
 	FlowPane centerPane;
 	@FXML
-	GridPane sideMenuContainer;
+	BorderPane sideMenuContainer;
 	
 	@FXML
 	ToolBar toolbar;
@@ -59,21 +60,30 @@ public class Controller {
 
 		centerPane.getChildren().add(cardStackLeft);
 		centerPane.getChildren().add(cardStackRight);
-	        
-	     // create a sidebar with some content in it.
-	        final Pane menuPane = SideMenuItems.createSidebarItems();
-	        SideMenu sideMenu = new SideMenu(250, menuPane);
-	        VBox.setVgrow(menuPane, Priority.ALWAYS);
-	        
-	     // layout the scene.
-	        StackPane buttonLocation = new StackPane();
-	        buttonLocation.getChildren().add(sideMenu.getDisplayMenuButton());
-	        buttonLocation.setAlignment(Pos.CENTER_RIGHT);
 
-	        //mainPane.getChildren().add(buttonLocation);
-	        sideMenuContainer.add(buttonLocation, 0, 0);
-	        sideMenuContainer.add(sideMenu, 1, 0);
-	        sideMenuContainer.setMinWidth(200);
+		int sideMenuWidth = 250;
+
+		// create a sidebar with some content in it.
+		final Pane menuPane = SideMenuItems.createSidebarItems();
+		SideMenu sideMenu = new SideMenu(sideMenuWidth, menuPane);
+		VBox.setVgrow(menuPane, Priority.ALWAYS);
+
+		SideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane);
+
+		// layout the scene.
+		StackPane buttonLocation = new StackPane();
+		buttonLocation.getChildren().addAll(sideMenu.getDisplayMenuButton());
+		buttonLocation.setAlignment(Pos.CENTER_RIGHT);
+
+		//mainPane.getChildren().add(buttonLocation);
+		sideMenuContainer.setRight(sideMenu);
+		sideMenuContainer.setCenter(buttonLocation);
+		mainPane.setRight(sideMenuContainer);
+		mainPane.setCenter(centerPane);
+		//sideMenuContainer.setMinWidth(200);
+
+		//activate if you want to be able to see the side menu container
+//		sideMenuContainer.setBorder(new Border( new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 
 		ArrayList<Item> guitar = new ArrayList<>();
 		try {
