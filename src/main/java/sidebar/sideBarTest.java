@@ -1,19 +1,6 @@
 package sidebar;
 
-import javafx.application.Application;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
+/*
 public class sideBarTest extends Application {
 	
 
@@ -38,9 +25,9 @@ public class sideBarTest extends Application {
 		
 		/*initialize sideMenu controller, passing in current width, sideMenu panel and buttons
 		 * these are needed to call methods in contoller class*/
-		SideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane);
+		//SideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane);
 
-		// layout the scene.
+		/* layout the scene.
 		final BorderPane layout = new BorderPane();
 
 		StackPane buttonLocation = new StackPane();
@@ -55,5 +42,4 @@ public class sideBarTest extends Application {
 		stage.show();
 	}
 	
-	
-}
+}*/

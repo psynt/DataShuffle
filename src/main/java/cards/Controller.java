@@ -1,36 +1,30 @@
 package cards;
 
-import static cards.CardFactory.createCard;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-
-import org.jsoup.nodes.Document;
-
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import org.jsoup.nodes.Document;
 import sidebar.SideMenu;
 import sidebar.SideMenuController;
-import sidebar.SideMenuItems;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+
+import static cards.CardFactory.createCard;
 
 public class Controller {
 	private int numDecks = 0;
@@ -41,6 +35,9 @@ public class Controller {
 	BorderPane mainPane;
 	@FXML
 	FlowPane centerPane;
+	@FXML
+	ScrollPane scrollPane;
+
 	@FXML
 	BorderPane sideMenuContainer;
 	
@@ -69,6 +66,11 @@ public class Controller {
 
 		centerPane.getChildren().add(cardStackLeft);
 		centerPane.getChildren().add(cardStackRight);
+		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+		scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+		scrollPane.setContent(centerPane);
+		scrollPane.setStyle("-fx-background-color: #2f4f4f;");
+		centerPane.setStyle("-fx-background-color: #2f4f4f;");
 
 		int sideMenuWidth = 250;
 
@@ -89,7 +91,7 @@ public class Controller {
 		sideMenuContainer.setRight(sideMenu);
 		sideMenuContainer.setCenter(buttonLocation);
 		mainPane.setRight(sideMenuContainer);
-		mainPane.setCenter(centerPane);
+		mainPane.setCenter(scrollPane);
 		//sideMenuContainer.setMinWidth(200);
 
 		//activate if you want to be able to see the side menu container
