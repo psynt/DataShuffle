@@ -1,5 +1,8 @@
 package cards;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import content.Item;
 import javafx.animation.PauseTransition;
 import javafx.beans.value.ChangeListener;
@@ -8,12 +11,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.Map;
+import sidebar.SideMenu;
+import sidebar.SideMenuItems;
 
 /**
  * The 'card'
@@ -21,24 +28,23 @@ import java.util.Map;
  * Created by nichita on 01/03/17.
  *
  */
-public class Card extends Tab {
-
+public class Card extends Tab implements Observer{
 
 	private VBox layoutManager;
 	private ArrayList<Label> labels = new ArrayList<>();
 	final Label label = new Label();
 	final TextField tabTitle = new TextField();
+	
+	private SideMenuItems subject;
 
-	public Card(Item i, int g) {
+	public Card(Item i, int g, SideMenuItems subjectSidebar) {
 		Label cardName = new Label("Deck " + g);
-
 
 		layoutManager = new VBox();
 		layoutManager.setMinHeight(200);
 		layoutManager.setMinWidth(400);
 
 		i.entrySet().stream().filter(e -> !e.getKey().matches("(i|I)mage")).forEach(e -> addLabel(e));
-
 
 		// name = i.get("name");
 		label.setText(i.get("name"));
@@ -130,7 +136,10 @@ public class Card extends Tab {
 		layoutManager.getChildren().addAll(labels);
 		setContent(layoutManager);
 		setClosable(true);
-
+		
+		//add sidebar subject
+		this.subject = subjectSidebar;
+		this.subject.attach(this);
 	}
 
 	private void addLabel(Map.Entry<String, String> e) {
@@ -139,6 +148,12 @@ public class Card extends Tab {
 
 	public void addComponent(Node n) {
 		layoutManager.getChildren().add(n);
+	}
+
+	@Override
+	public void update() {
+		boolean selected = subject.showTitleCheckBox.isSelected();
+		labels.get(0).setVisible(selected);
 	}
 
 	/*public String getName() {

@@ -1,5 +1,8 @@
 package sidebar;
 
+import java.util.ArrayList;
+
+import cards.Card;
 import javafx.scene.layout.Pane;
 
 public class SideMenuController extends SideMenuItems
@@ -8,8 +11,10 @@ public class SideMenuController extends SideMenuItems
 	
 	// apply the animations when the button is pressed.
 	
-	public static void Initialize(int sideMenuWidth, SideMenu sideMenu, Pane menuPane){	
+	public void Initialize(int sideMenuWidth, SideMenu sideMenu, Pane menuPane){	
 	
+		//setup observer pattern
+		
 		SideMenu.displayMenuButton.setOnAction(event -> {
 			sideMenu.collapseSideMenu(sideMenuWidth, menuPane);
 		});
@@ -42,22 +47,25 @@ public class SideMenuController extends SideMenuItems
 		noButton.setOnAction(event -> {
 			System.out.print("no test");
 		});
-
-
-		showPriceButton.setOnAction(event -> {
+		
+		showPriceCheckBox.setOnAction(event -> {
 			System.out.print("price test");
+			notifyAllObservers();
 		});
 
-		showTitleButton.setOnAction(event -> {
+		showTitleCheckBox.setOnAction(event -> {
 			System.out.print("title test");
+			notifyAllObservers();
 		});
 
-		showImageButton.setOnAction(event -> {
+		showImageCheckBox.setOnAction(event -> {
 			System.out.print("image test");
+			notifyAllObservers();
 		});
 
-		showRemainingTimeButton.setOnAction(event -> {
+		showRemainingTimeCheckBox.setOnAction(event -> {
 			System.out.print("time test");
+			notifyAllObservers();
 		});
 
 		exportExcelButton.setOnAction(event -> {

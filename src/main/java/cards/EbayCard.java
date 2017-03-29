@@ -2,6 +2,7 @@ package cards;
 
 import content.Item;
 import javafx.scene.image.ImageView;
+import sidebar.SideMenuItems;
 
 /**
  * Cards for the ebay module... thingy... functionality Thsese will support
@@ -10,9 +11,9 @@ import javafx.scene.image.ImageView;
  */
 public class EbayCard extends Card {
 
-	public EbayCard(Item cardItem, int g) {
+	public EbayCard(Item cardItem, int g, SideMenuItems sidebarSubject) {
 
-		super(cardItem, g);
+		super(cardItem, g, sidebarSubject);
 
 		ImageView cardImg = new ImageView(cardItem.get("image"));
 		cardImg.setFitHeight(150);

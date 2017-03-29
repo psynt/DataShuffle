@@ -1,34 +1,42 @@
 package sidebar;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cards.Card;
 import javafx.geometry.Pos;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class SideMenuItems {
+	
+	protected List<Card> observerCards = new ArrayList<Card>();; 
+	
 	//project buttons
-	static Button newProjectButton = new Button("New");
-	static Button saveButton = new Button("Save");
-	static Button saveAsButton = new Button("Save As..");
-	static Button openButton = new Button("Open");
+	Button newProjectButton = new Button("New");
+	Button saveButton = new Button("Save");
+	Button saveAsButton = new Button("Save As..");
+	Button openButton = new Button("Open");
 
 	//add to buttons
-	static Button yesButton = new Button("Yes");
-	static Button noButton = new Button("No");
-	static Button maybeButton = new Button("Maybe");
+	Button yesButton = new Button("Yes");
+	Button noButton = new Button("No");
+	Button maybeButton = new Button("Maybe");
 
 	//ebay show only buttons
-	static Button showPriceButton = new Button("Price");
-	static Button showTitleButton = new Button("Title");
-	static Button showImageButton = new Button("Image");
-	static Button showRemainingTimeButton = new Button("Remaining Time");
+	public CheckBox showPriceCheckBox = new CheckBox("Price");
+	public CheckBox showTitleCheckBox = new CheckBox("Title");
+	public CheckBox showImageCheckBox = new CheckBox("Image");
+	public CheckBox showRemainingTimeCheckBox = new CheckBox("Remaining Time");
 
 	//export to buttons
-	static Button exportExcelButton = new Button("Excel");
+	Button exportExcelButton = new Button("Excel");
 	
-	public static BorderPane createSidebarItems()
+	public BorderPane createSidebarItems()
     {
 		final BorderPane menuPane = new BorderPane();
 		/*This function creates the item inside the side menu and places them in a pane, the menupane. This menupane is 
@@ -44,8 +52,8 @@ public class SideMenuItems {
 		addCardButtonLayout.setAlignment(Pos.CENTER);
 		
 		//Create layout for select items to show button and add buttons
-		VBox showItemsButtonLayout = new VBox(showPriceButton, showTitleButton, showImageButton, showRemainingTimeButton);
-		showItemsButtonLayout.setAlignment(Pos.CENTER);
+		VBox showItemsCheckBoxLayout = new VBox(showPriceCheckBox, showTitleCheckBox, showImageCheckBox, showRemainingTimeCheckBox);
+		showItemsCheckBoxLayout.setAlignment(Pos.CENTER_LEFT);
 		
 		//Create layout for export to button in side menu and add buttons
 		VBox exportToButtonLayout = new VBox(exportExcelButton);
@@ -54,7 +62,7 @@ public class SideMenuItems {
 		//add submenu buttons to parent menu buttons
 		TitledPane t1 = new TitledPane("Project", projectButtonLayout);
 		TitledPane t2 = new TitledPane("Add card to...",  addCardButtonLayout);
-		TitledPane t3 = new TitledPane("Show only..", showItemsButtonLayout);
+		TitledPane t3 = new TitledPane("Show only..", showItemsCheckBoxLayout);
 		TitledPane t4 = new TitledPane("Export to...", exportToButtonLayout);
 
 		//Add Parent menu buttons to accordian menu
@@ -63,7 +71,16 @@ public class SideMenuItems {
 		
 		menuPane.setTop(accordion);
 		return menuPane;
-        
-		
+        	
     }
+
+	public void attach(Card observer){
+			observerCards.add(observer);		
+	}
+
+	public void notifyAllObservers(){
+		for (Card observer : observerCards) {
+			observer.update();
+		}
+	}
 }

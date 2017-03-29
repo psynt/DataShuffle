@@ -1,5 +1,13 @@
 package cards;
 
+import static cards.CardFactory.createCard;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+
+import org.jsoup.nodes.Document;
+
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -11,20 +19,18 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.*;
-import org.jsoup.nodes.Document;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import sidebar.SideMenu;
 import sidebar.SideMenuController;
 import sidebar.SideMenuItems;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-
-import static cards.CardFactory.createCard;
 
 public class Controller {
 	private int numDecks = 0;
@@ -46,6 +52,9 @@ public class Controller {
 	Button newYellowDeckButton;
 	@FXML 
 	Button newRedDeckButton;
+	
+	SideMenu sideMenu;
+	SideMenuController sideMenuController;
 
 	@FXML
 	public void initialize() {
@@ -64,11 +73,12 @@ public class Controller {
 		int sideMenuWidth = 250;
 
 		// create a sidebar with some content in it.
-		final Pane menuPane = SideMenuItems.createSidebarItems();
-		SideMenu sideMenu = new SideMenu(sideMenuWidth, menuPane);
+		sideMenuController = new SideMenuController();
+		final Pane menuPane = sideMenuController.createSidebarItems();
+		sideMenu = new SideMenu(sideMenuWidth, menuPane);
 		VBox.setVgrow(menuPane, Priority.ALWAYS);
 
-		SideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane);
+		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane);
 
 		// layout the scene.
 		StackPane buttonLocation = new StackPane();
@@ -124,7 +134,7 @@ public class Controller {
 	}
 
 	private Card newCard(Item item, String type, int g) {
-		final Card card = createCard(item,type, g);
+		final Card card = createCard(item,type, g, sideMenuController);
 		card.getGraphic().setOnDragDetected(event -> {
             Dragboard dragboard = card.getGraphic().startDragAndDrop(TransferMode.MOVE);
             ClipboardContent clipboardContent = new ClipboardContent();

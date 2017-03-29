@@ -1,5 +1,8 @@
 package sidebar;
 
+import java.util.ArrayList;
+
+import cards.Card;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Pos;
@@ -9,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class SideMenu extends VBox {
+	
 	// function to return the button that displays or hides the side menu
 	public Button getDisplayMenuButton() {
 		return displayMenuButton;
@@ -33,8 +37,7 @@ public class SideMenu extends VBox {
 		displayMenuButton.setMinWidth(75);
 		
 		//initialize sideMenu controller, passing in current width and sideMenu panel
-		
-		
+				
 	}
 
 	// apply the animations when the button is pressed.
@@ -87,11 +90,10 @@ public class SideMenu extends VBox {
 			}
 		}
 	}
-
 	
 	private boolean menuAnimationFinished(final Animation hideSideMenu, final Animation showSideMenu) {
 		return showSideMenu.statusProperty().get() == Animation.Status.STOPPED
 				&& hideSideMenu.statusProperty().get() == Animation.Status.STOPPED;
 	}
-		
+		 
 }
