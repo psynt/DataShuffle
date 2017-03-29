@@ -10,9 +10,9 @@ import javafx.scene.image.ImageView;
  */
 public class EbayCard extends Card {
 
-	public EbayCard(Item cardItem, int g) {
+	public EbayCard(Item cardItem, int numDeck) {
 
-		super(cardItem, g);
+		super(cardItem, numDeck);
 
 		ImageView cardImg = new ImageView(cardItem.get("image"));
 		cardImg.setFitHeight(150);

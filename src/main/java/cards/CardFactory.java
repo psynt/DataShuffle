@@ -12,14 +12,14 @@ public class CardFactory {
 
     public static final String[] VERSIONS = { "Ebay" };
 
-    public static Card createCard(Item item, String type, int g){
+    public static Card createCard(Item item, String type, int numDeck){
 		final Card card;
 		switch (type) {
             case "Ebay":
-                card = new EbayCard(item, g);
+                card = new EbayCard(item, numDeck);
                 break;
             default:
-                card = new Card(item, g);
+                card = new Card(item, numDeck);
                 break;
         }
         return card;
