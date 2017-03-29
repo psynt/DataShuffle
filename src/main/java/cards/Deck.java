@@ -11,7 +11,7 @@ public class Deck extends TabPane {
 
 	private static final String TAB_DRAG_KEY = "tab";
 
-	public Deck(ObjectProperty<Tab> draggingTab, int colour) {
+	public Deck(ObjectProperty<Tab> draggingTab, int colour, int num) {
 
 		setOnDragOver(event -> {
 			final Dragboard dragboard = event.getDragboard();
@@ -53,12 +53,12 @@ public class Deck extends TabPane {
 		}
 
 		setMinWidth(120);
-		setMaxWidth(480);
-		setMaxHeight(480);
-		setMinHeight(480);
+		//setMaxWidth(480);
+		//setMaxHeight(480);
+		setMinHeight(150);
 
 		setTabMinWidth(50);
-		setTabMaxWidth(100);
+		setTabMaxWidth(75);
 
 		ContextMenu rightClickMenu = new ContextMenu();
 		Menu resizeCard = new Menu("Resize Deck");

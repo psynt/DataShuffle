@@ -62,10 +62,10 @@ public class Controller {
         mainPane.setStyle("-fx-background-color: #2f4f4f;");
         
 		draggingTab = new SimpleObjectProperty<>();
-
-		Deck cardStackLeft = new Deck(draggingTab, 0);
-
-		Deck cardStackRight = new Deck(draggingTab, 2);
+		incNumDecks();
+		Deck cardStackLeft = new Deck(draggingTab, 0, getNumDecks());
+		incNumDecks();
+		Deck cardStackRight = new Deck(draggingTab, 2, getNumDecks());
 
 		centerPane.getChildren().add(cardStackLeft);
 		centerPane.getChildren().add(cardStackRight);
@@ -133,8 +133,8 @@ public class Controller {
 		return whatYouWant;
 	}
 
-	private Card newCard(Item item, String type, int g) {
-		final Card card = createCard(item,type, g, sideMenuController);
+	private Card newCard(Item item, String type, int deck) {
+		final Card card = createCard(item, type, deck, sideMenuController);
 		card.getGraphic().setOnDragDetected(event -> {
             Dragboard dragboard = card.getGraphic().startDragAndDrop(TransferMode.MOVE);
             ClipboardContent clipboardContent = new ClipboardContent();
@@ -148,23 +148,29 @@ public class Controller {
 	}
 
 	@FXML public void newGreenDeck() {
-		Deck newDeck = new Deck(draggingTab, 0);
+		Deck newDeck = new Deck(draggingTab, 0, incNumDecks());
 		centerPane.getChildren().add(newDeck);
 	}
 	
 	@FXML public void newYellowDeck() {
-		Deck newDeck = new Deck(draggingTab, 1);
+		Deck newDeck = new Deck(draggingTab, 1, incNumDecks());
 		centerPane.getChildren().add(newDeck);
 	}
 	
 	@FXML public void newRedDeck() {
-		Deck newDeck = new Deck(draggingTab, 2);
+		Deck newDeck = new Deck(draggingTab, 2, incNumDecks());
 		centerPane.getChildren().add(newDeck);
 	}
 
 	int getNumDecks(){
-	numDecks++;
+
 	return numDecks;
+	}
+	int incNumDecks(){
+		numDecks++;
+		return numDecks;
+
+
 	}
 	
 }

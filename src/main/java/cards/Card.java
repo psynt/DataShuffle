@@ -5,10 +5,6 @@ import java.util.Map;
 
 import content.Item;
 import javafx.animation.PauseTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
@@ -37,12 +33,12 @@ public class Card extends Tab implements Observer{
 	
 	private SideMenuItems subject;
 
-	public Card(Item i, int g, SideMenuItems subjectSidebar) {
-		Label cardName = new Label("Deck " + g);
+	public Card(Item i, int numDeck, SideMenuItems subjectSidebar) {
+		Label cardName = new Label("Deck " + numDeck);
 
 		layoutManager = new VBox();
-		layoutManager.setMinHeight(200);
-		layoutManager.setMinWidth(400);
+		layoutManager.setMinHeight(50);
+		layoutManager.setMinWidth(120);
 
 		i.entrySet().stream().filter(e -> !e.getKey().matches("(i|I)mage")).forEach(e -> addLabel(e));
 
@@ -51,14 +47,12 @@ public class Card extends Tab implements Observer{
 		// setGraphic(new Label(i.get("name")));
 		setGraphic(label);
 
-		tabTitle.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				label.setText(tabTitle.getText());
-				setGraphic(label);
 
-			}
-		});
+		tabTitle.setOnAction(event -> {
+            label.setText(tabTitle.getText());
+            setGraphic(label);
+
+        });
 
 		ContextMenu rightClickMenu = new ContextMenu();
 		Menu setColour = new Menu("Set Colour");
@@ -68,56 +62,25 @@ public class Card extends Tab implements Observer{
 		MenuItem orange = new MenuItem("Orange");
 		MenuItem yellow = new MenuItem("Yellow");
 		setColour.getItems().addAll(red, blue, green, orange, yellow);
-		red.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				Card.super.setStyle("-fx-background-color: tomato;");
-
-			}
-		});
-		blue.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				Card.super.setStyle("-fx-background-color: lightskyblue;");
-
-			}
-		});
-		green.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				Card.super.setStyle("-fx-background-color: mediumspringgreen;");
-
-			}
-		});
-		orange.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				Card.super.setStyle("-fx-background-color: lightsalmon;");
-
-			}
-		});
-		yellow.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				Card.super.setStyle("-fx-background-color: yellow;");
-
-			}
-		});
+		red.setOnAction(e -> Card.super.setStyle("-fx-background-color: tomato;"));
+		blue.setOnAction(e -> Card.super.setStyle("-fx-background-color: lightskyblue;"));
+		green.setOnAction(e -> Card.super.setStyle("-fx-background-color: mediumspringgreen;"));
+		orange.setOnAction(e -> Card.super.setStyle("-fx-background-color: lightsalmon;"));
+		yellow.setOnAction(e -> Card.super.setStyle("-fx-background-color: yellow;"));
 		MenuItem renameCard = new MenuItem("Rename Card");
-		renameCard.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				tabTitle.setText(label.getText());
-				setGraphic(tabTitle);
-				tabTitle.selectAll();
-				tabTitle.requestFocus();
+		renameCard.setOnAction(event -> {
+            tabTitle.setText(label.getText());
+            setGraphic(tabTitle);
+            tabTitle.selectAll();
+            tabTitle.requestFocus();
 
-			}
-		});
-		tabTitle.focusedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				if (!newValue) {
-					label.setText(tabTitle.getText());
-					setGraphic(label);
-				}
-			}
-		});
+        });
+		tabTitle.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                label.setText(tabTitle.getText());
+                setGraphic(label);
+            }
+        });
 
 
 
