@@ -68,6 +68,7 @@ public class Controller {
 		centerPane.getChildren().add(cardStackRight);
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
 		scrollPane.setContent(centerPane);
 		scrollPane.setStyle("-fx-background-color: #2f4f4f;");
 		centerPane.setStyle("-fx-background-color: #2f4f4f;");
@@ -109,12 +110,13 @@ public class Controller {
 		guitar.forEach(e -> cards.add(newCard(e, "Ebay", getNumDecks())));
 
 		// add the left cards to the left vbox
-		for (int i = 0; i < 3; i++) {
+		int i = 0;
+		do{
 			cardStackLeft.getTabs().add(cards.get(i));
-		}
-		for (int i = 3; i < 6; i++) {
+			i++;
 			cardStackRight.getTabs().add(cards.get(i));
-		}
+			i++;
+		}while(i < 20 );
 
 	}
 
@@ -151,6 +153,7 @@ public class Controller {
 
 	@FXML public void newGreenDeck() {
 		Deck newDeck = new Deck(draggingTab, 0, incNumDecks());
+
 		centerPane.getChildren().add(newDeck);
 	}
 	

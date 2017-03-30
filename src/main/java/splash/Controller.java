@@ -1,36 +1,25 @@
 package splash;
 
-import java.net.URL;
-import java.util.ArrayList;
-
-import org.jsoup.nodes.Document;
-
 import content.Item;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Separator;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-
-
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-
-
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.jsoup.nodes.Document;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 
 public class Controller {
 
@@ -52,33 +41,18 @@ public class Controller {
 	    TextField userTextField = new TextField();  
 	    
 	    userTextField.setOnAction(e -> {
-	        // add your code to be run here
-	       
-	        ArrayList<Item> whatYouWant = new ArrayList<>();
-			Document guitarSearch = null;
-			try {
-				guitarSearch = DocumentLoader.load(new URL(
-						"http://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2050601.m570.l1313.TR0.TRC0.H0.Xguitar.TRS0&_nkw=guitar&_sacat=0"));
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			EbayResultScraper thing1 = new EbayResultScraper(guitarSearch);
-			ArrayList<String> links = thing1.scrapeLinks();
 
-			for (String link : links) {
-				Document res = null;
-				try {
-					res = DocumentLoader.load(new URL(link));
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				EbayItemScraper guitar = new EbayItemScraper(res);
-				whatYouWant.add(guitar.scrapeDocument());
+
+	    	ArrayList<Item>	searchResults = new ArrayList<>();
+
+			try {
+				searchResults = scrape(userTextField.getText());
+			} catch (MalformedURLException f) {
+				f.printStackTrace();
 			}
-			System.out.println("URL");
-			System.out.println(whatYouWant);
+
+
+
 	        });
 	    Button button = new Button("Search");
 	    button.setOnAction(e -> window.close());
@@ -126,6 +100,28 @@ public class Controller {
 	    window.setScene(scene);
 	    scene.getStylesheets().add(Controller.class.getResource("/application.css").toExternalForm());
 	    window.showAndWait();
+	}
+
+	public ArrayList<Item> scrape(String URL) throws MalformedURLException {
+		String searchURL = "http://www.ebay.co.uk/sch/i.html?_&_nkw=guitar&_sacat=0".replace("guitar", URL);
+
+
+
+
+		ArrayList<Item> whatYouWant = new ArrayList<>();
+		Document guitarSearch = DocumentLoader.load(new URL(
+				searchURL));
+		EbayResultScraper thing1 = new EbayResultScraper(guitarSearch);
+		ArrayList<String> links = thing1.scrapeLinks();
+
+		for (String link : links) {
+			Document res = DocumentLoader.load(new URL(link));
+			EbayItemScraper guitar = new EbayItemScraper(res);
+
+			whatYouWant.add(guitar.scrapeDocument());
+
+		}
+		return whatYouWant;
 	}
 
 }
