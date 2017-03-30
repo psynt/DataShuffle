@@ -47,6 +47,7 @@ public class Controller {
 
 			try {
 				searchResults = scrape(userTextField.getText());
+				System.out.println(searchResults);
 			} catch (MalformedURLException f) {
 				f.printStackTrace();
 			}
