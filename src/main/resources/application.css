@@ -16,7 +16,12 @@
 
      
 }
-#usertextfiled{
+
+#mintextfield{
+	-fx-min-width: 0.2;
+    -fx-min-height: 0.2;
+}
+#usertextfield{
 	-fx-background-color:transparent;
 	-fx-border-color:derive(gray,80%);
 	-fx-border-style: solid;
