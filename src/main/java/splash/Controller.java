@@ -36,8 +36,8 @@ import webscraper.EbayResultScraper;
 public class Controller {
 
 	@FXML AnchorPane pane;
-	
 
+	static ArrayList<Item>	searchResults = new ArrayList<>();
 
 	@FXML public void clickEvent() {
 		Stage window = new Stage();
