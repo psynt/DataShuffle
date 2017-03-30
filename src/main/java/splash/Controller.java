@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -80,17 +81,17 @@ public class Controller {
 	    
 	    grid.add(userTextField,0,3);
 	    
-	    Slider slider = new Slider();
-	    slider.setMin(0);
-	    slider.setMax(100);
-	    slider.setValue(40);
-	    slider.setShowTickLabels(true);
-	    slider.setShowTickMarks(true);
-	    slider.setMajorTickUnit(50);
-	    slider.setMinorTickCount(5);
-	    slider.setBlockIncrement(10);
-	    GridPane.setConstraints(slider,0,6);
-	    grid.getChildren().add(slider);
+	    Label label1 = new Label("Min:");
+	    Label label2 = new Label("Max:");
+	    TextField minTextField = new TextField();
+	    TextField maxTextField = new TextField();
+	    minTextField.setPrefWidth(55.0);
+	    maxTextField.setPrefWidth(55.0);
+	    HBox hb = new HBox();
+	    hb.getChildren().addAll(label1, minTextField);
+	    hb.getChildren().addAll(label2, maxTextField);
+	    hb.setSpacing(8);
+	    grid.add(hb, 0, 5, 2, 1);
 	    
 	    final ChoiceBox cb = new ChoiceBox();
 	    cb.setItems(FXCollections.observableArrayList(
