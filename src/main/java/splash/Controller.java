@@ -1,4 +1,10 @@
+
 package splash;
+
+import java.net.URL;
+import java.util.ArrayList;
+
+import org.jsoup.nodes.Document;
 
 import content.Item;
 import javafx.collections.FXCollections;
@@ -6,20 +12,26 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+
+
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.jsoup.nodes.Document;
 import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 
 public class Controller {
 
@@ -41,22 +53,36 @@ public class Controller {
 	    TextField userTextField = new TextField();  
 	    
 	    userTextField.setOnAction(e -> {
-
-
-	    	ArrayList<Item>	searchResults = new ArrayList<>();
-
+	        // add your code to be run here
+	       
+	        ArrayList<Item> whatYouWant = new ArrayList<>();
+			Document guitarSearch = null;
 			try {
-				searchResults = scrape(userTextField.getText());
-				System.out.println(searchResults);
-			} catch (MalformedURLException f) {
-				f.printStackTrace();
+				guitarSearch = DocumentLoader.load(new URL(
+						"http://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2050601.m570.l1313.TR0.TRC0.H0.Xguitar.TRS0&_nkw=guitar&_sacat=0"));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
+			EbayResultScraper thing1 = new EbayResultScraper(guitarSearch);
+			ArrayList<String> links = thing1.scrapeLinks();
 
-
-
+			for (String link : links) {
+				Document res = null;
+				try {
+					res = DocumentLoader.load(new URL(link));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				EbayItemScraper guitar = new EbayItemScraper(res);
+				whatYouWant.add(guitar.scrapeDocument());
+			}
+			System.out.println("URL");
+			System.out.println(whatYouWant);
 	        });
-	    Button button = new Button("Search");
-	    button.setOnAction(e -> window.close());
+	    //Button button = new Button("Search");
+	    //button.setOnAction(e -> window.close());
 	    
 	    
 	    GridPane grid = new GridPane();
@@ -72,18 +98,20 @@ public class Controller {
 	    //grid.getChildren().add(button);
 	    
 	    grid.add(userTextField,0,3);
+	    Label label1 = new Label("Min:");
+	    Label label2 = new Label("Max:");
+	    TextField minTextField = new TextField();
+	    TextField maxTextField = new TextField();
+	    minTextField.setPrefWidth(55.0);
+	    maxTextField.setPrefWidth(55.0);
+	    HBox hb = new HBox();
+	    hb.getChildren().addAll(label1, minTextField);
+	    hb.getChildren().addAll(label2, maxTextField);
+	    hb.setSpacing(8);
 	    
-	    Slider slider = new Slider();
-	    slider.setMin(0);
-	    slider.setMax(100);
-	    slider.setValue(40);
-	    slider.setShowTickLabels(true);
-	    slider.setShowTickMarks(true);
-	    slider.setMajorTickUnit(50);
-	    slider.setMinorTickCount(5);
-	    slider.setBlockIncrement(10);
-	    GridPane.setConstraints(slider,0,6);
-	    grid.getChildren().add(slider);
+	   // GridPane.setConstraints(mTextField,0,6);
+	    //mTextField.setId("minTextField");
+	    grid.add(hb,0,4,1,1);
 	    
 	    final ChoiceBox cb = new ChoiceBox();
 	    cb.setItems(FXCollections.observableArrayList(
@@ -103,26 +131,5 @@ public class Controller {
 	    window.showAndWait();
 	}
 
-	public ArrayList<Item> scrape(String URL) throws MalformedURLException {
-		String searchURL = "http://www.ebay.co.uk/sch/i.html?_&_nkw=guitar&_sacat=0".replace("guitar", URL);
-
-
-
-
-		ArrayList<Item> whatYouWant = new ArrayList<>();
-		Document guitarSearch = DocumentLoader.load(new URL(
-				searchURL));
-		EbayResultScraper thing1 = new EbayResultScraper(guitarSearch);
-		ArrayList<String> links = thing1.scrapeLinks();
-
-		for (String link : links) {
-			Document res = DocumentLoader.load(new URL(link));
-			EbayItemScraper guitar = new EbayItemScraper(res);
-
-			whatYouWant.add(guitar.scrapeDocument());
-
-		}
-		return whatYouWant;
-	}
-
 }
+
