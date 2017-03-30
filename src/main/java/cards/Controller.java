@@ -19,6 +19,8 @@ import webscraper.DocumentLoader;
 import webscraper.EbayItemScraper;
 import webscraper.EbayResultScraper;
 
+
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -104,9 +106,14 @@ public class Controller {
 //			e.printStackTrace();
 //		}
 
+
+
+
+		ArrayList<Item> results = splash.Controller.getSearchResults();
+
 		ArrayList<Card> cards = new ArrayList<>();
 
-		//results.forEach(e -> cards.add(newCard(e, "Ebay", getNumDecks())));
+		results.forEach(e -> cards.add(newCard(e, "Ebay", getNumDecks())));
 
 		// add the left cards to the left vbox
 		int i = 0;

@@ -24,8 +24,8 @@ import java.util.ArrayList;
 public class Controller {
 
 	@FXML AnchorPane pane;
-	
 
+	static ArrayList<Item>	searchResults = new ArrayList<>();
 
 	@FXML public void clickEvent() {
 		Stage window = new Stage();
@@ -43,14 +43,20 @@ public class Controller {
 	    userTextField.setOnAction(e -> {
 
 
-	    	ArrayList<Item>	searchResults = new ArrayList<>();
+
 
 			try {
 				searchResults = scrape(userTextField.getText());
-				System.out.println(searchResults);
+				//System.out.println(searchResults);
+				cards.Main.main(null);
+				window.setOpacity(0);
+
+
+				window.setOpacity(0);
 			} catch (MalformedURLException f) {
 				f.printStackTrace();
 			}
+
 
 
 
@@ -123,6 +129,9 @@ public class Controller {
 
 		}
 		return whatYouWant;
+	}
+	public static ArrayList<Item> getSearchResults(){
+		return searchResults;
 	}
 
 }
