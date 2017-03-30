@@ -51,11 +51,11 @@ public class Deck extends TabPane {
 			setStyle("-fx-background-color: #d28f8f;");
 			break;
 		}
-
-		setMinWidth(400);
-		setMinHeight(300);
-		//setMaxWidth(480);
-		//setMaxHeight(480);
+		
+		setMinWidth(120);
+		setMaxWidth(480);
+		setMaxHeight(480);
+		setMinHeight(150);
 
 		setTabMinWidth(50);
 		setTabMaxWidth(75);

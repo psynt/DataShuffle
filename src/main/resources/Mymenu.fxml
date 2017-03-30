@@ -11,7 +11,14 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="splash.Controller">
    <children>
-      <Button layoutX="109.0" layoutY="465.0" mnemonicParsing="false" onAction="#clickEvent" prefHeight="30.0" prefWidth="180.0" text="Module" />
+      <Button layoutX="94.0" layoutY="397.0" mnemonicParsing="false" onAction="#clickEvent" prefHeight="30.0" prefWidth="180.0" text="Module">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="file:/C:/Users/hp1/Desktop/GP/G52GRP_TEAM4_2016_Softwarecide-Squad/src/main/resources/module.png" />
+               </source>
+            </ImageInput>
+         </effect></Button>
       <Button layoutX="142.0" layoutY="352.0" mnemonicParsing="false" onAction="#clickEvent" prefHeight="30.0" prefWidth="180.0" text="Ebay">
          <effect>
             <ImageInput>

@@ -14,7 +14,7 @@ public class POSTRequest{
 
     protected Map<String,String> cookie;
     protected Response from;
-    protected String ref;
+    private String ref;
 
 
     /**
