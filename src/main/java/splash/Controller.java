@@ -104,7 +104,7 @@ public class Controller {
 	}
 
 	public ArrayList<Item> scrape(String URL) throws MalformedURLException {
-		String searchURL = "http://www.ebay.co.uk/sch/i.html?_&_nkw=guitar&_sacat=0".replace("guitar", URL);
+		String searchURL = "http://www.ebay.co.uk/sch/i.html?_&_nkw=datashuffle&_sacat=0".replace("datashuffle", URL);
 
 
 

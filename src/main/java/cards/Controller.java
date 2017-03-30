@@ -1,5 +1,4 @@
 package cards;
-
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -97,17 +96,17 @@ public class Controller {
 
 		//activate if you want to be able to see the side menu container
 //		sideMenuContainer.setBorder(new Border( new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
-
-		ArrayList<Item> guitar = new ArrayList<>();
-		try {
-			guitar = scrape();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+//
+//		ArrayList<Item> guitar = new ArrayList<>();
+//		try {
+//			guitar = scrape();
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		}
 
 		ArrayList<Card> cards = new ArrayList<>();
 
-		guitar.forEach(e -> cards.add(newCard(e, "Ebay", getNumDecks())));
+		//results.forEach(e -> cards.add(newCard(e, "Ebay", getNumDecks())));
 
 		// add the left cards to the left vbox
 		int i = 0;
