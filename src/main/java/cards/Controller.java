@@ -116,13 +116,14 @@ public class Controller {
 		results.forEach(e -> cards.add(newCard(e, "Ebay", getNumDecks())));
 
 		// add the left cards to the left vbox
-		int i = 0;
-		do{
-			cardStackLeft.getTabs().add(cards.get(i));
+		for(int i=0 ; i<cards.size() ; i++){
+			if ((i & 1) == 1){
+				cardStackLeft.getTabs().add(cards.get(i));
+			}else{
+				cardStackRight.getTabs().add(cards.get(i));
+			}
 			i++;
-			cardStackRight.getTabs().add(cards.get(i));
-			i++;
-		}while(i < 20 );
+		}
 
 	}
 
@@ -174,14 +175,11 @@ public class Controller {
 	}
 
 	int getNumDecks(){
-
-	return numDecks;
-	}
-	int incNumDecks(){
-		numDecks++;
 		return numDecks;
+	}
 
-
+	int incNumDecks(){
+		return ++numDecks;
 	}
 	
 }

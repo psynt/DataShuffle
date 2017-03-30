@@ -8,9 +8,19 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         BorderPane root = FXMLLoader.load(getClass().getResource("/MainSurface.fxml"));
+        primaryStage.setTitle("Hello Adam");
+        primaryStage.setScene(new Scene(root));
+
+        primaryStage.show();
+    }
+
+    //@Override
+    public static void start1(Stage primaryStage) throws Exception{
+        BorderPane root = FXMLLoader.load(Main.class.getResource("/MainSurface.fxml"));
         primaryStage.setTitle("Hello Adam");
         primaryStage.setScene(new Scene(root));
         

@@ -46,14 +46,15 @@ public class Controller {
 
 
 			try {
+				System.err.println("Starting");
 				searchResults = scrape(userTextField.getText());
-				//System.out.println(searchResults);
-				cards.Main.main(null);
-				window.setOpacity(0);
+				System.out.println(searchResults);
+				cards.Main.start1(window);
+//				window.setOpacity(0);
 
 
-				window.setOpacity(0);
-			} catch (MalformedURLException f) {
+//				window.setOpacity(0);
+			} catch (Exception f) {
 				f.printStackTrace();
 			}
 
@@ -93,7 +94,7 @@ public class Controller {
 	    
 	    final ChoiceBox cb = new ChoiceBox();
 	    cb.setItems(FXCollections.observableArrayList(
-	    	    "All Listing", "Austion ", 
+	    	    "All Listings", "Auction ",
 	    	    new Separator(), "Buy It Now!")
 	    	);
 	    GridPane.setConstraints(cb,0,8);
