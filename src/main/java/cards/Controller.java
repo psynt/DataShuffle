@@ -50,7 +50,7 @@ public class Controller {
 	@FXML
 	public void initialize() {
 
-        mainPane.setStyle("-fx-background-color: #2f4f4f;");
+		mainPane.setStyle("-fx-background-color: #2f4f4f;");
         
 		draggingTab = new SimpleObjectProperty<>();
 		incNumDecks();
