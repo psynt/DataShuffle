@@ -3,6 +3,7 @@ import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -12,17 +13,9 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
-import org.jsoup.nodes.Document;
 import sidebar.SideMenu;
 import sidebar.SideMenuController;
-import webscraper.DocumentLoader;
-import webscraper.EbayItemScraper;
-import webscraper.EbayResultScraper;
 
-
-
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import static cards.CardFactory.createCard;
@@ -61,18 +54,23 @@ public class Controller {
         
 		draggingTab = new SimpleObjectProperty<>();
 		incNumDecks();
-		Deck cardStackLeft = new Deck(draggingTab, 0, getNumDecks());
+		Deck cardStackGreen = new Deck(draggingTab, 0, getNumDecks());
 		incNumDecks();
-		Deck cardStackRight = new Deck(draggingTab, 2, getNumDecks());
+		Deck cardStackYellow = new Deck(draggingTab, 1, getNumDecks());
+		//incNumDecks();
+		//Deck cardStackRed = new Deck(draggingTab, 2, getNumDecks());
 
-		centerPane.getChildren().add(cardStackLeft);
-		centerPane.getChildren().add(cardStackRight);
+		centerPane.getChildren().add(cardStackGreen);
+		centerPane.getChildren().add(cardStackYellow);
+		//centerPane.getChildren().add(cardStackRed);
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
 		scrollPane.setContent(centerPane);
 		scrollPane.setStyle("-fx-background-color: #2f4f4f;");
 		centerPane.setStyle("-fx-background-color: #2f4f4f;");
+		centerPane.setOrientation(Orientation.VERTICAL);
+
 
 		int sideMenuWidth = 250;
 
@@ -116,33 +114,19 @@ public class Controller {
 		results.forEach(e -> cards.add(newCard(e, "Ebay", getNumDecks())));
 
 		// add the left cards to the left vbox
-		for(int i=0 ; i<cards.size() ; i++){
-			if ((i & 1) == 1){
-				cardStackLeft.getTabs().add(cards.get(i));
-			}else{
-				cardStackRight.getTabs().add(cards.get(i));
+		for(int i=0 ; i<cards.size() ; i=i+2){
+
+				cardStackYellow.getTabs().add(cards.get(i));
+				cardStackGreen.getTabs().add(cards.get(i+1));
+
+
 			}
-			i++;
-		}
-
-	}
-
-	public ArrayList<Item> scrape() throws MalformedURLException {
-		ArrayList<Item> whatYouWant = new ArrayList<>();
-		Document guitarSearch = DocumentLoader.load(new URL(
-				"http://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2050601.m570.l1313.TR0.TRC0.H0.Xguitar.TRS0&_nkw=guitar&_sacat=0"));
-		EbayResultScraper thing1 = new EbayResultScraper(guitarSearch);
-		ArrayList<String> links = thing1.scrapeLinks();
-
-		for (String link : links) {
-			Document res = DocumentLoader.load(new URL(link));
-			EbayItemScraper guitar = new EbayItemScraper(res);
-
-			whatYouWant.add(guitar.scrapeDocument());
 
 		}
-		return whatYouWant;
-	}
+
+
+
+
 
 	private Card newCard(Item item, String type, int deck) {
 		final Card card = createCard(item, type, deck, sideMenuController);
