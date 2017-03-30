@@ -17,7 +17,7 @@ public class Main extends Application {
 		try {
 			AnchorPane layout = new AnchorPane();
 
-			Scene scene = new Scene(layout,800,600);
+			Scene scene = new Scene(layout,400,600);
 			
 			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 			Parent content = FXMLLoader.load(getClass().getResource("/Mymenu.fxml"));
