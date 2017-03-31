@@ -67,6 +67,7 @@ public class Controller {
 		scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
 		scrollPane.setContent(centerPane);
+
 		scrollPane.setStyle("-fx-background-color: #2f4f4f;");
 		centerPane.setStyle("-fx-background-color: #2f4f4f;");
 		centerPane.setOrientation(Orientation.VERTICAL);
