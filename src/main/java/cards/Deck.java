@@ -37,6 +37,8 @@ public class Deck extends TabPane {
 				event.setDropCompleted(true);
 				draggingTab.set(null);
 				event.consume();
+				requestLayout();
+
 				//need to find a way to 'REPAINT' the tabs once theyre dragged, as sometimes they become blank
 				// i have tried changing the height / then reverting back, as resizing tehe empty decks repaints them, but also doesnt work
 
@@ -70,7 +72,13 @@ public class Deck extends TabPane {
 		MenuItem incSize = new MenuItem("Increase Size");
 		MenuItem decSize = new MenuItem("Decrease Size");
 		resizeCard.getItems().addAll(incSize, decSize);
-		rightClickMenu.getItems().add(resizeCard);
+
+		Menu deleteMenu = new Menu();
+		MenuItem deleteDeck = new MenuItem("Delete Deck");
+		MenuItem deleteCard = new MenuItem("Delete Card");
+		deleteMenu.getItems().addAll(deleteDeck, deleteCard);
+		rightClickMenu.getItems().addAll(resizeCard, deleteMenu);
+
 
 		incSize.setOnAction(event -> {
             setPrefHeight(getHeight() + 30);
@@ -81,6 +89,20 @@ public class Deck extends TabPane {
 
             setPrefWidth(getWidth() - 60);
         });
+		deleteDeck.setOnAction(event ->
+				{
+					getTabs().clear();
+
+				}
+
+		);
+		deleteCard.setOnAction(event ->
+				{
+					getTabs().remove(this);
+				}
+
+		);
+
 
 		super.setContextMenu(rightClickMenu);
 
