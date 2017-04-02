@@ -15,7 +15,7 @@
          <effect>
             <ImageInput>
                <source>
-                  <Image url="file:/C:/Users/hp1/Desktop/GP/G52GRP_TEAM4_2016_Softwarecide-Squad/src/main/resources/module.png" />
+                  <Image url="@module.png" />
                </source>
             </ImageInput>
          </effect></Button>

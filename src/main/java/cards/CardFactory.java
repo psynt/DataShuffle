@@ -11,7 +11,7 @@ import sidebar.SideMenuItems;
  */
 public class CardFactory {
 
-    public static final String[] VERSIONS = { "Ebay" };
+    public static final String[] VERSIONS = { "Ebay", "Module" };
 
     public static Card createCard(Item item, String type, int numDeck, SideMenuItems sidebarSubject){
 		final Card card;
@@ -19,8 +19,11 @@ public class CardFactory {
             case "Ebay":
                 card = new EbayCard(item, numDeck, sidebarSubject);
                 break;
+            case "Module":
+                card = new ModuleCard(item,numDeck,sidebarSubject);
+                break;
             default:
-                card = new Card(item, numDeck, sidebarSubject);
+                card = new Card(item, numDeck, sidebarSubject, "Name");
                 break;
         }
         return card;

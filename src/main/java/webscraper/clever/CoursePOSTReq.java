@@ -44,6 +44,11 @@ public class CoursePOSTReq extends POSTRequest {
     }
 
 
+    /**
+     * Searches for courses by ucas code
+     * @param code ucas code
+     * @return map of [courseTitle:urlToPage]
+     */
     public Map<String,String> ucasCode(String code){
         Map<String,String> args = new HashMap<>();
         String secondUrl = "http://programmespec.nottingham.ac.uk/nottingham/asp/search_courses.asp?Type=Ucas";
@@ -53,6 +58,11 @@ public class CoursePOSTReq extends POSTRequest {
         return search(args,secondUrl);
     }
 
+    /**
+     * Searches for courses by keyword
+     * @param kw keyword
+     * @return map of [courseTitle:urlToPage]
+     */
     public Map<String,String> keyword(String kw){
         Map<String,String> args = new HashMap<>();
         String secondUrl = "http://programmespec.nottingham.ac.uk/nottingham/asp/search_courses.asp?Type=Keyword";

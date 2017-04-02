@@ -33,7 +33,7 @@ public class Card extends Tab implements Observer{
 	
 	private SideMenuItems subject;
 
-	public Card(Item i, int numDeck, SideMenuItems subjectSidebar) {
+	public Card(Item i, int numDeck, SideMenuItems subjectSidebar, String name) {
 		Label cardName = new Label("Deck " + numDeck);
 
 		layoutManager = new VBox();
@@ -43,7 +43,7 @@ public class Card extends Tab implements Observer{
 		i.entrySet().stream().filter(e -> !e.getKey().matches("(i|I)mage")).forEach(e -> addLabel(e));
 
 		// name = i.get("name");
-		label.setText(i.get("name"));
+		label.setText(name);
 		// setGraphic(new Label(i.get("name")));
 		setGraphic(label);
 

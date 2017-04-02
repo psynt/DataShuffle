@@ -1,4 +1,5 @@
 package cards;
+
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -13,12 +14,13 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import sidebar.SideMenu;
 import sidebar.SideMenuController;
-
 import java.util.ArrayList;
 
 import static cards.CardFactory.createCard;
+import static splash.Controller.*;
 
 public class Controller {
 	private int numDecks = 0;
@@ -91,12 +93,14 @@ public class Controller {
 		//mainPane.getChildren().add(buttonLocation);
 		sideMenuContainer.setRight(sideMenu);
 		sideMenuContainer.setCenter(buttonLocation);
+		sideMenuContainer.setMinWidth(50);
+
 		mainPane.setRight(sideMenuContainer);
 		mainPane.setCenter(scrollPane);
+		//activate if you want to be able to see the side menu container
+		sideMenuContainer.setBorder(new Border( new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 		//sideMenuContainer.setMinWidth(200);
 
-		//activate if you want to be able to see the side menu container
-//		sideMenuContainer.setBorder(new Border( new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 //
 //		ArrayList<Item> guitar = new ArrayList<>();
 //		try {
@@ -108,22 +112,24 @@ public class Controller {
 
 
 
-		ArrayList<Item> results = splash.Controller.getSearchResults();
+		ArrayList<Item> results = getSearchResults();
 
 		ArrayList<Card> cards = new ArrayList<>();
 
-		results.forEach(e -> cards.add(newCard(e, "Ebay", getNumDecks())));
+		results.forEach(e -> cards.add(newCard(e, getType(), getNumDecks())));
 
 		// add the left cards to the left vbox
-		for(int i=0 ; i<cards.size() ; i=i+2){
+		for(int i=0 ; i<cards.size() ; i++){
 
+			if((i&1) == 1) {
 				cardStackYellow.getTabs().add(cards.get(i));
-				cardStackGreen.getTabs().add(cards.get(i+1));
-
-
+			} else {
+				cardStackGreen.getTabs().add(cards.get(i));
 			}
 
 		}
+
+	}
 
 
 

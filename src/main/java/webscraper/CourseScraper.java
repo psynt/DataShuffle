@@ -21,8 +21,14 @@ public class CourseScraper extends PageScraper {
 	public CourseScraper(Document doc){
 		super(doc);
 	}
-	
+
+	/**
+	 *
+	 * @return nothing meaningful
+	 * @deprecated not actually useful
+	 */
 	@Override
+	@Deprecated
 	public Item scrapeDocument() {
 
 		if (item!=null){
@@ -67,6 +73,11 @@ public class CourseScraper extends PageScraper {
 
 	/*
 		first <td> in all <tr>s
+	 */
+
+	/**
+	 * gets all module codes on current programmespec course page
+	 * @return list containting all the module codes + some extra information between codes (e.g. compulsory/ groups)
 	 */
 	public List<String> getReqModules(){
 		ArrayList<String> atts = new ArrayList<>();

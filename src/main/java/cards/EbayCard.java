@@ -12,7 +12,7 @@ import sidebar.SideMenuItems;
 public class EbayCard extends Card {
 
 	public EbayCard(Item cardItem, int numDeck, SideMenuItems sidebarSubject) {
-		super(cardItem, numDeck, sidebarSubject);
+		super(cardItem, numDeck, sidebarSubject, cardItem.get("name"));
 
 		ImageView cardImg = new ImageView(cardItem.get("image"));
 		cardImg.setFitHeight(150);
