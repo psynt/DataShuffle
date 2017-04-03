@@ -15,9 +15,12 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import sidebar.SideMenu;
 import sidebar.SideMenuController;
 import java.util.ArrayList;
+
+import com.sun.javafx.geom.Rectangle;
 
 import static cards.CardFactory.createCard;
 import static splash.Controller.*;
@@ -26,10 +29,13 @@ public class Controller {
 	private int numDecks = 0;
 	private static final String TAB_DRAG_KEY = "tab";
 	private ObjectProperty<Tab> draggingTab;
+	static boolean cardSelected = true;
 
+	boolean selected;
 	@FXML
 	BorderPane mainPane;
 	@FXML
+	//static
 	FlowPane centerPane;
 	@FXML
 	ScrollPane scrollPane;
@@ -76,6 +82,23 @@ public class Controller {
 
 
 		int sideMenuWidth = 250;
+		
+		ArrayList<Item> results = getSearchResults();
+
+		ArrayList<Card> cards = new ArrayList<>();
+
+		results.forEach(e -> cards.add(newCard(e, getType(), getNumDecks())));
+
+		// add the left cards to the left vbox
+		for(int i=0 ; i<cards.size() ; i++){
+
+			if((i&1) == 1) {
+				cardStackYellow.getTabs().add(cards.get(i));
+			} else {
+				cardStackGreen.getTabs().add(cards.get(i));
+			}
+
+		}
 
 		// create a sidebar with some content in it.
 		sideMenuController = new SideMenuController();
@@ -83,7 +106,7 @@ public class Controller {
 		sideMenu = new SideMenu(sideMenuWidth, menuPane);
 		VBox.setVgrow(menuPane, Priority.ALWAYS);
 
-		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane);
+		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane, results);
 
 		// layout the scene.
 		StackPane buttonLocation = new StackPane();
@@ -110,24 +133,6 @@ public class Controller {
 //		}
 
 
-
-
-		ArrayList<Item> results = getSearchResults();
-
-		ArrayList<Card> cards = new ArrayList<>();
-
-		results.forEach(e -> cards.add(newCard(e, getType(), getNumDecks())));
-
-		// add the left cards to the left vbox
-		for(int i=0 ; i<cards.size() ; i++){
-
-			if((i&1) == 1) {
-				cardStackYellow.getTabs().add(cards.get(i));
-			} else {
-				cardStackGreen.getTabs().add(cards.get(i));
-			}
-
-		}
 
 	}
 
@@ -163,8 +168,16 @@ public class Controller {
 	@FXML public void newRedDeck() {
 		Deck newDeck = new Deck(draggingTab, 2, incNumDecks());
 		centerPane.getChildren().add(newDeck);
+		
+
 	}
 
+	public static void cardUnselect(){
+	//centerPane.setOnMouseClicked(event->{
+		cardSelected=false;
+	//});
+	}
+	
 	int getNumDecks(){
 		return numDecks;
 	}

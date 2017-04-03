@@ -13,9 +13,12 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import sidebar.SideMenu;
+import sidebar.SideMenuController;
 import sidebar.SideMenuItems;
 
 /**
@@ -26,6 +29,11 @@ import sidebar.SideMenuItems;
  */
 public class Card extends Tab implements Observer{
 
+	int cardState;
+	int YES = 0;
+	int NO = 1;
+	int MAYBE = 2;
+	boolean mouseSelected = false;
 	private VBox layoutManager;
 	private ArrayList<Label> labels = new ArrayList<>();
 	final Label label = new Label();
@@ -83,8 +91,34 @@ public class Card extends Tab implements Observer{
         });
 
 
+		Menu addCardMenu = new Menu("Add Card to..");
+		MenuItem yesCard = new MenuItem("Yes");
+		MenuItem noCard = new MenuItem("No");
+		MenuItem maybeCard = new MenuItem("Maybe");
+		addCardMenu.getItems().addAll(yesCard, noCard, maybeCard);
+		yesCard.setOnAction(e -> cardState=YES);
+		noCard.setOnAction(e -> cardState=NO);
+		maybeCard.setOnAction(e -> cardState=MAYBE);
+		
+		//method to detect if card is left clicked
+		layoutManager.setOnMouseClicked(e ->{
+			mouseSelected=true;
+			if(mouseSelected==true){
+				System.out.print("Save as test");
+			}
+			});
+		
+			//method to detect if mouse has been clicked outside card
+			layoutManager.setOnMouseExited(e ->{
+				Controller.cardUnselect();
+				if(Controller.cardSelected ==false){
+					mouseSelected=false;
+					System.out.print("Sst");
+				}
+			});
 
-		rightClickMenu.getItems().addAll(setColour, renameCard);
+
+		rightClickMenu.getItems().addAll(setColour, renameCard, addCardMenu);
 
 		super.setContextMenu(rightClickMenu);
 		PauseTransition pause = new PauseTransition(Duration.seconds(2));
@@ -104,6 +138,7 @@ public class Card extends Tab implements Observer{
 		this.subject = subjectSidebar;
 		this.subject.attach(this);
 	}
+	
 
 	private void addLabel(Map.Entry<String, String> e) {
 		labels.add(new Label(e.getKey() + "\t:\t" + e.getValue()));
@@ -115,8 +150,27 @@ public class Card extends Tab implements Observer{
 
 	@Override
 	public void update() {
-		boolean selected = subject.showTitleCheckBox.isSelected();
-		labels.get(0).setVisible(selected);
+		//handle show item checkboxes
+		boolean titleSelected = subject.showTitleCheckBox.isSelected();
+		labels.get(0).setVisible(titleSelected);
+		boolean priceSelected = subject.showPriceCheckBox.isSelected();
+		labels.get(2).setVisible(priceSelected);
+		boolean timeSelected = subject.showRemainingTimeCheckBox.isSelected();
+		labels.get(3).setVisible(timeSelected);
+		boolean imageSelected = subject.showImageCheckBox.isSelected();
+		labels.get(5).setVisible(imageSelected);
+		
+		
+		//handle add to buttons
+		if(SideMenuController.addToGroup == YES && mouseSelected ==true){
+			cardState=YES;
+		}
+		if(SideMenuController.addToGroup == NO && mouseSelected ==true){
+			cardState=NO;
+		}
+		if(SideMenuController.addToGroup == YES && mouseSelected ==true){
+			cardState=MAYBE;
+		}
 	}
 
 	/*public String getName() {
