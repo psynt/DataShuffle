@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -71,23 +70,42 @@ public class Controller {
 		grid.add(scenetitle, 0, 0);
 
 		grid.add(userTextField, 0, 1);
-
-		Label label1 = new Label("Min:");
-		Label label2 = new Label("Max:");
+		Label label1 = new Label();
+		Label label2 = new Label();
 		TextField minTextField = new TextField();
 		TextField maxTextField = new TextField();
-		minTextField.setPrefWidth(55.0);
-		maxTextField.setPrefWidth(55.0);
-		HBox hb = new HBox();
-		hb.getChildren().addAll(label1, minTextField);
-		hb.getChildren().addAll(label2, maxTextField);
-		hb.setSpacing(8);
-		grid.add(hb, 0, 2);
-
 		final ChoiceBox cb = new ChoiceBox();
-		cb.setItems(FXCollections.observableArrayList("All Listings", "Auction ", new Separator(), "Buy It Now!"));
-		cb.getSelectionModel().selectFirst();
-		grid.add(cb, 1, 1);
+
+		HBox hb = new HBox();
+		if(type == "Ebay") {
+			label1.setText("Min:");
+			label2.setText("Max:");
+			minTextField.setPrefWidth(55.0);
+			maxTextField.setPrefWidth(55.0);
+
+
+			hb.getChildren().addAll(label1, minTextField);
+			hb.getChildren().addAll(label2, maxTextField);
+
+
+			cb.setItems(FXCollections.observableArrayList("All Listings", "Auction ", new Separator(), "Buy It Now!"));
+			cb.getSelectionModel().selectFirst();
+
+			grid.add(hb, 0, 2);
+			grid.add(cb, 1, 1);
+		}else{
+			//IF Module is selected
+			label1.setText("Or use a Course Code:");
+			minTextField.setPrefWidth(110.0);
+
+
+
+			hb.getChildren().addAll(label1, minTextField);
+
+			grid.add(hb, 0, 2);
+		}
+
+	 	hb.setSpacing(8);
 
 		Button searchButton = new Button("Search");
 		grid.add(searchButton, 0, 3);

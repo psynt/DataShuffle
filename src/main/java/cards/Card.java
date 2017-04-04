@@ -1,25 +1,17 @@
 package cards;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 import content.Item;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Side;
 import javafx.scene.Node;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import sidebar.SideMenu;
 import sidebar.SideMenuController;
 import sidebar.SideMenuItems;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * The 'card'
@@ -135,8 +127,8 @@ public class Card extends Tab implements Observer{
 		setClosable(true);
 		
 		//add sidebar subject
-		this.subject = subjectSidebar;
-		this.subject.attach(this);
+		//this.subject = subjectSidebar;
+		//this.subject.attach(this);
 	}
 	
 

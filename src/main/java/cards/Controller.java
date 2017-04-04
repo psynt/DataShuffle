@@ -15,15 +15,14 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import sidebar.SideMenu;
 import sidebar.SideMenuController;
+
 import java.util.ArrayList;
 
-import com.sun.javafx.geom.Rectangle;
-
 import static cards.CardFactory.createCard;
-import static splash.Controller.*;
+import static splash.Controller.getSearchResults;
+import static splash.Controller.getType;
 
 public class Controller {
 	private int numDecks = 0;
@@ -124,35 +123,11 @@ public class Controller {
 		sideMenuContainer.setBorder(new Border( new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 		//sideMenuContainer.setMinWidth(200);
 
-//
-//		ArrayList<Item> guitar = new ArrayList<>();
-//		try {
-//			guitar = scrape();
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
 
 
 
 	}
 
-
-
-
-
-	private Card newCard(Item item, String type, int deck) {
-		final Card card = createCard(item, type, deck, sideMenuController);
-		card.getGraphic().setOnDragDetected(event -> {
-            Dragboard dragboard = card.getGraphic().startDragAndDrop(TransferMode.MOVE);
-            ClipboardContent clipboardContent = new ClipboardContent();
-            clipboardContent.putString(TAB_DRAG_KEY);
-            dragboard.setContent(clipboardContent);
-            draggingTab.set(card);
-            event.consume();
-        });
-
-		return card;
-	}
 
 	@FXML public void newGreenDeck() {
 		Deck newDeck = new Deck(draggingTab, 0, incNumDecks());
@@ -177,7 +152,22 @@ public class Controller {
 		cardSelected=false;
 	//});
 	}
-	
+
+	private Card newCard(Item item, String type, int deck) {
+		final Card card = createCard(item, type, deck, sideMenuController);
+		card.getGraphic().setOnDragDetected(event -> {
+			Dragboard dragboard = card.getGraphic().startDragAndDrop(TransferMode.MOVE);
+			ClipboardContent clipboardContent = new ClipboardContent();
+			clipboardContent.putString(TAB_DRAG_KEY);
+			dragboard.setContent(clipboardContent);
+			draggingTab.set(card);
+			event.consume();
+		});
+
+		return card;
+	}
+
+
 	int getNumDecks(){
 		return numDecks;
 	}
