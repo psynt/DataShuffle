@@ -1,6 +1,7 @@
 package splash;
 
 import content.Item;
+import debug.Debug;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,6 +44,7 @@ public class Controller {
 		System.err.println(type);
 		Stage window = new Stage();
 		window.setTitle(type + " Search");
+		Button searchButton = new Button("Search");
 
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setMinWidth(300);
@@ -50,14 +52,14 @@ public class Controller {
 
 		TextField userTextField = new TextField();
 		userTextField.setId("userTextField");
-		userTextField.setOnAction(e -> {
-//			try {
-				search(window, userTextField,type);
-//			} catch (NullPointerException ex){
-//				System.out.println("null text field -.-");
-//			}
-
-		});
+//		userTextField.setOnAction(e -> {
+////			try {
+//				search(window, userTextField,type);
+////			} catch (NullPointerException ex){
+////				System.out.println("null text field -.-");
+////			}
+//
+//		});
 
 		//Set up grid layout
 		GridPane grid = new GridPane();
@@ -76,7 +78,7 @@ public class Controller {
 		Label label2 = new Label();
 		TextField minTextField = new TextField();
 		TextField maxTextField = new TextField();
-		final ChoiceBox<Object> cb = new ChoiceBox();
+		final ChoiceBox<Object> cb = new ChoiceBox<>();
 
 		HBox hb = new HBox();
 		if(type.equals("Ebay")) {
@@ -95,30 +97,49 @@ public class Controller {
 
 			grid.add(hb, 0, 2);
 			grid.add(cb, 1, 1);
+			searchButton.setOnAction(e -> {	//ebay
+				try {
+					searchResults = ebay(userTextField.getText());
+					System.out.println(searchResults);
+					cards.Main.start1(window);
+				} catch (MalformedURLException ex){
+					System.out.println("Bad url:");
+					ex.printStackTrace();
+				} catch (Exception ex){
+					System.out.println("null text field -.-");
+				}
+			});
+
 		}else{
 			scenetitle.setText("Search by module code:");
 			//IF Module is selected
 			label1.setText("Or use a Course Code:");
 			minTextField.setPrefWidth(110.0);
 
+			searchButton.setOnAction(e -> {
+				try {
+					searchResults = modules(userTextField.getText(),minTextField.getText());
+					System.out.println(searchResults);
+					cards.Main.start1(window);
+				} catch (MalformedURLException ex){
+					System.out.println("Bad url:");
+					ex.printStackTrace();
+				} catch (Exception ex){
+					System.out.println(ex.getMessage());
+					System.out.println("null text field -.-");
+				}
+			});
 
 
-			//hb.getChildren().addAll(label1, minTextField);
+
+			hb.getChildren().addAll(label1, minTextField);
 
 			grid.add(hb, 0, 2);
 		}
 
 	 	hb.setSpacing(8);
 
-		Button searchButton = new Button("Search");
 		grid.add(searchButton, 0, 3);
-		searchButton.setOnAction(e -> {
-//			try {
-				search(window, userTextField,type);
-//			} catch (Exception ex){
-//				System.out.println("null text field -.-");
-//			}
-		});
 
 		Button closeButton = new Button("Close");
 		grid.add(closeButton, 1, 3);
@@ -136,6 +157,7 @@ public class Controller {
 		}
 	}
 
+	/*
 	private void search(Stage window, TextField userTextField, String type) {
 		try {
 			System.err.println("Starting " + userTextField.getText());
@@ -150,25 +172,42 @@ public class Controller {
 			System.out.println(searchResults);
 			cards.Main.start1(window);
 		} catch (NullPointerException ex){
-			System.out.println("null text field -.-");
+			System.out.println(ex.getMessage());
 		} catch (UnsupportedOperationException ex){
+			System.out.println(ex.getMessage());
 			System.out.println("Sorry, no can do at the moment. Will be implemented in about 40-50 releases. Hang tight ;)");
-		} catch (Exception f) {
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
 			f.printStackTrace();
 		}
 	}
+	*/
 
-	private ArrayList<Item> modules(String url) throws MalformedURLException {
+	private ArrayList<Item> modules(String keyword, String code) throws MalformedURLException {
 		Type = "Module";
 		CoursePOSTReq courseGetter = new CoursePOSTReq();
 
-		Map<String,String> res = courseGetter.ucasCode(url);
+		Map<String,String> res;
+		if(code != null && code.length()>0){
+			res = courseGetter.ucasCode(code);
+		} else if (keyword !=null && keyword.length()>0){
+			res = courseGetter.keyword(keyword);
+		} else throw new NullPointerException("either code or keyword needed");
+
+		if (Debug.DEBUG) {
+			if (res != null) {
+				System.out.println(res);
+			}
+		}
+
 		if(res.size()>1){
 			System.err.println("Searches that return multiple results are not yet supported");
 			throw new UnsupportedOperationException("Multi-result search not quite ready yet");
+		} else if (res.size()<1){
+			throw new NullPointerException("No results");
 		}
 
-		List<String> urls = res.entrySet().parallelStream().map(e -> e.getValue()).collect(Collectors.toList());
+		List<String> urls = res.entrySet().parallelStream().map(Map.Entry::getValue).collect(Collectors.toList());
 
 		CourseScraper cs = new CourseScraper(DocumentLoader.load(new URL(urls.get(0))));
 		List<String> modules = cs.getReqModules();
@@ -184,9 +223,9 @@ public class Controller {
 		return new ArrayList<>(results);
 	}
 
-	private ArrayList<Item> ebay(String url) throws MalformedURLException {
+	private ArrayList<Item> ebay(String searchTerm) throws MalformedURLException {
 		Type = "Ebay";
-		String searchUrl = "http://www.ebay.co.uk/sch/i.html?_&_nkw=datashuffle&_sacat=0".replace("datashuffle", url);
+		String searchUrl = "http://www.ebay.co.uk/sch/i.html?_&_nkw=datashuffle&_sacat=0".replace("datashuffle", searchTerm);
 
 		ArrayList<Item> whatYouWant = new ArrayList<>();
 		Document guitarSearch = DocumentLoader.load(new URL(searchUrl));

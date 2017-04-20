@@ -16,6 +16,6 @@ import webscraper.clever.CoursePOSTReq
 ////println res
 //
 def courses =  new CoursePOSTReq()
-println courses.ucasCode("G400")
+println courses.keyword("computer")
 
 //println new ModulePOSTReq().courseCode("g52afp")

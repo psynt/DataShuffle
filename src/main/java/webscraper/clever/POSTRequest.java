@@ -91,7 +91,7 @@ public class POSTRequest{
      *
      * @throws IOException if something fails
      */
-    public Response getTheGoodies(Map<String,String> args, String secondUrl){
+    protected Response getTheGoodies(Map<String,String> args, String secondUrl){
 
         try {
             Response response = Jsoup.connect(secondUrl)
