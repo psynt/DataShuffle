@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Controller {
@@ -39,6 +40,7 @@ public class Controller {
 	public void clickEvent(ActionEvent actionEvent) {
 		Button source = (Button)(actionEvent.getSource());
 		String type = source.getText();
+		System.err.println(type);
 		Stage window = new Stage();
 		window.setTitle(type + " Search");
 
@@ -74,10 +76,10 @@ public class Controller {
 		Label label2 = new Label();
 		TextField minTextField = new TextField();
 		TextField maxTextField = new TextField();
-		final ChoiceBox cb = new ChoiceBox();
+		final ChoiceBox<Object> cb = new ChoiceBox();
 
 		HBox hb = new HBox();
-		if(type == "Ebay") {
+		if(type.equals("Ebay")) {
 			label1.setText("Min:");
 			label2.setText("Max:");
 			minTextField.setPrefWidth(55.0);
@@ -94,13 +96,14 @@ public class Controller {
 			grid.add(hb, 0, 2);
 			grid.add(cb, 1, 1);
 		}else{
+			scenetitle.setText("Search by module code:");
 			//IF Module is selected
 			label1.setText("Or use a Course Code:");
 			minTextField.setPrefWidth(110.0);
 
 
 
-			hb.getChildren().addAll(label1, minTextField);
+			//hb.getChildren().addAll(label1, minTextField);
 
 			grid.add(hb, 0, 2);
 		}

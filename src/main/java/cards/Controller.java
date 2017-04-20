@@ -168,11 +168,11 @@ public class Controller {
 	}
 
 
-	int getNumDecks(){
+	private int getNumDecks(){
 		return numDecks;
 	}
 
-	int incNumDecks(){
+	private int incNumDecks(){
 		return ++numDecks;
 	}
 	
