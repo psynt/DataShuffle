@@ -44,6 +44,7 @@ public class SideMenuItems {
 		 */
 
 		//Create project button layout and add buttons
+		saveButton.setDisable(true);//initially disabled until save as is pressed once
 		VBox projectButtonLayout = new VBox(newProjectButton,saveButton , saveAsButton, openButton );
 		projectButtonLayout.setAlignment(Pos.CENTER);
 		

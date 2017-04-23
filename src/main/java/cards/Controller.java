@@ -56,7 +56,7 @@ public class Controller {
 
 	@FXML
 	public void initialize() {
-
+		
 		mainPane.setStyle("-fx-background-color: #2f4f4f;");
         
 		draggingTab = new SimpleObjectProperty<>();
@@ -102,6 +102,7 @@ public class Controller {
 		// create a sidebar with some content in it.
 		sideMenuController = new SideMenuController();
 		final Pane menuPane = sideMenuController.createSidebarItems();
+		menuPane.setStyle("-fx-background-color: #D1D1D1;");
 		sideMenu = new SideMenu(sideMenuWidth, menuPane);
 		VBox.setVgrow(menuPane, Priority.ALWAYS);
 
@@ -112,7 +113,6 @@ public class Controller {
 		buttonLocation.getChildren().addAll(sideMenu.getDisplayMenuButton());
 		buttonLocation.setAlignment(Pos.CENTER_RIGHT);
 
-		//mainPane.getChildren().add(buttonLocation);
 		sideMenuContainer.setRight(sideMenu);
 		sideMenuContainer.setCenter(buttonLocation);
 		sideMenuContainer.setMinWidth(50);
