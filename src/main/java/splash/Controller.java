@@ -106,7 +106,8 @@ public class Controller {
 					System.out.println("Bad url:");
 					ex.printStackTrace();
 				} catch (Exception ex){
-					System.out.println("null text field -.-");
+					System.out.println("null text field kek");
+					ex.printStackTrace();
 				}
 			});
 

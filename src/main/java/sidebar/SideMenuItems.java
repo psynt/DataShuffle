@@ -16,6 +16,8 @@ public class SideMenuItems {
 	
 	protected List<Card> observerCards = new ArrayList<Card>();; 
 	
+	protected VBox showItemsCheckBoxLayout;
+	
 	//project buttons
 	Button newProjectButton = new Button("New");
 	Button saveButton = new Button("Save");
@@ -53,7 +55,7 @@ public class SideMenuItems {
 		addCardButtonLayout.setAlignment(Pos.CENTER);
 		
 		//Create layout for select items to show button and add buttons
-		VBox showItemsCheckBoxLayout = new VBox(showPriceCheckBox, showTitleCheckBox, showImageCheckBox, showRemainingTimeCheckBox);
+		showItemsCheckBoxLayout = new VBox(showPriceCheckBox, showTitleCheckBox, showImageCheckBox, showRemainingTimeCheckBox);
 		showItemsCheckBoxLayout.setAlignment(Pos.CENTER_LEFT);
 		
 		//Create layout for export to button in side menu and add buttons

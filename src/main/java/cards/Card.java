@@ -27,6 +27,7 @@ public class Card extends Tab implements Observer{
 	int MAYBE = 2;
 	boolean mouseSelected = false;
 	private VBox layoutManager;
+	private ArrayList<String> keys = new ArrayList<>();
 	private ArrayList<Label> labels = new ArrayList<>();
 	final Label label = new Label();
 	final TextField tabTitle = new TextField();
@@ -133,6 +134,7 @@ public class Card extends Tab implements Observer{
 	
 
 	private void addLabel(Map.Entry<String, String> e) {
+		keys.add(e.getKey());
 		labels.add(new Label(e.getKey() + "\t:\t" + e.getValue()));
 	}
 
@@ -169,4 +171,8 @@ public class Card extends Tab implements Observer{
 		return name;
 	}*/
 
+	public ArrayList<String> getKeys(){
+		return keys;
+	}
+	
 }

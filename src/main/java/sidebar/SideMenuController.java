@@ -14,6 +14,7 @@ import content.Item;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -180,6 +181,12 @@ public class SideMenuController extends SideMenuItems
 			System.out.print("excel test");
 		});
 
+	}
+
+	public void addShowTickBox(String key) {
+		// TODO Auto-generated method stub
+		CheckBox newCheckBox = new CheckBox(key);
+		showItemsCheckBoxLayout.getChildren().add(newCheckBox);
 	}
 				
 				

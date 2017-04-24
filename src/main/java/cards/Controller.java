@@ -20,6 +20,8 @@ import sidebar.SideMenuController;
 
 import java.util.ArrayList;
 
+import org.apache.poi.util.SystemOutLogger;
+
 import static cards.CardFactory.createCard;
 import static splash.Controller.getSearchResults;
 import static splash.Controller.getType;
@@ -101,10 +103,14 @@ public class Controller {
 
 		// create a sidebar with some content in it.
 		sideMenuController = new SideMenuController();
+		//sideMenuController.addShowTickBox(e.getText())
 		final Pane menuPane = sideMenuController.createSidebarItems();
 		menuPane.setStyle("-fx-background-color: #D1D1D1;");
 		sideMenu = new SideMenu(sideMenuWidth, menuPane);
 		VBox.setVgrow(menuPane, Priority.ALWAYS);
+		
+		//Adds tick boxes for each label on the cards
+		cards.get(0).getKeys().forEach( e -> sideMenuController.addShowTickBox(e) );
 
 		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane, results);
 
