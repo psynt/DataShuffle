@@ -93,7 +93,7 @@ public class Controller {
 				try {
 					searchResults = ebay(userTextField.getText());
 					System.out.println(searchResults);
-					cards.Main.start1(window);
+					window.close();
 				} catch (MalformedURLException ex){
 					System.out.println("Bad url:");
 					ex.printStackTrace();
@@ -103,9 +103,10 @@ public class Controller {
 				}
 			});
 
-		}else{
+		}else{//IF Module is selected
+
 			scenetitle.setText("Search by module code:");
-			//IF Module is selected
+
 			label1.setText("Or use a Course Code:");
 			minTextField.setPrefWidth(110.0);
 
@@ -113,7 +114,7 @@ public class Controller {
 				try {
 					searchResults = modules(userTextField.getText(),minTextField.getText());
 					System.out.println(searchResults);
-					cards.Main.start1(window);
+					window.close();
 				} catch (MalformedURLException ex){
 					System.out.println("Bad url:");
 					ex.printStackTrace();
@@ -145,6 +146,9 @@ public class Controller {
 		scene.getStylesheets().add(Controller.class.getResource("/application.css").toExternalForm());
 		try{
 			window.showAndWait();
+			if (searchResults!=null && searchResults.size()>0){
+				cards.Main.start1((Stage) pane.getScene().getWindow());
+			}
 		}catch (Throwable t){
 			System.out.println("Caught");
 		}
