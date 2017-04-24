@@ -36,7 +36,6 @@ public class SideMenu extends VBox {
 		displayMenuButton.setRotate(270);
 		displayMenuButton.setMinWidth(75);
 		
-		//initialize sideMenu controller, passing in current width and sideMenu panel
 				
 	}
 

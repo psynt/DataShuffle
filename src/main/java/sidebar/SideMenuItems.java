@@ -16,6 +16,8 @@ public class SideMenuItems {
 	
 	protected List<Card> observerCards = new ArrayList<Card>();; 
 	
+	protected VBox showItemsCheckBoxLayout;
+	
 	//project buttons
 	Button newProjectButton = new Button("New");
 	Button saveButton = new Button("Save");
@@ -26,12 +28,6 @@ public class SideMenuItems {
 	Button yesButton = new Button("Yes");
 	Button noButton = new Button("No");
 	Button maybeButton = new Button("Maybe");
-
-	//ebay show only buttons
-	public CheckBox showPriceCheckBox = new CheckBox("Price");
-	public CheckBox showTitleCheckBox = new CheckBox("Title");
-	public CheckBox showImageCheckBox = new CheckBox("Image");
-	public CheckBox showRemainingTimeCheckBox = new CheckBox("Remaining Time");
 
 	//export to buttons
 	Button exportExcelButton = new Button("Excel");
@@ -44,6 +40,7 @@ public class SideMenuItems {
 		 */
 
 		//Create project button layout and add buttons
+		saveButton.setDisable(true);//initially disabled until save as is pressed once
 		VBox projectButtonLayout = new VBox(newProjectButton,saveButton , saveAsButton, openButton );
 		projectButtonLayout.setAlignment(Pos.CENTER);
 		
@@ -52,7 +49,7 @@ public class SideMenuItems {
 		addCardButtonLayout.setAlignment(Pos.CENTER);
 		
 		//Create layout for select items to show button and add buttons
-		VBox showItemsCheckBoxLayout = new VBox(showPriceCheckBox, showTitleCheckBox, showImageCheckBox, showRemainingTimeCheckBox);
+		showItemsCheckBoxLayout = new VBox();
 		showItemsCheckBoxLayout.setAlignment(Pos.CENTER_LEFT);
 		
 		//Create layout for export to button in side menu and add buttons
@@ -75,12 +72,17 @@ public class SideMenuItems {
     }
 
 	public void attach(Card observer){
-			observerCards.add(observer);		
+			observerCards.add(observer);
 	}
 
 	public void notifyAllObservers(){
+		System.out.println("Update all cards");
 		for (Card observer : observerCards) {
 			observer.update();
 		}
+	}
+	
+	public VBox getShowItemsCheckBoxLayout(){
+		return showItemsCheckBoxLayout;
 	}
 }

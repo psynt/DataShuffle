@@ -20,6 +20,8 @@ import sidebar.SideMenuController;
 
 import java.util.ArrayList;
 
+import org.apache.poi.util.SystemOutLogger;
+
 import static cards.CardFactory.createCard;
 import static splash.Controller.getSearchResults;
 import static splash.Controller.getType;
@@ -56,7 +58,7 @@ public class Controller {
 
 	@FXML
 	public void initialize() {
-
+		
 		mainPane.setStyle("-fx-background-color: #2f4f4f;");
         
 		draggingTab = new SimpleObjectProperty<>();
@@ -80,12 +82,17 @@ public class Controller {
 		centerPane.setOrientation(Orientation.VERTICAL);
 
 
+
+		// create a sidebar with some content in it.
 		int sideMenuWidth = 250;
+		sideMenuController = new SideMenuController();
+		final Pane menuPane = sideMenuController.createSidebarItems();
+		menuPane.setStyle("-fx-background-color: #D1D1D1;");
+		sideMenu = new SideMenu(sideMenuWidth, menuPane);
+		VBox.setVgrow(menuPane, Priority.ALWAYS);
 		
 		ArrayList<Item> results = getSearchResults();
-
 		ArrayList<Card> cards = new ArrayList<>();
-
 		results.forEach(e -> cards.add(newCard(e, getType(), getNumDecks())));
 
 		// add the left cards to the left vbox
@@ -98,12 +105,9 @@ public class Controller {
 			}
 
 		}
-
-		// create a sidebar with some content in it.
-		sideMenuController = new SideMenuController();
-		final Pane menuPane = sideMenuController.createSidebarItems();
-		sideMenu = new SideMenu(sideMenuWidth, menuPane);
-		VBox.setVgrow(menuPane, Priority.ALWAYS);
+		
+		//Adds tick boxes for each label on the cards
+		cards.get(0).getKeys().forEach( e -> sideMenuController.addShowTickBox(e) );
 
 		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane, results);
 
@@ -112,7 +116,6 @@ public class Controller {
 		buttonLocation.getChildren().addAll(sideMenu.getDisplayMenuButton());
 		buttonLocation.setAlignment(Pos.CENTER_RIGHT);
 
-		//mainPane.getChildren().add(buttonLocation);
 		sideMenuContainer.setRight(sideMenu);
 		sideMenuContainer.setCenter(buttonLocation);
 		sideMenuContainer.setMinWidth(50);
