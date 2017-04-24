@@ -29,12 +29,6 @@ public class SideMenuItems {
 	Button noButton = new Button("No");
 	Button maybeButton = new Button("Maybe");
 
-	//ebay show only buttons
-	public CheckBox showPriceCheckBox = new CheckBox("Price");
-	public CheckBox showTitleCheckBox = new CheckBox("Title");
-	public CheckBox showImageCheckBox = new CheckBox("Image");
-	public CheckBox showRemainingTimeCheckBox = new CheckBox("Remaining Time");
-
 	//export to buttons
 	Button exportExcelButton = new Button("Excel");
 	
@@ -55,7 +49,7 @@ public class SideMenuItems {
 		addCardButtonLayout.setAlignment(Pos.CENTER);
 		
 		//Create layout for select items to show button and add buttons
-		showItemsCheckBoxLayout = new VBox(showPriceCheckBox, showTitleCheckBox, showImageCheckBox, showRemainingTimeCheckBox);
+		showItemsCheckBoxLayout = new VBox();
 		showItemsCheckBoxLayout.setAlignment(Pos.CENTER_LEFT);
 		
 		//Create layout for export to button in side menu and add buttons
@@ -78,12 +72,17 @@ public class SideMenuItems {
     }
 
 	public void attach(Card observer){
-			observerCards.add(observer);		
+			observerCards.add(observer);
 	}
 
 	public void notifyAllObservers(){
+		System.out.println("Update all cards");
 		for (Card observer : observerCards) {
 			observer.update();
 		}
+	}
+	
+	public VBox getShowItemsCheckBoxLayout(){
+		return showItemsCheckBoxLayout;
 	}
 }

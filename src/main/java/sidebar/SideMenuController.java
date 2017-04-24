@@ -155,26 +155,6 @@ public class SideMenuController extends SideMenuItems
 			notifyAllObservers();
 			System.out.print("no test");
 		});
-		
-		showPriceCheckBox.setOnAction(event -> {
-			System.out.print("price test");
-			notifyAllObservers();
-		});
-
-		showTitleCheckBox.setOnAction(event -> {
-			System.out.print("title test");
-			notifyAllObservers();
-		});
-
-		showImageCheckBox.setOnAction(event -> {
-			System.out.print("image test");
-			notifyAllObservers();
-		});
-
-		showRemainingTimeCheckBox.setOnAction(event -> {
-			System.out.print("time test");
-			notifyAllObservers();
-		});
 
 		exportExcelButton.setOnAction(event -> {
 			ExcelSaver calc = new ExcelSaver(results);
@@ -186,7 +166,13 @@ public class SideMenuController extends SideMenuItems
 	public void addShowTickBox(String key) {
 		// TODO Auto-generated method stub
 		CheckBox newCheckBox = new CheckBox(key);
+		newCheckBox.setSelected(true);
+		newCheckBox.setOnAction(event -> {
+			notifyAllObservers();
+		});
+		
 		showItemsCheckBoxLayout.getChildren().add(newCheckBox);
+		
 	}
 				
 				

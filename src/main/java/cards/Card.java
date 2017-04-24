@@ -2,6 +2,7 @@ package cards;
 
 import content.Item;
 import javafx.animation.PauseTransition;
+import javafx.collections.ObservableList;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -128,8 +129,8 @@ public class Card extends Tab implements Observer{
 		setClosable(true);
 		
 		//add sidebar subject
-		//this.subject = subjectSidebar;
-		//this.subject.attach(this);
+		this.subject = subjectSidebar;
+		this.subject.attach(this);
 	}
 	
 
@@ -145,15 +146,15 @@ public class Card extends Tab implements Observer{
 	@Override
 	public void update() {
 		//handle show item checkboxes
-		boolean titleSelected = subject.showTitleCheckBox.isSelected();
-		labels.get(0).setVisible(titleSelected);
-		boolean priceSelected = subject.showPriceCheckBox.isSelected();
-		labels.get(2).setVisible(priceSelected);
-		boolean timeSelected = subject.showRemainingTimeCheckBox.isSelected();
-		labels.get(3).setVisible(timeSelected);
-		boolean imageSelected = subject.showImageCheckBox.isSelected();
-		labels.get(5).setVisible(imageSelected);
 		
+		ObservableList<Node> checkBoxes = subject.getShowItemsCheckBoxLayout().getChildren();
+		for(int i = 0; i < checkBoxes.size(); i++){
+			if (checkBoxes.get(i) instanceof CheckBox){
+				boolean selected = ((CheckBox)checkBoxes.get(i)).isSelected();
+				System.out.println("card updating " + selected );
+				labels.get(i).setVisible(selected);
+			}
+		}		
 		
 		//handle add to buttons
 		if(SideMenuController.addToGroup == YES && mouseSelected ==true){
