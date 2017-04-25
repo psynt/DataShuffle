@@ -243,4 +243,8 @@ public class Controller {
 		return Type;
 	}
 
+	public static void reset() {
+		Type = null;
+		searchResults = new ArrayList<>();
+	}
 }
