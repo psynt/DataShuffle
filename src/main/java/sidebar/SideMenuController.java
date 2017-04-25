@@ -44,6 +44,19 @@ public class SideMenuController extends SideMenuItems
 
 
 		newProjectButton.setOnAction(event -> {
+			Stage stage;
+			Parent root;
+			stage=(Stage) newProjectButton.getScene().getWindow();
+
+				try {
+					root= FXMLLoader.load(getClass().getResource("/MyMenu.fxml"));
+					Scene scene = new Scene(root);
+					scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+				      stage.setScene(scene);
+				      stage.show();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			System.out.print("NewProject test");
 			
 		});
