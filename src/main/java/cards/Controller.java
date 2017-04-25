@@ -107,7 +107,9 @@ public class Controller {
 		}
 		
 		//Adds tick boxes for each label on the cards
-		cards.get(0).getKeys().forEach( e -> sideMenuController.addShowTickBox(e) );
+		if (cards.size() >= 1){
+			cards.get(0).getKeys().forEach( e -> sideMenuController.addShowTickBox(e) );
+		}
 
 		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane, results);
 

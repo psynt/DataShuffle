@@ -22,7 +22,7 @@ public class Main extends Application {
 
 			layout.getChildren().add(content);
 
-			primaryStage.setTitle("Menu");
+			primaryStage.setTitle("Data Shuffle");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {

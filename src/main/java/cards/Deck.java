@@ -68,30 +68,30 @@ public class Deck extends TabPane {
 		setTabMaxWidth(75);
 
 		ContextMenu rightClickMenu = new ContextMenu();
-		Menu resizeCard = new Menu("Resize Deck");
+		Menu editDeckCard = new Menu("Edit");
 		MenuItem incSize = new MenuItem("Increase Size");
 		MenuItem decSize = new MenuItem("Decrease Size");
-		resizeCard.getItems().addAll(incSize, decSize);
+		editDeckCard.getItems().addAll(incSize, decSize);
 
-		Menu deleteMenu = new Menu();
+		Menu deleteMenu = new Menu("Delete");
 		MenuItem deleteDeck = new MenuItem("Delete Deck");
 		MenuItem deleteCard = new MenuItem("Delete Card");
 		deleteMenu.getItems().addAll(deleteDeck, deleteCard);
-		rightClickMenu.getItems().addAll(resizeCard, deleteMenu);
+		rightClickMenu.getItems().addAll(editDeckCard, deleteMenu);
 
 
 		incSize.setOnAction(event -> {
-            setPrefHeight(getHeight() + 30);
-            setPrefWidth(getWidth() + 60);
+            this.setPrefHeight(getHeight() + 30);
+            this.setPrefWidth(getWidth() + 60);
         });
 		decSize.setOnAction(event -> {
-            setPrefHeight(getHeight() - 30);
-
-            setPrefWidth(getWidth() - 60);
+            this.setPrefHeight(getHeight() - 30);
+            this.setPrefWidth(getWidth() - 60);
         });
 		deleteDeck.setOnAction(event ->
 				{
 					getTabs().clear();
+					((FlowPane)this.getParent()).getChildren().remove(this);
 
 				}
 
@@ -100,7 +100,6 @@ public class Deck extends TabPane {
 				{
 					getTabs().remove(this);
 				}
-
 		);
 
 
