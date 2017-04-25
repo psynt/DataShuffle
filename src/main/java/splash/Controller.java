@@ -1,25 +1,5 @@
 package splash;
 
-import content.Item;
-import debug.Debug;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import org.jsoup.nodes.Document;
-import webscraper.*;
-import webscraper.clever.CoursePOSTReq;
-import webscraper.clever.ModulePOSTReq;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,14 +8,58 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.jsoup.nodes.Document;
+
+import content.Item;
+import debug.Debug;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import webscraper.CourseScraper;
+import webscraper.DocumentLoader;
+import webscraper.EbayItemScraper;
+import webscraper.EbayResultScraper;
+import webscraper.ModuleScraper;
+import webscraper.clever.CoursePOSTReq;
+import webscraper.clever.ModulePOSTReq;
+
 public class Controller {
 
 	@FXML
 	AnchorPane pane;
+	@FXML
+	Button ebayButton;
+	@FXML
+	Button moduleButton;
 
 	private static ArrayList<Item> searchResults = new ArrayList<>();
 	private static String Type;
 
+	@FXML
+	public void initialize() {
+	}
+	
+	@FXML
+	public void closeWindow(ActionEvent actionEvent){
+		Stage stage = (Stage) pane.getScene().getWindow();
+		stage.close();
+	}
+	
 	@FXML
 	public void clickEvent(ActionEvent actionEvent) {
 		Button source = (Button)(actionEvent.getSource());
