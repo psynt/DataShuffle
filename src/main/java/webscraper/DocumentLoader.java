@@ -24,7 +24,7 @@ public class DocumentLoader {
 	public static Document load(URL url){
 		Document newDoc = null;
 		try {
-			newDoc = Jsoup.connect(url.toString()).ignoreContentType(true).ignoreHttpErrors(true).get();
+			newDoc = Jsoup.connect(url.toString()).timeout(0).ignoreContentType(true).ignoreHttpErrors(true).get();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
