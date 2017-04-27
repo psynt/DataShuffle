@@ -6,9 +6,14 @@ import cards.Card;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class SideMenu extends VBox {
@@ -18,23 +23,37 @@ public class SideMenu extends VBox {
 		return displayMenuButton;
 	}
 
-	//toggle side menu button created
-	final static Button displayMenuButton = new Button("Collapse");
+	double buttonWidth = 60;
+	double buttonHeight = 50;
+
+
+	Rectangle2D croppedImage = new Rectangle2D(1, 1, 100, 100);
+	
+	 //toggle side menu button created
+    static Image image = new Image("Resources/left-arrow.png");
+	final static ImageView arrowImage = new ImageView(image);
+	final static Button displayMenuButton = new Button(" ", arrowImage);
 
 	// create a Vbox panel to contain the side menu, set to the width passed in
 	public SideMenu(final double newWidth, Node... nodes) {
 		getStyleClass().add("sideMenu");//for CSS styling
 		this.setPrefWidth(newWidth);
 		this.setMinWidth(0);
-
+		
+		arrowImage.setViewport(croppedImage);
+		arrowImage.setFitWidth(buttonWidth);
+		arrowImage.setFitHeight(buttonHeight);
+		arrowImage.setSmooth(true);
+		
 		// Set the panel in the centre(of the right side of the borderpane) and add sidemenu items
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(nodes);
 
 		// menu toggle button style added and orientation changed.
 		displayMenuButton.getStyleClass().add("hide-left");
-		displayMenuButton.setRotate(270);
-		displayMenuButton.setMinWidth(75);
+		displayMenuButton.setContentDisplay(ContentDisplay.CENTER);
+		displayMenuButton.setRotate(180);
+		displayMenuButton.setMinWidth(60);
 		
 				
 	}
@@ -56,10 +75,11 @@ public class SideMenu extends VBox {
 		};
 		hideSideMenu.onFinishedProperty().set(actionEvent -> {
 			setVisible(false);
-			displayMenuButton.setText("Open");
+			//displayMenuButton.setText("Open");
 			displayMenuButton.getStyleClass().remove("hide-left");
 			displayMenuButton.getStyleClass().add("show-right");
-			displayMenuButton.setMinWidth(40);
+			displayMenuButton.setRotate(0);
+			//displayMenuButton.setMinWidth(60);
 		});
 		// animation to display side menu
 		final Animation displaySideMenu = new Transition() {
@@ -75,10 +95,11 @@ public class SideMenu extends VBox {
 			}
 		};
 		displaySideMenu.onFinishedProperty().set(actionEvent -> {
-			displayMenuButton.setText("Collapse");
+			//displayMenuButton.setText("Collapse");
 			displayMenuButton.getStyleClass().add("hide-left");
 			displayMenuButton.getStyleClass().remove("show-right");
-			displayMenuButton.setMinWidth(75);
+			displayMenuButton.setRotate(180);
+			//displayMenuButton.setMinWidth(60);
 		});
 		if (menuAnimationFinished(hideSideMenu, displaySideMenu)) {
 			if (isVisible()) {
