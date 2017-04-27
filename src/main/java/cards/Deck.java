@@ -1,17 +1,34 @@
 package cards;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import javafx.beans.property.ObjectProperty;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 
-public class Deck extends TabPane {
+public class Deck extends TabPane implements Serializable {
 
+	private static final long serialVersionUID = -990337246895626078L;
 	private static final String TAB_DRAG_KEY = "tab";
+	
+	private ArrayList<Card> allCards;
 
 	public Deck(ObjectProperty<Tab> draggingTab, int colour, int num) {
+		
+		allCards= new ArrayList<Card>();		
 
 		setOnDragOver(event -> {
 			final Dragboard dragboard = event.getDragboard();
@@ -110,5 +127,19 @@ public class Deck extends TabPane {
 		setBorder(new Border(
 				new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 
+	}
+	
+	public void saveCard(Card newCard){
+		allCards.add(newCard);
+	}
+	
+	public ArrayList<Card> getCards(){
+		return allCards;
+	}
+	
+	public void readdAllCards(){
+		for(int i = 0; i < allCards.size(); i++){
+			this.getTabs().add(allCards.get(i));
+		}
 	}
 }

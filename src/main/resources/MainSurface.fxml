@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cards.Controller">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cards.Controller">
    <center>
       <ScrollPane fx:id="scrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <content>
@@ -25,6 +25,7 @@
           <Button fx:id="newGreenPaneButton" mnemonicParsing="false" onAction="#newGreenDeck" text="New Green Deck" />
           <Button fx:id="newYellowPaneButton" mnemonicParsing="false" onAction="#newYellowDeck" text="New Yellow Deck" />
           <Button fx:id="newRedPaneButton" mnemonicParsing="false" onAction="#newRedDeck" text="New Red Deck" />
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveState" text="Save" />
         </items>
       </ToolBar>
    </top>

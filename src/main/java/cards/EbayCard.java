@@ -1,5 +1,7 @@
 package cards;
 
+import java.io.Serializable;
+
 import content.Item;
 import javafx.scene.image.ImageView;
 import sidebar.SideMenuItems;
@@ -9,7 +11,9 @@ import sidebar.SideMenuItems;
  * adding the images in listings
  *
  */
-public class EbayCard extends Card {
+public class EbayCard extends Card implements Serializable {
+
+	private static final long serialVersionUID = 3385480495404743216L;
 
 	public EbayCard(Item cardItem, int numDeck, SideMenuItems sidebarSubject) {
 		super(cardItem, numDeck, sidebarSubject, cardItem.get("name"));

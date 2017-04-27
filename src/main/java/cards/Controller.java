@@ -1,5 +1,15 @@
 package cards;
 
+import static cards.CardFactory.createCard;
+import static splash.Controller.getSearchResults;
+import static splash.Controller.getType;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -13,18 +23,20 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import sidebar.SideMenu;
 import sidebar.SideMenuController;
-
-import java.util.ArrayList;
-
-import org.apache.poi.util.SystemOutLogger;
-
-import static cards.CardFactory.createCard;
-import static splash.Controller.getSearchResults;
-import static splash.Controller.getType;
 
 public class Controller {
 	private int numDecks = 0;
@@ -66,22 +78,18 @@ public class Controller {
 		Deck cardStackGreen = new Deck(draggingTab, 0, getNumDecks());
 		incNumDecks();
 		Deck cardStackYellow = new Deck(draggingTab, 1, getNumDecks());
-		//incNumDecks();
-		//Deck cardStackRed = new Deck(draggingTab, 2, getNumDecks());
 
 		centerPane.getChildren().add(cardStackGreen);
 		centerPane.getChildren().add(cardStackYellow);
-		//centerPane.getChildren().add(cardStackRed);
+		
+		
+		
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
 		scrollPane.setContent(centerPane);
-
 		scrollPane.setStyle("-fx-background-color: #2f4f4f;");
 		centerPane.setStyle("-fx-background-color: #2f4f4f;");
 		centerPane.setOrientation(Orientation.VERTICAL);
-
-
 
 		// create a sidebar with some content in it.
 		int sideMenuWidth = 250;
@@ -104,6 +112,16 @@ public class Controller {
 				cardStackGreen.getTabs().add(cards.get(i));
 			}
 
+		}
+		
+		//if loading from a file
+		if(splash.Controller.getLoadFlag()){
+			//splash.Controller.getLoadResults().forEach(e -> centerPane.getChildren().add(e));
+			for(int i = 0; i < splash.Controller.getLoadResults().size(); i++){
+				System.out.println("adding card " + i);
+				centerPane.getChildren().add(splash.Controller.getLoadResults().get(i));
+				((Deck) centerPane.getChildren().get(i)).readdAllCards();
+			}
 		}
 		
 		//Adds tick boxes for each label on the cards
@@ -179,6 +197,39 @@ public class Controller {
 
 	private int incNumDecks(){
 		return ++numDecks;
+	}
+	
+	
+	@FXML
+	private CardState saveState(){
+		
+		CardState saveState = new CardState();
+		
+		for(int i = 0; i < centerPane.getChildren().size(); i++){
+			Deck newDeck = (Deck)centerPane.getChildren().get(i);
+			newDeck.getTabs().forEach(e -> newDeck.saveCard((Card)e));
+			saveState.addDeck(newDeck);
+		}
+		
+		// Write to disk with FileOutputStream
+		FileOutputStream f_out = null;
+		ObjectOutputStream obj_out = null;
+		try {
+			f_out = new FileOutputStream("cards.data");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		// Write object with ObjectOutputStream
+		try {
+			obj_out = new ObjectOutputStream (f_out);
+			obj_out.writeObject ( saveState );
+			f_out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return saveState;
 	}
 	
 }

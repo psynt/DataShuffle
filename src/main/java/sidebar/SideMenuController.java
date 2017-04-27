@@ -2,32 +2,22 @@ package sidebar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-
-import javax.swing.JFileChooser;
-import cards.Main;
-import cards.Card;
 import content.Item;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextArea;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import saver.ExcelSaver;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 
 
 public class SideMenuController extends SideMenuItems
 {
 
-	private TextArea textArea;
 	File dataFile = null;
 	Parent root;
 	Stage fileMenu;
@@ -160,7 +150,7 @@ public class SideMenuController extends SideMenuItems
 		});
 
 		exportExcelButton.setOnAction(event -> {
-			ExcelSaver calc = new ExcelSaver(results);
+			new ExcelSaver(results);
 			System.out.print("excel test");
 		});
 

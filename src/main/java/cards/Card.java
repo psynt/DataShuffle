@@ -1,18 +1,25 @@
 package cards;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Map;
+
 import content.Item;
 import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import sidebar.SideMenuController;
 import sidebar.SideMenuItems;
-
-import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * The 'card'
@@ -20,8 +27,8 @@ import java.util.Map;
  * Created by nichita on 01/03/17.
  *
  */
-public class Card extends Tab implements Observer{
-
+public class Card extends Tab implements Observer, Serializable{
+	private static final long serialVersionUID = -630866289349768478L;
 	int cardState;
 	int YES = 0;
 	int NO = 1;

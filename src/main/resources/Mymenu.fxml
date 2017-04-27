@@ -11,6 +11,26 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="splash.Controller">
    <children>
+      <MenuBar layoutY="-2.0" prefHeight="33.0" prefWidth="400.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open" />
+                  <MenuItem mnemonicParsing="false" onAction="#closeWindow" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
       <Button fx:id="moduleButton" layoutX="94.0" layoutY="397.0" mnemonicParsing="false" onAction="#clickEvent" prefHeight="30.0" prefWidth="180.0" text="Module">
          <effect>
             <ImageInput>
@@ -27,25 +47,6 @@
                </source>
             </ImageInput>
          </effect></Button>
-      <MenuBar layoutY="-2.0" prefHeight="33.0" prefWidth="400.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#closeWindow" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@illustration.gif" />
