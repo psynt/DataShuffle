@@ -1,18 +1,5 @@
 package splash;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.jsoup.nodes.Document;
-
 import cards.CardState;
 import cards.Deck;
 import content.Item;
@@ -23,24 +10,28 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import webscraper.CourseScraper;
-import webscraper.DocumentLoader;
-import webscraper.EbayItemScraper;
-import webscraper.EbayResultScraper;
-import webscraper.ModuleScraper;
+import org.jsoup.nodes.Document;
+import webscraper.*;
 import webscraper.clever.CoursePOSTReq;
 import webscraper.clever.ModulePOSTReq;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Controller {
 
@@ -158,7 +149,7 @@ public class Controller {
 			grid.add(cb, 1, 1);
 			searchButton.setOnAction(e -> { // ebay
 				try {
-					searchResults = ebay(userTextField.getText());
+					searchResults = ebay(userTextField.getText(), minTextField.getText(), maxTextField.getText());
 					System.out.println(searchResults);
 					window.close();
 				} catch (MalformedURLException ex) {
@@ -261,10 +252,13 @@ public class Controller {
 		return new ArrayList<>(results);
 	}
 
-	private ArrayList<Item> ebay(String searchTerm) throws MalformedURLException {
+	private ArrayList<Item> ebay(String searchTerm, String min, String max) throws MalformedURLException {
 		Type = "Ebay";
-		String searchUrl = "http://www.ebay.co.uk/sch/i.html?_&_nkw=datashuffle&_sacat=0".replace("datashuffle",
-				searchTerm);
+		//String searchUrl = "http://www.ebay.co.uk/sch/i.html?_&_nkw=datashuffle&_sacat=0".replace("datashuffle",searchTerm);
+
+		String searchUrl = "http://www.ebay.com/sch/i.html?_from=R40&_nkw=datashuffle&_in_kw=1&_" +
+				"ex_kw=&_sacat=0&_mPrRngCbx=1&_udlo=minprice&_udhi=maxprice&_ftrt=901&_ftrv=1&_sabd" +
+				"lo=&_sabdhi=&_samilow=&_samihi=&_sargn=-1%26saslc%3D1&_salic=1&_sop=12&_dmd=1&_ipg=50".replace("datashuffle", searchTerm).replace("minprice", min).replace("maxprice", max);
 
 		ArrayList<Item> whatYouWant = new ArrayList<>();
 		Document guitarSearch = DocumentLoader.load(new URL(searchUrl));

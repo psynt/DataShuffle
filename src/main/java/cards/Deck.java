@@ -1,23 +1,14 @@
 package cards;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 import javafx.beans.property.ObjectProperty;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Deck extends TabPane implements Serializable {
 
@@ -76,10 +67,13 @@ public class Deck extends TabPane implements Serializable {
 			break;
 		}
 
-		setMinWidth(120);
-		setMaxWidth(480);
-		setMaxHeight(480);
-		setMinHeight(150);
+		//setMinWidth(120);
+		//setMaxWidth(480);
+		setPrefHeight(140);
+		setPrefWidth(200);
+
+		//setMaxHeight(480);
+		//setMinHeight(150);
 
 		setTabMinWidth(50);
 		setTabMaxWidth(75);
@@ -99,11 +93,11 @@ public class Deck extends TabPane implements Serializable {
 
 		incSize.setOnAction(event -> {
             this.setPrefHeight(getHeight() + 30);
-            this.setPrefWidth(getWidth() + 60);
+            this.setPrefWidth(getWidth() + 50);
         });
 		decSize.setOnAction(event -> {
             this.setPrefHeight(getHeight() - 30);
-            this.setPrefWidth(getWidth() - 60);
+            this.setPrefWidth(getWidth() - 50);
         });
 		deleteDeck.setOnAction(event ->
 				{
