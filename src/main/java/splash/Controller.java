@@ -256,9 +256,7 @@ public class Controller {
 		Type = "Ebay";
 		//String searchUrl = "http://www.ebay.co.uk/sch/i.html?_&_nkw=datashuffle&_sacat=0".replace("datashuffle",searchTerm);
 
-		String searchUrl = "http://www.ebay.com/sch/i.html?_from=R40&_nkw=datashuffle&_in_kw=1&_" +
-				"ex_kw=&_sacat=0&_mPrRngCbx=1&_udlo=minprice&_udhi=maxprice&_ftrt=901&_ftrv=1&_sabd" +
-				"lo=&_sabdhi=&_samilow=&_samihi=&_sargn=-1%26saslc%3D1&_salic=1&_sop=12&_dmd=1&_ipg=50".replace("datashuffle", searchTerm).replace("minprice", min).replace("maxprice", max);
+		String searchUrl = "http://www.ebay.co.uk/sch/i.html?_odkw=&_ftrt=901&_udlo=minprice&_sop=12&_sadis=15&_dmd=1&_udhi=maxprice&_mPrRngCbx=1&_osacat=0&_ipg=50&_ftrv=1&_from=R40&_trksid=p2045573.m570.l1313.TR0.TRC0.H0.Xmari.TRS0&_nkw=datashuffle&_sacat=0".replace("datashuffle", searchTerm).replace("minprice", min).replace("maxprice", max);
 
 		ArrayList<Item> whatYouWant = new ArrayList<>();
 		Document guitarSearch = DocumentLoader.load(new URL(searchUrl));
