@@ -109,7 +109,7 @@ public class Deck extends TabPane implements Serializable {
 		);
 		deleteCard.setOnAction(event ->
 				{
-					getTabs().remove(this);
+					getTabs().remove(this.getSelectionModel().getSelectedItem());
 				}
 		);
 
@@ -131,9 +131,9 @@ public class Deck extends TabPane implements Serializable {
 		return allCards;
 	}
 	
-	public void readdAllCards(){
-		for(int i = 0; i < allCards.size(); i++){
-			this.getTabs().add(allCards.get(i));
+	public void readAllCards(){
+		for (Card it : allCards) {
+			this.getTabs().add(it);
 		}
 	}
 }

@@ -120,7 +120,7 @@ public class Controller {
 			for(int i = 0; i < splash.Controller.getLoadResults().size(); i++){
 				System.out.println("adding card " + i);
 				centerPane.getChildren().add(splash.Controller.getLoadResults().get(i));
-				((Deck) centerPane.getChildren().get(i)).readdAllCards();
+				((Deck) centerPane.getChildren().get(i)).readAllCards();
 			}
 		}
 		
