@@ -149,7 +149,7 @@ public class Controller {
 			grid.add(cb, 1, 1);
 			searchButton.setOnAction(e -> { // ebay
 				try {
-					searchResults = ebay(userTextField.getText(), minTextField.getText(), maxTextField.getText());
+					searchResults = ebay(userTextField.getText(), minTextField.getText(), maxTextField.getText(), cb.getSelectionModel().getSelectedItem().toString() );
 					System.out.println(searchResults);
 					window.close();
 				} catch (MalformedURLException ex) {
@@ -252,11 +252,13 @@ public class Controller {
 		return new ArrayList<>(results);
 	}
 
-	private ArrayList<Item> ebay(String searchTerm, String min, String max) throws MalformedURLException {
+	private ArrayList<Item> ebay(String searchTerm, String min, String max, String auctionType) throws MalformedURLException {
 		Type = "Ebay";
+		if(auctionType == "Buy It Now!"){auctionType = "BIN";}
+
 		//String searchUrl = "http://www.ebay.co.uk/sch/i.html?_&_nkw=datashuffle&_sacat=0".replace("datashuffle",searchTerm);
 
-		String searchUrl = "http://www.ebay.co.uk/sch/i.html?_odkw=&_ftrt=901&_udlo=minprice&_sop=12&_sadis=15&_dmd=1&_udhi=maxprice&_mPrRngCbx=1&_osacat=0&_ipg=50&_ftrv=1&_from=R40&_trksid=p2045573.m570.l1313.TR0.TRC0.H0.Xmari.TRS0&_nkw=datashuffle&_sacat=0".replace("datashuffle", searchTerm).replace("minprice", min).replace("maxprice", max);
+		String searchUrl = "http://www.ebay.co.uk/sch/i.html?_from=R40&_nkw=mario&_in_kw=1&_ex_kw=&_sacat=0&_mPrRngCbx=1&_udlo=2&_udhi=8&LH_AUCTYPE=1&_ftrt=901&_ftrv=1&_sabdlo=&_sabdhi=&_samilow=&_samihi=&_sadis=15&_stpos=&_sargn=-1%26saslc%3D1&_salic=3&_sop=12&_dmd=1&_ipg=50".replace("datashuffle", searchTerm).replace("minprice", min).replace("maxprice", max).replace("AUCTYPE", auctionType);
 
 		ArrayList<Item> whatYouWant = new ArrayList<>();
 		Document guitarSearch = DocumentLoader.load(new URL(searchUrl));
