@@ -30,7 +30,7 @@ public class SideMenu extends VBox {
 	Rectangle2D croppedImage = new Rectangle2D(1, 1, 100, 100);
 	
 	 //toggle side menu button created
-    static Image image = new Image("Resources/left-arrow.png");
+    static Image image = new Image("/left-arrow.png");
 	final static ImageView arrowImage = new ImageView(image);
 	final static Button displayMenuButton = new Button(" ", arrowImage);
 
