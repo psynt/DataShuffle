@@ -8,10 +8,11 @@
 }  
 .background {
 
-    -fx-background-color:#AA0114;
+
+    -fx-background-color:#98C1D9;
     -fx-background-size: 1000, 100;
     -fx-background-repeat: no-repeat;
-  
+
    	 -fx-background-position: center center;
      
 
@@ -50,10 +51,10 @@
      -fx-border-color:derive(gray,80%);
   
  
-     -fx-background-color: #d8d8d8; 
+     -fx-background-color: #E3DBDB; 
     
      -fx-font-family: "Segoe UI Light", Helvetica, Arial, sans-serif; 
-     -fx-font-size: 11pt; 
+     -fx-font-size: 10pt; 
      -fx-text-fill: black; 
  } 
  

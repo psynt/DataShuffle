@@ -39,6 +39,8 @@ public class Controller {
 	AnchorPane pane;
 	@FXML
 	Button ebayButton;
+
+
 	@FXML
 	Button moduleButton;
 
@@ -46,6 +48,8 @@ public class Controller {
 	private static ArrayList<Item> searchResults = new ArrayList<>();
 	private static ArrayList<Deck> loadResults = new ArrayList<Deck>();
 	private static String Type;
+
+
 
 	@FXML
 	public void initialize() {

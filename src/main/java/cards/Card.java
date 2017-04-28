@@ -1,25 +1,19 @@
 package cards;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Map;
-
 import content.Item;
 import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import sidebar.SideMenuController;
 import sidebar.SideMenuItems;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * The 'card'
