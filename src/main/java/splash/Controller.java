@@ -103,6 +103,18 @@ public class Controller {
 	}
 
 	@FXML
+	public void ebayEvent(ActionEvent actionEvent){
+		setType("Ebay");
+		clickEvent(actionEvent);
+
+	}
+	@FXML
+	public void moduleEvent(ActionEvent actionEvent){
+		setType("Module");
+		clickEvent(actionEvent);
+	}
+
+	@FXML
 	public void clickEvent(ActionEvent actionEvent) {
 		Button source = (Button) (actionEvent.getSource());
 		String type = source.getText();
@@ -137,7 +149,7 @@ public class Controller {
 		final ChoiceBox<Object> cb = new ChoiceBox<>();
 
 		HBox hb = new HBox();
-		if (type.equals("Ebay")) {
+		if (Type.equals("Ebay")) {
 			label1.setText("Min:");
 			label2.setText("Max:");
 			minTextField.setPrefWidth(55.0);
@@ -293,6 +305,9 @@ public class Controller {
 
 	public static String getType() {
 		return Type;
+	}
+	public void setType(String typeToSet){
+		Type = typeToSet;
 	}
 
 	public static void reset() {
