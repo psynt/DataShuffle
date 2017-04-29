@@ -42,7 +42,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="65.0">
                <image>
-                  <Image url="@ebay1.png" />
+                  <Image url="@ebay.png" />
                </image>
             </ImageView>
          </graphic></Button>
