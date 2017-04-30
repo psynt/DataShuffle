@@ -19,7 +19,7 @@ public class Deck extends TabPane implements Serializable {
 
 	public Deck(ObjectProperty<Tab> draggingTab, int colour, int num) {
 		
-		allCards= new ArrayList<Card>();		
+		allCards= new ArrayList<>();
 
 		setOnDragOver(event -> {
 			final Dragboard dragboard = event.getDragboard();

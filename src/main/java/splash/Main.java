@@ -16,10 +16,6 @@ public class Main extends Application {
 		return scene;
 	}
 
-	@FXML
-	Button ebayButton;
-	@FXML
-	Button moduleButton;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
