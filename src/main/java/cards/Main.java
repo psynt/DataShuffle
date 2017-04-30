@@ -21,6 +21,7 @@ public class Main extends Application {
     //@Override
     public static void start1(Stage primaryStage) throws Exception{
         BorderPane root = FXMLLoader.load(Main.class.getResource("/MainSurface.fxml"));
+		primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/titleIcon.png")));
         primaryStage.setTitle(title);
         primaryStage.setScene(new Scene(root));
         
