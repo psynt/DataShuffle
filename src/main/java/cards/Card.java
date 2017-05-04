@@ -23,10 +23,10 @@ import java.util.Map;
  */
 public class Card extends Tab implements Observer, Serializable{
 	private static final long serialVersionUID = -630866289349768478L;
-	int cardState;
-	int YES = 0;
-	int NO = 1;
-	int MAYBE = 2;
+	private int cardState;
+	private int YES = 0;
+	private int NO = 1;
+	private int MAYBE = 2;
 	boolean mouseSelected = false;
 	private VBox layoutManager;
 	private ArrayList<String> keys = new ArrayList<>();
@@ -98,15 +98,13 @@ public class Card extends Tab implements Observer, Serializable{
 		//method to detect if card is left clicked
 		layoutManager.setOnMouseClicked(e ->{
 			mouseSelected=true;
-			if(mouseSelected==true){
-				System.out.print("Save as test");
-			}
-			});
+			System.out.print("Save as test");
+		});
 		
 			//method to detect if mouse has been clicked outside card
 			layoutManager.setOnMouseExited(e ->{
 				Controller.cardUnselect();
-				if(Controller.cardSelected ==false){
+				if(!Controller.cardSelected){
 					mouseSelected=false;
 					System.out.print("Sst");
 				}

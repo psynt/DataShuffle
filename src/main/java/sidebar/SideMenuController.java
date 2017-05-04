@@ -150,7 +150,7 @@ public class SideMenuController extends SideMenuItems
 		});
 
 		exportExcelButton.setOnAction(event -> {
-			new ExcelSaver(results);
+			new ExcelSaver(results).save(new Item());
 			System.out.print("excel test");
 		});
 

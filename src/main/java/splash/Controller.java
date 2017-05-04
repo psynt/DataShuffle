@@ -2,6 +2,7 @@ package splash;
 
 import cards.CardState;
 import cards.Deck;
+import content.Group;
 import content.Item;
 import debug.Debug;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Data;
 import org.jsoup.nodes.Document;
 import webscraper.*;
 import webscraper.clever.CoursePOSTReq;
@@ -31,6 +33,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Controller {
@@ -45,11 +48,12 @@ public class Controller {
 	Button moduleButton;
 
 	private static boolean loadFlag = false;
-	private static ArrayList<Item> searchResults = new ArrayList<>();
-	private static ArrayList<Deck> loadResults = new ArrayList<Deck>();
-	private static String Type;
 
+	private static Data d = new Data();
 
+	public static Data getData(){
+		return d;
+	}
 
 	@FXML
 	public void initialize() {
@@ -90,7 +94,7 @@ public class Controller {
 		}
 
 		if (obj instanceof CardState) {
-			loadResults = ((CardState) obj).getAllDecks();
+//			loadResults = ((CardState) obj).getAllDecks();
 			try {
 				loadFlag = true;
 				cards.Main.start1((Stage) pane.getScene().getWindow());
@@ -104,13 +108,13 @@ public class Controller {
 
 	@FXML
 	public void ebayEvent(ActionEvent actionEvent){
-		setType("Ebay");
+		d.setType("Ebay");
 		clickEvent(actionEvent);
 
 	}
 	@FXML
 	public void moduleEvent(ActionEvent actionEvent){
-		setType("Module");
+		d.setType("Module");
 		clickEvent(actionEvent);
 	}
 
@@ -149,7 +153,7 @@ public class Controller {
 		final ChoiceBox<Object> cb = new ChoiceBox<>();
 
 		HBox hb = new HBox();
-		if (Type.equals("Ebay")) {
+		if (d.getType().equals("Ebay")) {
 			label1.setText("Min:");
 			label2.setText("Max:");
 			minTextField.setPrefWidth(55.0);
@@ -165,8 +169,8 @@ public class Controller {
 			grid.add(cb, 1, 1);
 			searchButton.setOnAction(e -> { // ebay
 				try {
-					searchResults = ebay(userTextField.getText(), minTextField.getText(), maxTextField.getText(), cb.getSelectionModel().getSelectedItem().toString() );
-					System.out.println(searchResults);
+					d.add(new Group(ebay(userTextField.getText(), minTextField.getText(), maxTextField.getText(), cb.getSelectionModel().getSelectedItem().toString() )));
+					System.out.println(d.get(0));
 					window.close();
 				} catch (MalformedURLException ex) {
 					System.out.println("Bad url:");
@@ -186,8 +190,8 @@ public class Controller {
 
 			searchButton.setOnAction(e -> {
 				try {
-					searchResults = modules(userTextField.getText(), minTextField.getText());
-					System.out.println(searchResults);
+					d.add(new Group( modules(userTextField.getText(), minTextField.getText())));
+					System.out.println(d.get(0));
 					window.close();
 				} catch (MalformedURLException ex) {
 					System.out.println("Bad url:");
@@ -218,7 +222,7 @@ public class Controller {
 		scene.getStylesheets().add(Controller.class.getResource("/application.css").toExternalForm());
 		try {
 			window.showAndWait();
-			if (searchResults != null && searchResults.size() > 0) {
+			if (!d.isEmpty()) {
 				cards.Main.start1((Stage) pane.getScene().getWindow());
 			}
 		} catch (Throwable t) {
@@ -228,7 +232,7 @@ public class Controller {
 	}
 
 	private ArrayList<Item> modules(String keyword, String code) throws MalformedURLException {
-		Type = "Module";
+		d.setType ("Module");
 		CoursePOSTReq courseGetter = new CoursePOSTReq();
 
 		Map<String, String> res;
@@ -269,8 +273,8 @@ public class Controller {
 	}
 
 	private ArrayList<Item> ebay(String searchTerm, String min, String max, String auctionType) throws MalformedURLException {
-		Type = "Ebay";
-		if(auctionType == "Buy It Now!"){auctionType = "BIN";}
+		d.setType("Ebay");
+		if(Objects.equals(auctionType, "Buy It Now!")){auctionType = "BIN";}
 
 		//String searchUrl = "http://www.ebay.co.uk/sch/i.html?_&_nkw=datashuffle&_sacat=0".replace("datashuffle",searchTerm);
 
@@ -291,27 +295,16 @@ public class Controller {
 		return whatYouWant;
 	}
 
-	public static ArrayList<Item> getSearchResults() {
-		return searchResults;
+	public static Group getSearchResults() {
+		return d.get(0);
 	}
-	
-	public static ArrayList<Deck> getLoadResults(){
-		return loadResults;
-	}
+
 	
 	public static boolean getLoadFlag(){
 		return loadFlag;
 	}
 
-	public static String getType() {
-		return Type;
-	}
-	public void setType(String typeToSet){
-		Type = typeToSet;
-	}
-
 	public static void reset() {
-		Type = null;
-		searchResults = new ArrayList<>();
+		d.clear();
 	}
 }

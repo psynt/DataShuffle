@@ -1,4 +1,5 @@
 import webscraper.clever.CoursePOSTReq
+import webscraper.clever.ModulePOSTReq
 
 /**
  * Created by nichita on 06/03/17.
@@ -15,7 +16,7 @@ import webscraper.clever.CoursePOSTReq
 //
 ////println res
 //
-def courses =  new CoursePOSTReq()
-println courses.keyword("computer")
+//def courses =  new CoursePOSTReq()
+//println courses.keyword("computer")
 
 //println new ModulePOSTReq().courseCode("g52afp")
