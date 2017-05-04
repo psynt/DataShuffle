@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Data;
 
 public class Main extends Application {
 
@@ -25,6 +26,7 @@ public class Main extends Application {
 		primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/titleIcon.png")));
         primaryStage.setTitle(title);
         primaryStage.setScene(new Scene(root,1000,1000));
+
         
         primaryStage.show();
         

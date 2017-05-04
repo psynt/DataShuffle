@@ -1,8 +1,7 @@
 package cards;
 
 import static cards.CardFactory.createCard;
-import static splash.Controller.getData;
-import static splash.Controller.getSearchResults;
+import static splash.Controller.d;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -36,14 +35,15 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import model.Data;
 import sidebar.SideMenu;
 import sidebar.SideMenuController;
 
 public class Controller {
-//	private int numDecks = 0;
 	private static final String TAB_DRAG_KEY = "tab";
 	private ObjectProperty<Tab> draggingTab;
 	static boolean cardSelected = true;
+//	private Data d;
 
 	boolean selected;
 	@FXML
@@ -71,12 +71,15 @@ public class Controller {
 
 	@FXML
 	public void initialize() {
+//		d = new Data(getData());
+		System.err.println(d);
+		d.last().setColor(0);
 		
 		mainPane.setStyle("-fx-background-color: #2f4f4f;");
         
 		draggingTab = new SimpleObjectProperty<>();
 //		incNumDecks();
-		Deck cardStackGreen = new Deck(draggingTab, getData().get(0), 1);//getNumDecks());
+		Deck cardStackGreen = new Deck(draggingTab, d.last());//getNumDecks());
 //		incNumDecks();
 //		Deck cardStackYellow = new Deck(draggingTab, 1, getNumDecks());
 
@@ -100,9 +103,9 @@ public class Controller {
 		sideMenu = new SideMenu(sideMenuWidth, menuPane);
 		VBox.setVgrow(menuPane, Priority.ALWAYS);
 		
-		ArrayList<Item> results = getSearchResults();
+//		ArrayList<Item> results = getSearchResults();
 		ArrayList<Card> cards = new ArrayList<>();
-		results.forEach(e -> cards.add(newCard(getData().get(0),e, getData().getType())));
+		d.last().forEach(e -> cards.add(newCard(getData().get(0),e, getData().getType())));
 
 		// add the left cards to the left vbox
 		for(int i=0 ; i<cards.size() ; i++){
@@ -130,7 +133,7 @@ public class Controller {
 			cards.get(0).getKeys().forEach( e -> sideMenuController.addShowTickBox(e) );
 		}
 
-		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane, results);
+		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane, d);
 
 		// layout the scene.
 		StackPane buttonLocation = new StackPane();
@@ -153,20 +156,30 @@ public class Controller {
 	}
 
 
+	public Data getData(){
+		return d;
+	}
+
 	@FXML public void newGreenDeck() {
-//		Deck newDeck = new Deck(draggingTab, 0, incNumDecks());
-//
-//		centerPane.getChildren().add(newDeck);
+		incNumDecks();
+		d.last().setColour(0);
+		Deck newDeck = new Deck(draggingTab, d.last());
+
+		centerPane.getChildren().add(newDeck);
 	}
 	
 	@FXML public void newYellowDeck() {
-//		Deck newDeck = new Deck(draggingTab, 1, incNumDecks());
-//		centerPane.getChildren().add(newDeck);
+		incNumDecks();
+		d.last().setColour(1);
+		Deck newDeck = new Deck(draggingTab, d.last());
+		centerPane.getChildren().add(newDeck);
 	}
 	
 	@FXML public void newRedDeck() {
-//		Deck newDeck = new Deck(draggingTab, 2, incNumDecks());
-//		centerPane.getChildren().add(newDeck);
+		incNumDecks();
+		d.last().setColour(2);
+		Deck newDeck = new Deck(draggingTab, d.last());
+		centerPane.getChildren().add(newDeck);
 		
 
 	}
@@ -191,14 +204,13 @@ public class Controller {
 		return card;
 	}
 
+	private int getNumDecks(){
+		return d.size();
+	}
 
-//	private int getNumDecks(){
-//		return numDecks;
-//	}
-//
-//	private int incNumDecks(){
-//		return ++numDecks;
-//	}
+	private void incNumDecks(){
+		d.add(new Group("Deck"+getData().size()));
+	}
 	
 	
 	@FXML

@@ -77,4 +77,12 @@ public class Item extends HashMap<String, String> {
     public ArrayList<String> keys() {
 		return new ArrayList<>(super.keySet());
     }
+
+	@Override
+	public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		forEach((key, value) -> sb.append("[").append(key).append(":").append(value).append("], "));
+		return "\n\t\t[" + sb.toString() + "]\n";
+	}
 }

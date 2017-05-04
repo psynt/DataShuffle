@@ -49,11 +49,11 @@ public class Controller {
 
 	private static boolean loadFlag = false;
 
-	private static Data d = new Data();
+	public static final Data d = new Data();
 
-	public static Data getData(){
-		return d;
-	}
+//	public static Data getData(){
+//		return d;
+//	}
 
 	@FXML
 	public void initialize() {
@@ -170,7 +170,7 @@ public class Controller {
 			searchButton.setOnAction(e -> { // ebay
 				try {
 					d.add(new Group(ebay(userTextField.getText(), minTextField.getText(), maxTextField.getText(), cb.getSelectionModel().getSelectedItem().toString() )));
-					System.out.println(d.get(0));
+					System.out.println(d);
 					window.close();
 				} catch (MalformedURLException ex) {
 					System.out.println("Bad url:");
@@ -191,7 +191,7 @@ public class Controller {
 			searchButton.setOnAction(e -> {
 				try {
 					d.add(new Group( modules(userTextField.getText(), minTextField.getText())));
-					System.out.println(d.get(0));
+					System.out.println(d);
 					window.close();
 				} catch (MalformedURLException ex) {
 					System.out.println("Bad url:");
@@ -223,6 +223,7 @@ public class Controller {
 		try {
 			window.showAndWait();
 			if (!d.isEmpty()) {
+				d.last().setColor(0);
 				cards.Main.start1((Stage) pane.getScene().getWindow());
 			}
 		} catch (Throwable t) {
@@ -296,9 +297,9 @@ public class Controller {
 		return whatYouWant;
 	}
 
-	public static Group getSearchResults() {
-		return d.get(0);
-	}
+//	public static Group getSearchResults() {
+//		return d.get(0);
+//	}
 
 	
 	public static boolean getLoadFlag(){

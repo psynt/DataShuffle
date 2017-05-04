@@ -12,7 +12,7 @@ import java.util.stream.Stream;
  */
 public class Group extends ArrayList<Item>{
     private String name = null;
-    private Color col;
+    private int col;
 
     public Group(String name){
         super();
@@ -30,16 +30,16 @@ public class Group extends ArrayList<Item>{
         super(c);
     }
 
-    public void setColour(Color c){
+    public void setColour(int c){
         col=c;
     }
-    public Color getColour(){
+    public int getColour(){
         return col;
     }
-    public void setColor(Color c){
+    public void setColor(int c){
         col=c;
     }
-    public Color getColor(){
+    public int getColor(){
         return col;
     }
 
@@ -51,7 +51,15 @@ public class Group extends ArrayList<Item>{
         this.name = name;
     }
 
-//    @Override
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+        forEach(it -> sb.append(it.toString()));
+        return "\n\t[" + sb.toString() + "]\n";
+    }
+
+    //    @Override
 //    public Stream<Item> stream() {
 //        return super.stream();
 //    }

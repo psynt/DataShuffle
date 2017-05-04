@@ -24,7 +24,7 @@ public class Deck extends TabPane implements Serializable {
 		return gr;
 	}
 
-	public Deck(ObjectProperty<Tab> draggingTab, Group g, int colour){//, int num) {
+	public Deck(ObjectProperty<Tab> draggingTab, Group g){//, int num) {
 		gr = g;
 		allCards= new ArrayList<>();
 
@@ -53,27 +53,25 @@ public class Deck extends TabPane implements Serializable {
 				draggingTab.set(null);
 				event.consume();
 				requestLayout();
+				((Card) tab).move(gr);
 
 
 				//need to find a way to 'REPAINT' the tabs once theyre dragged, as sometimes they become blank
 				// i have tried changing the height / then reverting back, as resizing tehe empty decks repaints them, but also doesnt work
 
+
 			}
 		});
 
 
-
-		switch (colour) {
+		switch (gr.getColour()) {
 		case 0:
-			gr.setColour(Color.GREEN);
 			setStyle("-fx-background-color: #b9eeb7;");
 			break;
 		case 1:
-			gr.setColour(Color.YELLOW);
 			setStyle("-fx-background-color: #ffe766;");
 			break;
 		case 2:
-			gr.setColour(Color.RED);
 			setStyle("-fx-background-color: #d28f8f;");
 			break;
 		}

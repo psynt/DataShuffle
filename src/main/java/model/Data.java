@@ -14,6 +14,11 @@ public class Data extends ArrayList<Group> {//implements GetData{
 
     private String type;
 
+    public Data(Data d){
+        super(d);
+        type = d.type;
+    }
+
     public Data() {
     }
 
@@ -35,7 +40,18 @@ public class Data extends ArrayList<Group> {//implements GetData{
         return type;
     }
 
-//    public Data groupBy(String thing){
+    public Group last(){
+        return get(size()-1);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        forEach(it -> sb.append(it.toString()));
+        return "\n" + type + " : [" + sb.toString() + "]\n";
+    }
+
+    //    public Data groupBy(String thing){
 //        HashMap<String,Group> gs = new HashMap<>();
 //
 //        get(0).forEach(it -> {
