@@ -1,5 +1,6 @@
 package cards;
 
+import content.Group;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.*;
 import javafx.scene.input.Dragboard;
@@ -14,11 +15,17 @@ public class Deck extends TabPane implements Serializable {
 
 	private static final long serialVersionUID = -990337246895626078L;
 	private static final String TAB_DRAG_KEY = "tab";
+
+	private Group gr;
 	
 	private ArrayList<Card> allCards;
 
-	public Deck(ObjectProperty<Tab> draggingTab, int colour, int num) {
-		
+	private Group getGroup(){
+		return gr;
+	}
+
+	public Deck(ObjectProperty<Tab> draggingTab, Group g, int colour){//, int num) {
+		gr = g;
 		allCards= new ArrayList<>();
 
 		setOnDragOver(event -> {
@@ -47,6 +54,7 @@ public class Deck extends TabPane implements Serializable {
 				event.consume();
 				requestLayout();
 
+
 				//need to find a way to 'REPAINT' the tabs once theyre dragged, as sometimes they become blank
 				// i have tried changing the height / then reverting back, as resizing tehe empty decks repaints them, but also doesnt work
 
@@ -57,12 +65,15 @@ public class Deck extends TabPane implements Serializable {
 
 		switch (colour) {
 		case 0:
+			gr.setColour(Color.GREEN);
 			setStyle("-fx-background-color: #b9eeb7;");
 			break;
 		case 1:
+			gr.setColour(Color.YELLOW);
 			setStyle("-fx-background-color: #ffe766;");
 			break;
 		case 2:
+			gr.setColour(Color.RED);
 			setStyle("-fx-background-color: #d28f8f;");
 			break;
 		}

@@ -1,5 +1,6 @@
 package content;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,10 +67,14 @@ public class Item extends HashMap<String, String> {
 	 *            Attributes to be added
 	 */
 	public void addAttributes(List<Map.Entry<String, String>> a) {
-		a.parallelStream().forEach(e -> addAttribute(e));
+		a.parallelStream().forEach(this::addAttribute);
 	}
 
 	public void addAttributes(Map<String, String> a) {
-		a.entrySet().parallelStream().forEach(e -> addAttribute(e));
+		a.entrySet().parallelStream().forEach(this::addAttribute);
 	}
+
+    public ArrayList<String> keys() {
+		return new ArrayList<>(super.keySet());
+    }
 }

@@ -1,5 +1,6 @@
 package cards;
 
+import content.Group;
 import content.Item;
 import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
@@ -23,27 +24,31 @@ import java.util.Map;
  */
 public class Card extends Tab implements Observer, Serializable{
 	private static final long serialVersionUID = -630866289349768478L;
+	private Item item;
+	private Group parent;
 	private int cardState;
 	private int YES = 0;
 	private int NO = 1;
 	private int MAYBE = 2;
 	boolean mouseSelected = false;
 	private VBox layoutManager;
-	private ArrayList<String> keys = new ArrayList<>();
+//	private ArrayList<String> keys = new ArrayList<>();
 	private ArrayList<Label> labels = new ArrayList<>();
 	final Label label = new Label();
 	final TextField tabTitle = new TextField();
 	
 	private SideMenuItems subject;
 
-	public Card(Item i, int numDeck, SideMenuItems subjectSidebar, String name) {
-		Label cardName = new Label("Deck " + numDeck);
+	public Card(Group g, Item i, SideMenuItems subjectSidebar, String name) {
+		parent = g;
+		item = i;
+		Label cardName = new Label(parent.getName());
 
 		layoutManager = new VBox();
 		layoutManager.setMinHeight(50);
 		layoutManager.setMinWidth(120);
 
-		i.entrySet().stream().filter(e -> !e.getKey().matches("(i|I)mage")).forEach(e -> addLabel(e));
+		i.entrySet().stream().filter(e -> !e.getKey().matches("(i|I)mage")).forEach(this::addLabel);
 
 		// name = i.get("name");
 		label.setText(name);
@@ -89,11 +94,11 @@ public class Card extends Tab implements Observer, Serializable{
 		Menu addCardMenu = new Menu("Add Card to..");
 		MenuItem yesCard = new MenuItem("Yes");
 		MenuItem noCard = new MenuItem("No");
-		MenuItem maybeCard = new MenuItem("Maybe");
-		addCardMenu.getItems().addAll(yesCard, noCard, maybeCard);
+//		MenuItem maybeCard = new MenuItem("Maybe");
+		addCardMenu.getItems().addAll(yesCard, noCard);//, maybeCard);
 		yesCard.setOnAction(e -> cardState=YES);
 		noCard.setOnAction(e -> cardState=NO);
-		maybeCard.setOnAction(e -> cardState=MAYBE);
+//		maybeCard.setOnAction(e -> cardState=MAYBE);
 		
 		//method to detect if card is left clicked
 		layoutManager.setOnMouseClicked(e ->{
@@ -134,7 +139,6 @@ public class Card extends Tab implements Observer, Serializable{
 	
 
 	private void addLabel(Map.Entry<String, String> e) {
-		keys.add(e.getKey());
 		labels.add(new Label(e.getKey() + "\t:\t" + e.getValue()));
 	}
 
@@ -156,13 +160,13 @@ public class Card extends Tab implements Observer, Serializable{
 		}		
 		
 		//handle add to buttons
-		if(SideMenuController.addToGroup == YES && mouseSelected ==true){
+		if(SideMenuController.addToGroup == YES && mouseSelected){
 			cardState=YES;
 		}
-		if(SideMenuController.addToGroup == NO && mouseSelected ==true){
+		if(SideMenuController.addToGroup == NO && mouseSelected){
 			cardState=NO;
 		}
-		if(SideMenuController.addToGroup == YES && mouseSelected ==true){
+		if(SideMenuController.addToGroup == YES && mouseSelected){
 			cardState=MAYBE;
 		}
 	}
@@ -171,8 +175,14 @@ public class Card extends Tab implements Observer, Serializable{
 		return name;
 	}*/
 
+	public void move(Group newg){
+		parent.remove(item);
+		newg.add(item);
+		parent = newg;
+	}
+
 	public ArrayList<String> getKeys(){
-		return keys;
+		return item.keys();
 	}
 	
 }

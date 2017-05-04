@@ -2,6 +2,7 @@ package cards;
 
 import java.io.Serializable;
 
+import content.Group;
 import content.Item;
 import javafx.scene.image.ImageView;
 import sidebar.SideMenuItems;
@@ -15,8 +16,8 @@ public class EbayCard extends Card implements Serializable {
 
 	private static final long serialVersionUID = 3385480495404743216L;
 
-	public EbayCard(Item cardItem, int numDeck, SideMenuItems sidebarSubject) {
-		super(cardItem, numDeck, sidebarSubject, cardItem.get("name"));
+	public EbayCard(Group g, Item cardItem, SideMenuItems sidebarSubject) {
+		super(g, cardItem, sidebarSubject, cardItem.get("name"));
 
 		ImageView cardImg = new ImageView(cardItem.get("image"));
 		cardImg.setFitHeight(150);

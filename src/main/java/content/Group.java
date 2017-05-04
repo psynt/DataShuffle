@@ -14,6 +14,11 @@ public class Group extends ArrayList<Item>{
     private String name = null;
     private Color col;
 
+    public Group(String name){
+        super();
+        this.name = name;
+    }
+
     public Group(int initialCapacity) {
         super(initialCapacity);
     }
@@ -26,6 +31,12 @@ public class Group extends ArrayList<Item>{
     }
 
     public void setColour(Color c){
+        col=c;
+    }
+    public Color getColour(){
+        return col;
+    }
+    public void setColor(Color c){
         col=c;
     }
     public Color getColor(){

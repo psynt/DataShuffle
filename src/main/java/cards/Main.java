@@ -24,7 +24,7 @@ public class Main extends Application {
         BorderPane root = FXMLLoader.load(Main.class.getResource("/MainSurface.fxml"));
 		primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/titleIcon.png")));
         primaryStage.setTitle(title);
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(root,1000,1000));
         
         primaryStage.show();
         

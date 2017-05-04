@@ -256,11 +256,12 @@ public class Controller {
 			throw new NullPointerException("No results");
 		}
 
-		List<String> urls = res.entrySet().parallelStream().map(Map.Entry::getValue).collect(Collectors.toList());
+		List<String> urls = new ArrayList<>(res.values());
 
 		CourseScraper cs = new CourseScraper(DocumentLoader.load(new URL(urls.get(0))));
 		List<String> modules = cs.getReqModules();
 		List<Item> results = modules.stream().filter(e -> e.matches("G5\\d...")).map(e -> {
+//			if(e.matches("G5\\d..."))
 			try {
 				return new ModulePOSTReq().courseCode(e);
 			} catch (IOException e1) {
