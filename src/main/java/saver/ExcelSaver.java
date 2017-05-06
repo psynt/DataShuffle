@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,6 +33,7 @@ public class ExcelSaver implements Saver {
 	private Sheet s;
 	private int rowcount;
 	private int threshold;
+	private ArrayList<String> headers;
 	
 	
 	/**
@@ -43,7 +45,7 @@ public class ExcelSaver implements Saver {
 		this.threshold = threshold;
 		wb = new HSSFWorkbook();
 		s = wb.createSheet();
-		Set<String> headers = Attribute.getAtts().keySet().stream().filter(e -> Attribute.isSel(e,threshold)).collect(Collectors.toSet());
+		headers = new ArrayList<>(Attribute.getAtts().keySet().stream().filter(e -> Attribute.isSel(e,threshold)).collect(Collectors.toList()));
 //		headers.add("Group");
 		setHeaders(headers);
 		save(itemsToSave);
@@ -79,7 +81,7 @@ public class ExcelSaver implements Saver {
 //	}
 	
 	
-	private void setHeaders(Set<String> a){
+	private void setHeaders(List<String> a){
 		Font hfont = wb.createFont();
 		hfont.setBold(true);
 		CellStyle cs = wb.createCellStyle();
@@ -120,11 +122,12 @@ public class ExcelSaver implements Saver {
 //		c = r.createCell(0);
 //		c.setCellValue(item.getSelected().toString());
 		int colcount=1;
-		for(Map.Entry<String,String> e : item.getAttributes().entrySet()){
-			if(!isSel(e.getKey(), threshold))
-				continue;
+//		for(Map.Entry<String,String> e : item.getAttributes().entrySet()){
+		for (String it : headers){
+//			if(!isSel(e.getKey(), threshold))
+//				continue;
 			c = r.createCell(colcount++);
-			c.setCellValue(e.getValue());
+			c.setCellValue(item.get(it));
 		}
 	}
 

@@ -34,8 +34,6 @@ public class Card extends Tab implements Observer, Serializable{
 	private HashMap <String,Label> labels = new HashMap<>();
 	final Label label = new Label();
 	final TextField tabTitle = new TextField();
-	
-//	private SideMenuItems subject;
 
 	public Card(Group g, Item i, SideMenuItems subjectSidebar, String name) {
 		parent = g;
@@ -48,9 +46,7 @@ public class Card extends Tab implements Observer, Serializable{
 
 		Attribute.getAtts().entrySet().forEach(it -> addLabel(it.getKey(),i.get(it.getKey())));
 
-		// name = i.get("name");
 		label.setText(name);
-		// setGraphic(new Label(i.get("name")));
 		setGraphic(label);
 
 
@@ -127,7 +123,6 @@ public class Card extends Tab implements Observer, Serializable{
 		setClosable(true);
 		
 		//add sidebar subject
-//		this.subject = subjectSidebar;
 		subjectSidebar.attach(this);
 	}
 	
@@ -145,11 +140,11 @@ public class Card extends Tab implements Observer, Serializable{
 	@Override
 	public void update() {
 
-		Attribute.getAtts().entrySet().forEach(e -> {
+		Attribute.getAtts().forEach((key, value) -> {
 			try {
-				labels.get(e.getKey()).setVisible(Attribute.isSel(e.getKey(), 0));
-			}catch (NullPointerException ex){
-				System.out.println(e.getKey() + " " + labels.get(e.getKey()));
+				labels.get(key).setVisible(Attribute.isSel(key, 0));
+			} catch (NullPointerException ex) {
+				System.out.println(key + " " + labels.get(key));
 			}
 		});
 
