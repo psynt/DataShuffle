@@ -126,7 +126,7 @@ public class Controller {
 		d.forEach(e -> {
 			Deck cards = new Deck(draggingTab, e);
 
-			e.forEach(it -> cards.getTabs().add(newCard(e,it, d.getType())));
+			e.stream().filter(Item::isSelected).forEach(it -> cards.getTabs().add(newCard(e,it, d.getType())));
 			cards.getTabs().forEach(it -> ((Card)it).setListener(this));
 
 			centerPane.getChildren().add(cards);

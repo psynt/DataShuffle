@@ -6,6 +6,7 @@ import content.Item;
 import groovy.util.MapEntry;
 import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -90,8 +91,9 @@ public class Card extends Tab implements Observer, Serializable{
 		MenuItem noCard = new MenuItem("Remove Card");
 		addCardMenu.getItems().addAll(noCard);
 		noCard.setOnAction(e -> {
-			item.unSelect();
-			ob.notifyObserver();
+//			item.unSelect();
+//			ob.notifyObserver();
+			deleteCard(e);
 		});
 		
 		//method to detect if card is left clicked
@@ -125,9 +127,17 @@ public class Card extends Tab implements Observer, Serializable{
 		layoutManager.getChildren().addAll(labels.values());
 		setContent(layoutManager);
 		setClosable(true);
+
+		setOnCloseRequest(e -> deleteCard(e));
 		
 		//add sidebar subject
 		subjectSidebar.attach(this);
+	}
+
+	private void deleteCard(Event e){
+		item.unSelect();
+		ob.notifyObserver();
+
 	}
 
 	public void setListener(Controller c){
