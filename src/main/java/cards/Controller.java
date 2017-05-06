@@ -127,6 +127,7 @@ public class Controller {
 			Deck cards = new Deck(draggingTab, e);
 
 			e.forEach(it -> cards.getTabs().add(newCard(e,it, d.getType())));
+			cards.getTabs().forEach(it -> ((Card)it).setListener(this));
 
 			centerPane.getChildren().add(cards);
 		});
@@ -186,7 +187,7 @@ public class Controller {
 	}
 
 	private void incNumDecks(){
-		d.add(new Group("Deck"+getData().size()));
+		d.add(new Group("Deck "+d.size()));
 	}
 	
 	
@@ -222,7 +223,8 @@ public class Controller {
 //		return saveState;
 //	}
 
-	public static void update() {
-//		makeDecks();
+
+	public void notifyObserver() {
+		makeDecks();
 	}
 }

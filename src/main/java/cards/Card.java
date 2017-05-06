@@ -34,6 +34,7 @@ public class Card extends Tab implements Observer, Serializable{
 	private HashMap <String,Label> labels = new HashMap<>();
 	final Label label = new Label();
 	final TextField tabTitle = new TextField();
+	Controller ob;
 
 	public Card(Group g, Item i, SideMenuItems subjectSidebar, String name) {
 		parent = g;
@@ -88,7 +89,10 @@ public class Card extends Tab implements Observer, Serializable{
 		Menu addCardMenu = new Menu("Delete");
 		MenuItem noCard = new MenuItem("Remove Card");
 		addCardMenu.getItems().addAll(noCard);
-		noCard.setOnAction(e -> {item.unSelect(); Controller.update();});
+		noCard.setOnAction(e -> {
+			item.unSelect();
+			ob.notifyObserver();
+		});
 		
 		//method to detect if card is left clicked
 		layoutManager.setOnMouseClicked(e ->{
@@ -125,7 +129,10 @@ public class Card extends Tab implements Observer, Serializable{
 		//add sidebar subject
 		subjectSidebar.attach(this);
 	}
-	
+
+	public void setListener(Controller c){
+		ob = c;
+	}
 
 
 	private void addLabel(String key, String val) {

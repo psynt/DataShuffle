@@ -225,7 +225,7 @@ public class Controller {
 			window.showAndWait();
 			if (!d.isEmpty()) {
 				d.last().setColor("red");
-				d.last().setName("initial group");
+				d.last().setName("Group" + d.size());
 				cards.Main.start1((Stage) pane.getScene().getWindow());
 			}
 		} catch (Throwable t) {

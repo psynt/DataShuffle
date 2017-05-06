@@ -70,6 +70,10 @@ public class ExcelSaver implements Saver {
 		Cell c;
 		int colcount=1;
 
+		c = r.createCell(0);
+		c.setCellStyle(cs);
+		c.setCellValue("Group");
+
 		for(String e :a){
 			if(!isSel(e,threshold))
 				continue;
@@ -86,13 +90,15 @@ public class ExcelSaver implements Saver {
 
 	@Override
 	public void save(Group items) {
-		items.stream().filter(Item::isSelected).forEach(this::save);
+		items.stream().filter(Item::isSelected).forEach(it -> save(items,it));
 	}
 	@Override
-	public void save(Item item) {
+	public void save(Group g, Item item) {
 		Row r=s.createRow(rowcount++);
 		Cell c;
 		int colcount=1;
+		c = r.createCell(0);
+		c.setCellValue(g.getName());
 		for (String it : headers){
 			c = r.createCell(colcount++);
 			c.setCellValue(item.get(it));

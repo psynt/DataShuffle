@@ -31,7 +31,7 @@ public interface Saver{
 	 * buffer item
 	 * @param item to be buffered
 	 */
-	void save(Item item);
+	void save(Group g, Item item);
 	
 	
 	/**

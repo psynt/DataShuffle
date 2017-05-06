@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 
 public class SideMenuItems {
 	
-	protected List<Card> observerCards = new ArrayList<>();;
+	protected List<Card> observerCards = new ArrayList<>();
 	
 	protected VBox showItemsCheckBoxLayout;
 	
@@ -72,7 +72,7 @@ public class SideMenuItems {
     }
 
 	public void attach(Card observer){
-			observerCards.add(observer);
+		observerCards.add(observer);
 	}
 
 	public void notifyAllObservers(){
