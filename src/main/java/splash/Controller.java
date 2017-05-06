@@ -1,9 +1,7 @@
 package splash;
 
 import cards.CardState;
-import cards.Deck;
-import content.Item;
-import debug.Debug;
+import content.Attribute;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,21 +15,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.jsoup.nodes.Document;
-import webscraper.*;
-import webscraper.clever.CoursePOSTReq;
-import webscraper.clever.ModulePOSTReq;
+import model.Data;
+import webscraper.reterivers.EbayGetter;
+import webscraper.reterivers.ModuleGetter;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class Controller {
 
@@ -45,11 +38,12 @@ public class Controller {
 	Button moduleButton;
 
 	private static boolean loadFlag = false;
-	private static ArrayList<Item> searchResults = new ArrayList<>();
-	private static ArrayList<Deck> loadResults = new ArrayList<Deck>();
-	private static String Type;
 
+	private static Data d = new Data();
 
+	public static Data getData(){
+		return d;
+	}
 
 	@FXML
 	public void initialize() {
@@ -90,7 +84,7 @@ public class Controller {
 		}
 
 		if (obj instanceof CardState) {
-			loadResults = ((CardState) obj).getAllDecks();
+//			loadResults = ((CardState) obj).getAllDecks();
 			try {
 				loadFlag = true;
 				cards.Main.start1((Stage) pane.getScene().getWindow());
@@ -104,13 +98,12 @@ public class Controller {
 
 	@FXML
 	public void ebayEvent(ActionEvent actionEvent){
-		setType("Ebay");
+		d.setType("Ebay");
 		clickEvent(actionEvent);
-
 	}
 	@FXML
 	public void moduleEvent(ActionEvent actionEvent){
-		setType("Module");
+		d.setType("Module");
 		clickEvent(actionEvent);
 	}
 
@@ -149,7 +142,7 @@ public class Controller {
 		final ChoiceBox<Object> cb = new ChoiceBox<>();
 
 		HBox hb = new HBox();
-		if (Type.equals("Ebay")) {
+		if (d.getType().equals("Ebay")) {
 			label1.setText("Min:");
 			label2.setText("Max:");
 			minTextField.setPrefWidth(55.0);
@@ -165,8 +158,11 @@ public class Controller {
 			grid.add(cb, 1, 1);
 			searchButton.setOnAction(e -> { // ebay
 				try {
-					searchResults = ebay(userTextField.getText(), minTextField.getText(), maxTextField.getText(), cb.getSelectionModel().getSelectedItem().toString() );
-					System.out.println(searchResults);
+					d = ebay(userTextField.getText()
+							, minTextField.getText()
+							, maxTextField.getText()
+							, cb.getSelectionModel().getSelectedItem().toString());
+					System.out.println(d);
 					window.close();
 				} catch (MalformedURLException ex) {
 					System.out.println("Bad url:");
@@ -186,8 +182,9 @@ public class Controller {
 
 			searchButton.setOnAction(e -> {
 				try {
-					searchResults = modules(userTextField.getText(), minTextField.getText());
-					System.out.println(searchResults);
+					d = modules(userTextField.getText()
+							   , minTextField.getText());
+					System.out.println(d);
 					window.close();
 				} catch (MalformedURLException ex) {
 					System.out.println("Bad url:");
@@ -218,7 +215,7 @@ public class Controller {
 		scene.getStylesheets().add(Controller.class.getResource("/application.css").toExternalForm());
 		try {
 			window.showAndWait();
-			if (searchResults != null && searchResults.size() > 0) {
+			if (!d.isEmpty()) {
 				cards.Main.start1((Stage) pane.getScene().getWindow());
 			}
 		} catch (Throwable t) {
@@ -227,91 +224,34 @@ public class Controller {
 		}
 	}
 
-	private ArrayList<Item> modules(String keyword, String code) throws MalformedURLException {
-		Type = "Module";
-		CoursePOSTReq courseGetter = new CoursePOSTReq();
-
-		Map<String, String> res;
-		if (code != null && code.length() > 0) {
-			res = courseGetter.ucasCode(code);
-		} else if (keyword != null && keyword.length() > 0) {
-			res = courseGetter.keyword(keyword);
-		} else
-			throw new NullPointerException("either code or keyword needed");
-
-		if (Debug.DEBUG) {
-			if (res != null) {
-				System.out.println(res);
-			}
-		}
-
-		if (res.size() > 1) {
-			System.err.println("Searches that return multiple results are not yet supported");
-			throw new UnsupportedOperationException("Multi-result search not quite ready yet");
-		} else if (res.size() < 1) {
-			throw new NullPointerException("No results");
-		}
-
-		List<String> urls = res.entrySet().parallelStream().map(Map.Entry::getValue).collect(Collectors.toList());
-
-		CourseScraper cs = new CourseScraper(DocumentLoader.load(new URL(urls.get(0))));
-		List<String> modules = cs.getReqModules();
-		List<Item> results = modules.stream().filter(e -> e.matches("G5\\d...")).map(e -> {
-			try {
-				return new ModulePOSTReq().courseCode(e);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			return null;
-		}).map(ModuleScraper::new).map(ModuleScraper::scrapeDocument).collect(Collectors.toList());
-
-		return new ArrayList<>(results);
+	private Data modules(String keyword, String code) throws MalformedURLException {
+		Map<String,String> args = new HashMap<>();
+		if (code != null) args.put("code",code);
+		if (keyword != null) args.put("keyword",keyword);
+//		System.err.println("search module k " + keyword + ", c " + code);
+		return new ModuleGetter().getTheStuff(args);
 	}
 
-	private ArrayList<Item> ebay(String searchTerm, String min, String max, String auctionType) throws MalformedURLException {
-		Type = "Ebay";
-		if(auctionType == "Buy It Now!"){auctionType = "BIN";}
-
-		//String searchUrl = "http://www.ebay.co.uk/sch/i.html?_&_nkw=datashuffle&_sacat=0".replace("datashuffle",searchTerm);
-
-		String searchUrl = "http://www.ebay.co.uk/sch/i.html?_from=R40&_nkw=mario&_in_kw=1&_ex_kw=&_sacat=0&_mPrRngCbx=1&_udlo=2&_udhi=8&LH_AUCTYPE=1&_ftrt=901&_ftrv=1&_sabdlo=&_sabdhi=&_samilow=&_samihi=&_sadis=15&_stpos=&_sargn=-1%26saslc%3D1&_salic=3&_sop=12&_dmd=1&_ipg=50".replace("datashuffle", searchTerm).replace("minprice", min).replace("maxprice", max).replace("AUCTYPE", auctionType);
-
-		ArrayList<Item> whatYouWant = new ArrayList<>();
-		Document guitarSearch = DocumentLoader.load(new URL(searchUrl));
-		EbayResultScraper thing1 = new EbayResultScraper(guitarSearch);
-		ArrayList<String> links = thing1.scrapeLinks();
-
-		for (String link : links) {
-			Document res = DocumentLoader.load(new URL(link));
-			EbayItemScraper ebayScraper = new EbayItemScraper(res);
-
-			whatYouWant.add(ebayScraper.scrapeDocument());
-
-		}
-		return whatYouWant;
+	private Data ebay(String searchTerm, String min, String max, String auctionType) throws MalformedURLException {
+		Map<String,String> args = new HashMap<>();
+		args.put("searchTerm",searchTerm);
+		args.put("min",min);
+		args.put("max",max);
+		args.put("auctionType",auctionType);
+		return new EbayGetter().getTheStuff(args);
 	}
 
-	public static ArrayList<Item> getSearchResults() {
-		return searchResults;
-	}
-	
-	public static ArrayList<Deck> getLoadResults(){
-		return loadResults;
-	}
+//	public static Group getSearchResults() {
+//		return d.get(0);
+//	}
+
 	
 	public static boolean getLoadFlag(){
 		return loadFlag;
 	}
 
-	public static String getType() {
-		return Type;
-	}
-	public void setType(String typeToSet){
-		Type = typeToSet;
-	}
-
 	public static void reset() {
-		Type = null;
-		searchResults = new ArrayList<>();
+		d = new Data();
+		Attribute.reset();
 	}
 }

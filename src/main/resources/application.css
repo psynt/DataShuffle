@@ -19,6 +19,16 @@
      
 }
 
+.deck.green{
+    -fx-background-color: #b9eeb7;
+}
+.deck.yellow {
+    -fx-background-color: #ffe766;
+}
+.deck.red{
+    -fx-background-color: #d28f8f;
+}
+
 .main-bckground
 {
 	 -fx-background-color:#2f4f4f;

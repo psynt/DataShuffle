@@ -1,5 +1,6 @@
 package cards;
 
+import model.Group;
 import content.Item;
 import sidebar.SideMenuItems;
 
@@ -13,17 +14,17 @@ public class CardFactory {
 
     public static final String[] VERSIONS = { "Ebay", "Module" };
 
-    public static Card createCard(Item item, String type, int numDeck, SideMenuItems sidebarSubject){
+    public static Card createCard(Group g, Item item, String type, SideMenuItems sidebarSubject){
 		final Card card;
 		switch (type) {
             case "Ebay":
-                card = new EbayCard(item, numDeck, sidebarSubject);
+                card = new EbayCard(g, item,  sidebarSubject);
                 break;
             case "Module":
-                card = new ModuleCard(item,numDeck,sidebarSubject);
+                card = new ModuleCard(g, item,sidebarSubject);
                 break;
             default:
-                card = new Card(item, numDeck, sidebarSubject, "Name");
+                card = new Card(g, item,  sidebarSubject, "Name");
                 break;
         }
         return card;

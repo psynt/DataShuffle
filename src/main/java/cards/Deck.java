@@ -1,5 +1,7 @@
 package cards;
 
+import content.Item;
+import model.Group;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.*;
 import javafx.scene.input.Dragboard;
@@ -8,18 +10,23 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Deck extends TabPane implements Serializable {
 
 	private static final long serialVersionUID = -990337246895626078L;
 	private static final String TAB_DRAG_KEY = "tab";
-	
-	private ArrayList<Card> allCards;
 
-	public Deck(ObjectProperty<Tab> draggingTab, int colour, int num) {
-		
-		allCards= new ArrayList<Card>();		
+	private Group gr;
+	
+//	private ArrayList<Card> allCards;
+
+	private Group getGroup(){
+		return gr;
+	}
+
+	public Deck(ObjectProperty<Tab> draggingTab, Group g){
+		gr = g;
+//		allCards= new ArrayList<>();
 
 		setOnDragOver(event -> {
 			final Dragboard dragboard = event.getDragboard();
@@ -46,23 +53,27 @@ public class Deck extends TabPane implements Serializable {
 				draggingTab.set(null);
 				event.consume();
 				requestLayout();
+				((Card) tab).move(gr);
+
 
 				//need to find a way to 'REPAINT' the tabs once theyre dragged, as sometimes they become blank
 				// i have tried changing the height / then reverting back, as resizing tehe empty decks repaints them, but also doesnt work
 
+
 			}
 		});
 
+//		getStyleClass().add("deck");
+//		getStyleClass().add(gr.getColour());
 
-
-		switch (colour) {
-		case 0:
+		switch (gr.getColour()) {
+		case "green":
 			setStyle("-fx-background-color: #b9eeb7;");
 			break;
-		case 1:
+		case "yellow":
 			setStyle("-fx-background-color: #ffe766;");
 			break;
-		case 2:
+		case "red":
 			setStyle("-fx-background-color: #d28f8f;");
 			break;
 		}
@@ -91,27 +102,31 @@ public class Deck extends TabPane implements Serializable {
 		rightClickMenu.getItems().addAll(editDeckCard, deleteMenu);
 
 
-		incSize.setOnAction(event -> {
-            this.setPrefHeight(getHeight() + 30);
-            this.setPrefWidth(getWidth() + 50);
-        });
-		decSize.setOnAction(event -> {
-            this.setPrefHeight(getHeight() - 30);
-            this.setPrefWidth(getWidth() - 50);
-        });
+
+//		incSize.setOnAction(event -> {
+//            this.setPrefHeight(getHeight() + 30);
+//            this.setPrefWidth(getWidth() + 50);
+//        });
+//		decSize.setOnAction(event -> {
+//            this.setPrefHeight(getHeight() - 30);
+//            this.setPrefWidth(getWidth() - 50);
+//        });
 		deleteDeck.setOnAction(event ->
 				{
-					getTabs().clear();
+					gr.forEach(Item::unSelect);
+
+					Card se = (Card) this.getSelectionModel().getSelectedItem();
+					se.deleteCard(event);
+//					getTabs().clear();
 					((FlowPane)this.getParent()).getChildren().remove(this);
-
 				}
 
 		);
-		deleteCard.setOnAction(event ->
-				{
-					getTabs().remove(this.getSelectionModel().getSelectedItem());
-				}
-		);
+		deleteCard.setOnAction(event -> {
+			Card se = (Card) this.getSelectionModel().getSelectedItem();
+			se.deleteCard(event);
+//			getTabs().remove(se);
+		});
 
 
 		super.setContextMenu(rightClickMenu);
@@ -123,17 +138,17 @@ public class Deck extends TabPane implements Serializable {
 
 	}
 	
-	public void saveCard(Card newCard){
-		allCards.add(newCard);
-	}
-	
-	public ArrayList<Card> getCards(){
-		return allCards;
-	}
-	
-	public void readAllCards(){
-		for (Card it : allCards) {
-			this.getTabs().add(it);
-		}
-	}
+//	public void saveCard(Card newCard){
+//		allCards.add(newCard);
+//	}
+//
+//	public ArrayList<Card> getCards(){
+//		return allCards;
+//	}
+//
+//	public void readAllCards(){
+//		for (Card it : allCards) {
+//			this.getTabs().add(it);
+//		}
+//	}
 }

@@ -2,29 +2,35 @@ package saver;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
+import model.Group;
 import content.Item;
+import model.Data;
 
 /**
  * Interface that all save-to-file classes will implement
  * @author nichita
- * @param <T> Type of Item that will be saved
  *
  */
-public interface Saver <T extends Item>{
+public interface Saver{
+
+	/**
+	 * buffer entire model
+	 * @param model to be buffered
+	 */
+	void save(Data model);
 	
 	/**
 	 * buffer items
 	 * @param items to be buffered
 	 */
-	void save(ArrayList<T> items);
+	void save(Group items);
 	
 	/**
 	 * buffer item
 	 * @param item to be buffered
 	 */
-	void save(T item);
+	void save(Group g, Item item);
 	
 	
 	/**

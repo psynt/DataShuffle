@@ -1,36 +1,32 @@
 package sidebar;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import content.Item;
-import javafx.scene.Parent;
+import content.Attribute;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Data;
 import saver.ExcelSaver;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.Scanner;
+
 
 
 public class SideMenuController extends SideMenuItems
 {
 
 	File dataFile = null;
-	Parent root;
 	Stage fileMenu;
-	int YES=0, NO=1, MAYBE=2, NULL=3;
-	public static int addToGroup;
-	
-	public void Initialize(int sideMenuWidth, SideMenu sideMenu, Pane menuPane, ArrayList<Item> results){	
+
+	public void Initialize(int sideMenuWidth, SideMenu sideMenu, Pane menuPane, Data d){
 	
 		//setup observer pattern
 		
-		SideMenu.displayMenuButton.setOnAction(event -> {
-			sideMenu.collapseSideMenu(sideMenuWidth, menuPane);
-		});
+		SideMenu.displayMenuButton.setOnAction(event -> sideMenu.collapseSideMenu(sideMenuWidth, menuPane));
 
 
 		newProjectButton.setOnAction(event -> {
@@ -57,40 +53,37 @@ public class SideMenuController extends SideMenuItems
 		});
 
 		saveAsButton.setOnAction(event -> {
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Save file as..");
-			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-			
-			String text = ("hello");
-
-			fileChooser.getExtensionFilters().addAll(
-					new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-					new FileChooser.ExtensionFilter("Java Files", "*.java")
-					);
-			
-			File file = fileChooser.showSaveDialog(fileMenu);
-			
-			if(file != null)
-			{
-			try (PrintStream ps = 
-			          new PrintStream(file)) 
-					{
-
-			        ps.print(text);
-			        //ps.print(textArea.getText());
-			        
-			        // saving the file
-			        dataFile = file;
-			                
-			        // enabling save as button
-			        saveButton.setDisable(false);
-
-			      } catch (FileNotFoundException e)
-					{
-			    	  e.printStackTrace();
-					}
-			}
-			System.out.print("Save as test");
+//			FileChooser fileChooser = new FileChooser();
+//			fileChooser.setTitle("Save file as..");
+//			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+//
+//			String text = ("hello");
+//
+//			fileChooser.getExtensionFilters().addAll(
+//					new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+//					new FileChooser.ExtensionFilter("Java Files", "*.java")
+//					);
+//
+//			File file = fileChooser.showSaveDialog(fileMenu);
+//
+//			if(file != null)
+//			{
+//				try (PrintStream ps = new PrintStream(file)) {
+//					ps.print(text);
+//					//ps.print(textArea.getText());
+//
+//					// saving the file
+//					dataFile = file;
+//
+//					// enabling save as button
+//					saveButton.setDisable(false);
+//
+//				} catch (FileNotFoundException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			System.out.print("Save as test");
+			System.out.println(d);
 		});
 
 		openButton.setOnAction(event -> {
@@ -100,8 +93,8 @@ public class SideMenuController extends SideMenuItems
 			
 			/*Filter out all files except text files*/
 			fileChooser.getExtensionFilters().addAll(
-					new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-					new FileChooser.ExtensionFilter("Java Files", "*.java")
+					new FileChooser.ExtensionFilter("Text Files", "*.txt")
+					//new FileChooser.ExtensionFilter("Java Files", "*.java")
 					);
 			
 			File file = fileChooser.showOpenDialog(fileMenu);
@@ -109,49 +102,33 @@ public class SideMenuController extends SideMenuItems
 			
 			if(file != null){
 				System.out.println("File opened: "+ file);
-			      try (Scanner scan = 
-			          new Scanner(file)) {
-			        // grabbing the file data
-			        String content = 
-			            scan
-			            .useDelimiter("\\z")
-			            .next();
-			        System.out.println("file content:"+ content);
-			        // saving the file 
-			        dataFile = file;
-			        
-			        // enabling saveMI
-			        saveButton.setDisable(false);
-			        
-			      } catch (FileNotFoundException e) {
-			        e.printStackTrace();
-			      }
+					try (Scanner scan = new Scanner(file)) {
+						// grabbing the file data
+						String content = scan.useDelimiter("\\z").next();
+						System.out.println("file content:"+ content);
+						// saving the file
+						dataFile = file;
+
+						// enabling saveMI
+						saveButton.setDisable(false);
+
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
 			    }
 			System.out.print("open test");
 			
 		});
-
-		yesButton.setOnAction(event -> {
-			addToGroup=YES;
-			notifyAllObservers();
-			System.out.print("yes test");
-		});
-
-		maybeButton.setOnAction(event -> {
-			addToGroup=NO;
-			notifyAllObservers();
-			System.out.print("maybe test");
-		});
-
-		noButton.setOnAction(event -> {
-			addToGroup=MAYBE;
-			notifyAllObservers();
-			System.out.print("no test");
-		});
-
 		exportExcelButton.setOnAction(event -> {
-			new ExcelSaver(results);
-			System.out.print("excel test");
+//			System.out.println(d);
+			try {
+				new ExcelSaver(d).writeToFile(new File("cards.xls"));
+				System.out.println("Exported");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+//			System.out.print("excel test");
+
 		});
 
 	}
@@ -161,6 +138,7 @@ public class SideMenuController extends SideMenuItems
 		CheckBox newCheckBox = new CheckBox(key);
 		newCheckBox.setSelected(true);
 		newCheckBox.setOnAction(event -> {
+			Attribute.setSel(key, ((CheckBox)event.getSource()).isSelected());
 			notifyAllObservers();
 		});
 		

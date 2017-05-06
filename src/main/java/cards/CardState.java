@@ -9,7 +9,7 @@ public class CardState implements Serializable{
 	private ArrayList<Deck> allDecks;
 
 	public CardState(){
-		allDecks = new ArrayList<Deck>();
+		allDecks = new ArrayList<>();
 	}
 	
 	public void addDeck(Deck newDeck) {

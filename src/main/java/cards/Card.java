@@ -1,19 +1,19 @@
 package cards;
 
+import content.Attribute;
+import model.Group;
 import content.Item;
 import javafx.animation.PauseTransition;
-import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import sidebar.SideMenuController;
 import sidebar.SideMenuItems;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 /**
  * The 'card'
@@ -23,31 +23,27 @@ import java.util.Map;
  */
 public class Card extends Tab implements Observer, Serializable{
 	private static final long serialVersionUID = -630866289349768478L;
-	int cardState;
-	int YES = 0;
-	int NO = 1;
-	int MAYBE = 2;
+	private Item item;
+	private Group parent;
 	boolean mouseSelected = false;
 	private VBox layoutManager;
-	private ArrayList<String> keys = new ArrayList<>();
-	private ArrayList<Label> labels = new ArrayList<>();
+	private HashMap <String,Label> labels = new HashMap<>();
 	final Label label = new Label();
 	final TextField tabTitle = new TextField();
-	
-	private SideMenuItems subject;
+	Controller ob;
 
-	public Card(Item i, int numDeck, SideMenuItems subjectSidebar, String name) {
-		Label cardName = new Label("Deck " + numDeck);
+	public Card(Group g, Item i, SideMenuItems subjectSidebar, String name) {
+		parent = g;
+		item = i;
+		Label cardName = new Label(parent.getName());
 
 		layoutManager = new VBox();
 		layoutManager.setMinHeight(50);
 		layoutManager.setMinWidth(120);
 
-		i.entrySet().stream().filter(e -> !e.getKey().matches("(i|I)mage")).forEach(e -> addLabel(e));
+		Attribute.getAtts().entrySet().forEach(it -> addLabel(it.getKey(),i.get(it.getKey())));
 
-		// name = i.get("name");
 		label.setText(name);
-		// setGraphic(new Label(i.get("name")));
 		setGraphic(label);
 
 
@@ -86,31 +82,29 @@ public class Card extends Tab implements Observer, Serializable{
         });
 
 
-		Menu addCardMenu = new Menu("Add Card to..");
-		MenuItem yesCard = new MenuItem("Yes");
-		MenuItem noCard = new MenuItem("No");
-		MenuItem maybeCard = new MenuItem("Maybe");
-		addCardMenu.getItems().addAll(yesCard, noCard, maybeCard);
-		yesCard.setOnAction(e -> cardState=YES);
-		noCard.setOnAction(e -> cardState=NO);
-		maybeCard.setOnAction(e -> cardState=MAYBE);
+		Menu addCardMenu = new Menu("Delete");
+		MenuItem noCard = new MenuItem("Remove Card");
+		addCardMenu.getItems().addAll(noCard);
+		noCard.setOnAction(e -> {
+//			item.unSelect();
+//			ob.notifyObserver();
+			deleteCard(e);
+		});
 		
 		//method to detect if card is left clicked
 		layoutManager.setOnMouseClicked(e ->{
 			mouseSelected=true;
-			if(mouseSelected==true){
-				System.out.print("Save as test");
-			}
-			});
+			System.out.print("Save as test");
+		});
 		
-			//method to detect if mouse has been clicked outside card
-			layoutManager.setOnMouseExited(e ->{
-				Controller.cardUnselect();
-				if(Controller.cardSelected ==false){
-					mouseSelected=false;
-					System.out.print("Sst");
-				}
-			});
+		//method to detect if mouse has been clicked outside card
+		layoutManager.setOnMouseExited(e ->{
+			Controller.cardUnselect();
+			if(!Controller.cardSelected){
+				mouseSelected=false;
+				System.out.print("Sst");
+			}
+		});
 
 
 		rightClickMenu.getItems().addAll(setColour, renameCard, addCardMenu);
@@ -125,19 +119,30 @@ public class Card extends Tab implements Observer, Serializable{
 			rightClickMenu.show(tab, Side.RIGHT, 0, 0);
 		});
 		layoutManager.getChildren().add(cardName);
-		layoutManager.getChildren().addAll(labels);
+		layoutManager.getChildren().addAll(labels.values());
 		setContent(layoutManager);
 		setClosable(true);
+
+		setOnCloseRequest(e -> deleteCard(e));
 		
 		//add sidebar subject
-		this.subject = subjectSidebar;
-		this.subject.attach(this);
+		subjectSidebar.attach(this);
 	}
-	
 
-	private void addLabel(Map.Entry<String, String> e) {
-		keys.add(e.getKey());
-		labels.add(new Label(e.getKey() + "\t:\t" + e.getValue()));
+	public void deleteCard(Event e){
+		item.unSelect();
+		ob.notifyObserver();
+
+	}
+
+	public void setListener(Controller c){
+		ob = c;
+	}
+
+
+	private void addLabel(String key, String val) {
+//		System.err.println("add [" + e.getKey() + ":" + e.getValue() + "]");
+		labels.put(key,new Label(key + "\t:\t" + val));
 	}
 
 	public void addComponent(Node n) {
@@ -146,35 +151,21 @@ public class Card extends Tab implements Observer, Serializable{
 
 	@Override
 	public void update() {
-		//handle show item checkboxes
-		
-		ObservableList<Node> checkBoxes = subject.getShowItemsCheckBoxLayout().getChildren();
-		for(int i = 0; i < checkBoxes.size(); i++){
-			if (checkBoxes.get(i) instanceof CheckBox){
-				boolean selected = ((CheckBox)checkBoxes.get(i)).isSelected();
-				System.out.println("card updating " + selected );
-				labels.get(i).setVisible(selected);
+
+		Attribute.getAtts().forEach((key, value) -> {
+			try {
+				labels.get(key).setVisible(Attribute.isSel(key, 0));
+			} catch (NullPointerException ex) {
+				System.out.println(key + " " + labels.get(key));
 			}
-		}		
-		
-		//handle add to buttons
-		if(SideMenuController.addToGroup == YES && mouseSelected ==true){
-			cardState=YES;
-		}
-		if(SideMenuController.addToGroup == NO && mouseSelected ==true){
-			cardState=NO;
-		}
-		if(SideMenuController.addToGroup == YES && mouseSelected ==true){
-			cardState=MAYBE;
-		}
+		});
+
 	}
 
-	/*public String getName() {
-		return name;
-	}*/
-
-	public ArrayList<String> getKeys(){
-		return keys;
+	public void move(Group newg){
+		parent.remove(item);
+		newg.add(item);
+		parent = newg;
 	}
-	
+
 }

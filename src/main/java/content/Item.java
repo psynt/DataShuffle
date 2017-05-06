@@ -1,5 +1,6 @@
 package content;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,12 @@ public class Item extends HashMap<String, String> {
 	}
 
 	public Item() {
-		this(Selected.Maybe);
+		this(Selected.Yes);
+	}
+
+
+	public void unSelect(){
+		sel = Selected.Never;
 	}
 
 	/**
@@ -66,10 +72,26 @@ public class Item extends HashMap<String, String> {
 	 *            Attributes to be added
 	 */
 	public void addAttributes(List<Map.Entry<String, String>> a) {
-		a.parallelStream().forEach(e -> addAttribute(e));
+		a.parallelStream().forEach(this::addAttribute);
 	}
 
 	public void addAttributes(Map<String, String> a) {
-		a.entrySet().parallelStream().forEach(e -> addAttribute(e));
+		a.entrySet().parallelStream().forEach(this::addAttribute);
 	}
+
+    public ArrayList<String> keys() {
+		return new ArrayList<>(super.keySet());
+    }
+
+	@Override
+	public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		forEach((key, value) -> sb.append("[").append(key).append(":").append(value).append("], "));
+		return "\n\t\t[" + sb.toString() + "]\n";
+	}
+
+    public boolean isSelected() {
+		return sel.value()>Selected.Maybe.value();
+    }
 }

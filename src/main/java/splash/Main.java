@@ -17,18 +17,12 @@ public class Main extends Application {
 		return scene;
 	}
 
-	@FXML
-	Button ebayButton;
-	@FXML
-	Button moduleButton;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			AnchorPane layout = new AnchorPane();
 
 			scene = new Scene(layout, 400, 600);
-
-
 
 			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 			Parent content = FXMLLoader.load(getClass().getResource("/Mymenu.fxml"));

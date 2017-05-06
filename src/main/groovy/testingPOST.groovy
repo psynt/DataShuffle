@@ -1,4 +1,10 @@
+import webscraper.CourseScraper
+import webscraper.DocumentLoader
+import webscraper.ModuleScraper
 import webscraper.clever.CoursePOSTReq
+import webscraper.clever.ModulePOSTReq
+
+import java.util.stream.Collectors
 
 /**
  * Created by nichita on 06/03/17.
@@ -16,6 +22,8 @@ import webscraper.clever.CoursePOSTReq
 ////println res
 //
 def courses =  new CoursePOSTReq()
-println courses.keyword("computer")
+def res  = courses. ucasCode("g4g1") values() asList()
+println new CourseScraper(DocumentLoader.load(new URL(res.get(0)))).getReqModules()
+//
+//println new ModuleScraper(new ModulePOSTReq().courseCode("g52afp")).scrapeDocument()//.map(ModuleScraper::new).map(ModuleScraper::scrapeDocument).collect(Collectors.toList())
 
-//println new ModulePOSTReq().courseCode("g52afp")

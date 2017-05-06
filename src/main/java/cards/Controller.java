@@ -1,15 +1,10 @@
 package cards;
 
 import static cards.CardFactory.createCard;
-import static splash.Controller.getSearchResults;
-import static splash.Controller.getType;
+import static splash.Controller.getData;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
+import content.Attribute;
+import model.Group;
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -39,10 +34,10 @@ import sidebar.SideMenu;
 import sidebar.SideMenuController;
 
 public class Controller {
-	private int numDecks = 0;
 	private static final String TAB_DRAG_KEY = "tab";
 	private ObjectProperty<Tab> draggingTab;
 	static boolean cardSelected = true;
+//	private Data d;
 
 	boolean selected;
 	@FXML
@@ -70,18 +65,11 @@ public class Controller {
 
 	@FXML
 	public void initialize() {
+//		System.err.println(d);
 		
 		mainPane.setStyle("-fx-background-color: #2f4f4f;");
         
 		draggingTab = new SimpleObjectProperty<>();
-		incNumDecks();
-		Deck cardStackGreen = new Deck(draggingTab, 0, getNumDecks());
-		incNumDecks();
-		Deck cardStackYellow = new Deck(draggingTab, 1, getNumDecks());
-
-		centerPane.getChildren().add(cardStackGreen);
-		centerPane.getChildren().add(cardStackYellow);
-		
 		
 		
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -98,38 +86,10 @@ public class Controller {
 		menuPane.setStyle("-fx-background-color: #D1D1D1;");
 		sideMenu = new SideMenu(sideMenuWidth, menuPane);
 		VBox.setVgrow(menuPane, Priority.ALWAYS);
-		
-		ArrayList<Item> results = getSearchResults();
-		ArrayList<Card> cards = new ArrayList<>();
-		results.forEach(e -> cards.add(newCard(e, getType(), getNumDecks())));
 
-		// add the left cards to the left vbox
-		for(int i=0 ; i<cards.size() ; i++){
+		Attribute.getAtts().keySet().forEach(e->sideMenuController.addShowTickBox(e));
 
-			if((i&1) == 1) {
-				cardStackYellow.getTabs().add(cards.get(i));
-			} else {
-				cardStackGreen.getTabs().add(cards.get(i));
-			}
-
-		}
-		
-		//if loading from a file
-		if(splash.Controller.getLoadFlag()){
-			//splash.Controller.getLoadResults().forEach(e -> centerPane.getChildren().add(e));
-			for(int i = 0; i < splash.Controller.getLoadResults().size(); i++){
-				System.out.println("adding card " + i);
-				centerPane.getChildren().add(splash.Controller.getLoadResults().get(i));
-				((Deck) centerPane.getChildren().get(i)).readAllCards();
-			}
-		}
-		
-		//Adds tick boxes for each label on the cards
-		if (cards.size() >= 1){
-			cards.get(0).getKeys().forEach( e -> sideMenuController.addShowTickBox(e) );
-		}
-
-		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane, results);
+		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane, getData());
 
 		// layout the scene.
 		StackPane buttonLocation = new StackPane();
@@ -147,24 +107,44 @@ public class Controller {
 		//sideMenuContainer.setMinWidth(200);
 
 
+		makeDecks();
+
 
 
 	}
 
+	private void makeDecks(){
+		centerPane.getChildren().clear();
+		getData().forEach(e -> {
+			Deck cards = new Deck(draggingTab, e);
+
+			e.stream().filter(Item::isSelected).forEach(it -> cards.getTabs().add(newCard(e,it, getData().getType())));
+			cards.getTabs().forEach(it -> ((Card)it).setListener(this));
+
+			centerPane.getChildren().add(cards);
+		});
+
+	}
 
 	@FXML public void newGreenDeck() {
-		Deck newDeck = new Deck(draggingTab, 0, incNumDecks());
+		incNumDecks();
+		getData().last().setColour("green");
+		Deck newDeck = new Deck(draggingTab, getData().last());
 
 		centerPane.getChildren().add(newDeck);
 	}
 	
 	@FXML public void newYellowDeck() {
-		Deck newDeck = new Deck(draggingTab, 1, incNumDecks());
+		incNumDecks();
+		getData().last().setColour("yellow");
+		Deck newDeck = new Deck(draggingTab, getData().last());
 		centerPane.getChildren().add(newDeck);
 	}
 	
 	@FXML public void newRedDeck() {
-		Deck newDeck = new Deck(draggingTab, 2, incNumDecks());
+		incNumDecks();
+		getData().last().setColour("red");
+		Deck newDeck = new Deck(draggingTab, getData().last());
 		centerPane.getChildren().add(newDeck);
 		
 
@@ -176,8 +156,8 @@ public class Controller {
 	//});
 	}
 
-	private Card newCard(Item item, String type, int deck) {
-		final Card card = createCard(item, type, deck, sideMenuController);
+	private Card newCard(Group g, Item item, String type) {
+		final Card card = createCard(g, item, type, sideMenuController);
 		card.getGraphic().setOnDragDetected(event -> {
 			Dragboard dragboard = card.getGraphic().startDragAndDrop(TransferMode.MOVE);
 			ClipboardContent clipboardContent = new ClipboardContent();
@@ -190,46 +170,49 @@ public class Controller {
 		return card;
 	}
 
-
 	private int getNumDecks(){
-		return numDecks;
+		return getData().size();
 	}
 
-	private int incNumDecks(){
-		return ++numDecks;
+	private void incNumDecks(){
+		getData().add(new Group("Deck "+getData().size()));
 	}
 	
 	
-	@FXML
-	private CardState saveState(){
-		
-		CardState saveState = new CardState();
-		
-		for(int i = 0; i < centerPane.getChildren().size(); i++){
-			Deck newDeck = (Deck)centerPane.getChildren().get(i);
-			newDeck.getTabs().forEach(e -> newDeck.saveCard((Card)e));
-			saveState.addDeck(newDeck);
-		}
-		
-		// Write to disk with FileOutputStream
-		FileOutputStream f_out = null;
-		ObjectOutputStream obj_out = null;
-		try {
-			f_out = new FileOutputStream("cards.data");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+//	@FXML
+//	private CardState saveState(){
+//
+//		CardState saveState = new CardState();
+//
+//		for(int i = 0; i < centerPane.getChildren().size(); i++){
+//			Deck newDeck = (Deck)centerPane.getChildren().get(i);
+//			newDeck.getTabs().forEach(e -> newDeck.saveCard((Card)e));
+//			saveState.addDeck(newDeck);
+//		}
+//
+//		// Write to disk with FileOutputStream
+//		FileOutputStream f_out = null;
+//		ObjectOutputStream obj_out = null;
+//		try {
+//			f_out = new FileOutputStream("cards.data");
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//
+//		// Write object with ObjectOutputStream
+//		try {
+//			obj_out = new ObjectOutputStream (f_out);
+//			obj_out.writeObject ( saveState );
+//			f_out.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return saveState;
+//	}
 
-		// Write object with ObjectOutputStream
-		try {
-			obj_out = new ObjectOutputStream (f_out);
-			obj_out.writeObject ( saveState );
-			f_out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return saveState;
+
+	public void notifyObserver() {
+		makeDecks();
 	}
-	
 }

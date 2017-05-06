@@ -1,7 +1,9 @@
 package content;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,7 +22,7 @@ public class Attribute<T> implements Map.Entry<String,T>{
 		selectedAtts.putIfAbsent(name,s);
 	}
 	public Attribute(String name, T t){
-		this(name,t,Selected.Maybe);
+		this(name,t,Selected.Yes);
 	}
 	public Attribute(Map.Entry<String,T> x){
 		this(x.getKey(),x.getValue());
@@ -46,6 +48,13 @@ public class Attribute<T> implements Map.Entry<String,T>{
 		}
 	}
 
+	public static void setSel(String k, boolean v){
+		if(selectedAtts.containsKey(k)) {
+			selectedAtts.replace(k, v?Selected.Yes:Selected.No);
+		} else {
+			selectedAtts.put(k, v?Selected.Yes:Selected.No);
+		}
+	}
 
 	@Override
 	public String getKey() {
@@ -68,5 +77,13 @@ public class Attribute<T> implements Map.Entry<String,T>{
 	@Override
 	public String toString() {
 		return getKey() + ":" + getValue();
+	}
+
+	public static void reset() {
+		selectedAtts.clear();
+	}
+
+	public static Map<String,Selected> getAtts() {
+		return selectedAtts;
 	}
 }

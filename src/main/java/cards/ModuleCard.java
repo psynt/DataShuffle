@@ -2,6 +2,7 @@ package cards;
 
 import java.io.Serializable;
 
+import model.Group;
 import content.Item;
 import sidebar.SideMenuItems;
 
@@ -11,7 +12,8 @@ import sidebar.SideMenuItems;
 public class ModuleCard extends Card implements Serializable {
 	private static final long serialVersionUID = 8845074631388615041L;
 
-	public ModuleCard(Item i, int numDeck, SideMenuItems subjectSidebar) {
-        super(i, numDeck, subjectSidebar, i.get("Module Code"));
+	public ModuleCard(Group g, Item i, SideMenuItems subjectSidebar) {
+        super(g, i, subjectSidebar, i.get("Module Code"));
     }
+
 }
