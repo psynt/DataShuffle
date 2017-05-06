@@ -3,6 +3,7 @@ package webscraper.reterivers;
 import content.Group;
 import content.Item;
 import debug.Debug;
+import javafx.scene.control.ChoiceDialog;
 import model.Data;
 import webscraper.CourseScraper;
 import webscraper.DocumentLoader;
@@ -43,16 +44,23 @@ public class ModuleGetter implements Getter {
             }
         }
 
+        String selCourse;
+
         if (res.size() > 1) {
-            System.err.println("Searches that return multiple results are not yet supported");
-            throw new UnsupportedOperationException("Multi-result search not quite ready yet");
-        } else if (res.size() < 1) {
-            throw new NullPointerException("No results");
+//            System.err.println("Searches that return multiple results are not yet supported");
+//            throw new UnsupportedOperationException("Multi-result search not quite ready yet");
+            List<String> courses = new ArrayList<>(res.keySet());
+            ChoiceDialog<String> userChoice = new ChoiceDialog<>(courses.get(0), courses);
+            userChoice.showAndWait();
+            selCourse = res.get(userChoice.getSelectedItem());
+        } else {
+            List<String> urls = new ArrayList<>(res.values());
+            selCourse = urls.get(0);
+
         }
 
-        List<String> urls = new ArrayList<>(res.values());
 
-        CourseScraper cs = new CourseScraper(DocumentLoader.load(new URL(urls.get(0))));
+        CourseScraper cs = new CourseScraper(DocumentLoader.load(new URL(selCourse)));
         List<String> modules = cs.getReqModules();
         List<Item> results = modules.stream().filter(e -> e.matches("G5\\d...")).map(e -> {
 //			if(e.matches("G5\\d..."))
