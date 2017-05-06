@@ -1,7 +1,9 @@
 package cards;
 
+import content.Attribute;
 import content.Group;
 import content.Item;
+import groovy.util.MapEntry;
 import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
@@ -14,6 +16,7 @@ import sidebar.SideMenuItems;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,7 +36,8 @@ public class Card extends Tab implements Observer, Serializable{
 	boolean mouseSelected = false;
 	private VBox layoutManager;
 //	private ArrayList<String> keys = new ArrayList<>();
-	private ArrayList<Label> labels = new ArrayList<>();
+//	private ArrayList<Label> labels = new ArrayList<>();
+	private HashMap <String,Label> labels = new HashMap<>();
 	final Label label = new Label();
 	final TextField tabTitle = new TextField();
 	
@@ -128,7 +132,7 @@ public class Card extends Tab implements Observer, Serializable{
 			rightClickMenu.show(tab, Side.RIGHT, 0, 0);
 		});
 		layoutManager.getChildren().add(cardName);
-		layoutManager.getChildren().addAll(labels);
+		layoutManager.getChildren().addAll(labels.values());
 		setContent(layoutManager);
 		setClosable(true);
 		
@@ -139,7 +143,8 @@ public class Card extends Tab implements Observer, Serializable{
 	
 
 	private void addLabel(Map.Entry<String, String> e) {
-		labels.add(new Label(e.getKey() + "\t:\t" + e.getValue()));
+		System.err.println("add [" + e.getKey() + ":" + e.getValue() + "]");
+		labels.put(e.getKey(),new Label(e.getKey() + "\t:\t" + e.getValue()));
 	}
 
 	public void addComponent(Node n) {
@@ -149,26 +154,45 @@ public class Card extends Tab implements Observer, Serializable{
 	@Override
 	public void update() {
 		//handle show item checkboxes
-		
-		ObservableList<Node> checkBoxes = subject.getShowItemsCheckBoxLayout().getChildren();
-		for(int i = 0; i < checkBoxes.size(); i++){
-			if (checkBoxes.get(i) instanceof CheckBox){
-				boolean selected = ((CheckBox)checkBoxes.get(i)).isSelected();
-				System.out.println("card updating " + selected );
-				labels.get(i).setVisible(selected);
-			}
-		}		
+
+
+		Attribute.getAtts().entrySet().forEach(e -> labels.get(e.getKey()).setVisible(Attribute.isSel(e.getKey(),0)));
+
+
+
+//		ObservableList<Node> checkBoxes = subject.getShowItemsCheckBoxLayout().getChildren();
+//		labels.keySet().stream().//map(k->Attribute.isSel(k,0)).forEach(k -> labels.get(k).setVisible());
+//		for( it:checkBoxes) {
+//			if (it instanceof CheckBox){
+//				boolean selected = ((CheckBox)it).isSelected();
+//				System.out.println("card updating " + selected );
+//				try {
+//					labels.get(((CheckBox) it).getText()).setVisible(selected);
+//				}catch (Throwable t) {
+//					System.err.println(((CheckBox) it).getText());
+//				}
+//				it.setVisible(selected);
+//			}
+//
+//		}
+//		for(int i = 0; i < checkBoxes.size(); i++){
+//			if (checkBoxes.get(i) instanceof CheckBox){
+//				boolean selected = ((CheckBox)checkBoxes.get(i)).isSelected();
+//				System.out.println("card updating " + selected );
+//				labels.get(i).setVisible(selected);
+//			}
+//		}
 		
 		//handle add to buttons
-		if(SideMenuController.addToGroup == YES && mouseSelected){
-			cardState=YES;
-		}
-		if(SideMenuController.addToGroup == NO && mouseSelected){
-			cardState=NO;
-		}
-		if(SideMenuController.addToGroup == YES && mouseSelected){
-			cardState=MAYBE;
-		}
+//		if(SideMenuController.addToGroup == YES && mouseSelected){
+//			cardState=YES;
+//		}
+//		if(SideMenuController.addToGroup == NO && mouseSelected){
+//			cardState=NO;
+//		}
+//		if(SideMenuController.addToGroup == YES && mouseSelected){
+//			cardState=MAYBE;
+//		}
 	}
 
 	/*public String getName() {

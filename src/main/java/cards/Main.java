@@ -22,11 +22,12 @@ public class Main extends Application {
     }
 
     public static void start1(Stage primaryStage) throws Exception{
+        primaryStage.hide();
         BorderPane root = FXMLLoader.load(Main.class.getResource("/MainSurface.fxml"));
 		primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/titleIcon.png")));
         primaryStage.setTitle(title);
-        primaryStage.setScene(new Scene(root,1000,1000));
-
+        primaryStage.setScene(new Scene(root));
+        primaryStage.sizeToScene();
         
         primaryStage.show();
         

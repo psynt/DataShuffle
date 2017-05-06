@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import content.Attribute;
 import content.Group;
 import content.Item;
 import javafx.beans.property.ObjectProperty;
@@ -73,7 +74,7 @@ public class Controller {
 	public void initialize() {
 //		d = new Data(getData());
 		System.err.println(d);
-		d.last().setColor(0);
+		d.last().setColor("red");
 		
 		mainPane.setStyle("-fx-background-color: #2f4f4f;");
         
@@ -129,9 +130,11 @@ public class Controller {
 //		}
 		
 		//Adds tick boxes for each label on the cards
-		if (cards.size() >= 1){
-			cards.get(0).getKeys().forEach( e -> sideMenuController.addShowTickBox(e) );
-		}
+//		if (cards.size() >= 1){
+//			cards.get(0).getKeys().forEach( e -> sideMenuController.addShowTickBox(e) );
+//		}
+
+		Attribute.getAtts().keySet().forEach(e->sideMenuController.addShowTickBox(e));
 
 		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane, d);
 
@@ -162,7 +165,7 @@ public class Controller {
 
 	@FXML public void newGreenDeck() {
 		incNumDecks();
-		d.last().setColour(0);
+		d.last().setColour("green");
 		Deck newDeck = new Deck(draggingTab, d.last());
 
 		centerPane.getChildren().add(newDeck);
@@ -170,14 +173,14 @@ public class Controller {
 	
 	@FXML public void newYellowDeck() {
 		incNumDecks();
-		d.last().setColour(1);
+		d.last().setColour("yellow");
 		Deck newDeck = new Deck(draggingTab, d.last());
 		centerPane.getChildren().add(newDeck);
 	}
 	
 	@FXML public void newRedDeck() {
 		incNumDecks();
-		d.last().setColour(2);
+		d.last().setColour("red");
 		Deck newDeck = new Deck(draggingTab, d.last());
 		centerPane.getChildren().add(newDeck);
 		

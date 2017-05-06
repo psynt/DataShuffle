@@ -2,6 +2,7 @@ package splash;
 
 import cards.CardState;
 import cards.Deck;
+import content.Attribute;
 import content.Group;
 import content.Item;
 import debug.Debug;
@@ -223,7 +224,7 @@ public class Controller {
 		try {
 			window.showAndWait();
 			if (!d.isEmpty()) {
-				d.last().setColor(0);
+				d.last().setColor("red");
 				cards.Main.start1((Stage) pane.getScene().getWindow());
 			}
 		} catch (Throwable t) {
@@ -308,5 +309,6 @@ public class Controller {
 
 	public static void reset() {
 		d.clear();
+		Attribute.reset();
 	}
 }

@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 
 public class SideMenuItems {
 	
-	protected List<Card> observerCards = new ArrayList<Card>();; 
+	protected List<Card> observerCards = new ArrayList<>();;
 	
 	protected VBox showItemsCheckBoxLayout;
 	
@@ -25,9 +25,9 @@ public class SideMenuItems {
 	Button openButton = new Button("Open");
 
 	//add to buttons
-	Button yesButton = new Button("Yes");
-	Button noButton = new Button("No");
-	Button maybeButton = new Button("Maybe");
+//	Button yesButton = new Button("Yes");
+//	Button noButton = new Button("No");
+//	Button maybeButton = new Button("Maybe");
 
 	//export to buttons
 	Button exportExcelButton = new Button("Excel");
@@ -45,8 +45,8 @@ public class SideMenuItems {
 		projectButtonLayout.setAlignment(Pos.CENTER);
 		
 		//Create layout for add card to button in side menu and add buttons
-		VBox addCardButtonLayout = new VBox(yesButton, noButton, maybeButton);
-		addCardButtonLayout.setAlignment(Pos.CENTER);
+//		VBox addCardButtonLayout = new VBox(yesButton, noButton, maybeButton);
+//		addCardButtonLayout.setAlignment(Pos.CENTER);
 		
 		//Create layout for select items to show button and add buttons
 		showItemsCheckBoxLayout = new VBox();
@@ -58,13 +58,13 @@ public class SideMenuItems {
 	
 		//add submenu buttons to parent menu buttons
 		TitledPane t1 = new TitledPane("Project", projectButtonLayout);
-		TitledPane t2 = new TitledPane("Add card to...",  addCardButtonLayout);
+//		TitledPane t2 = new TitledPane("Add card to...",  addCardButtonLayout);
 		TitledPane t3 = new TitledPane("Show only..", showItemsCheckBoxLayout);
 		TitledPane t4 = new TitledPane("Export to...", exportToButtonLayout);
 
 		//Add Parent menu buttons to accordian menu
 		Accordion accordion = new Accordion();
-		accordion.getPanes().addAll(t1, t2, t3, t4);
+		accordion.getPanes().addAll(t1, /*t2,*/ t3, t4);
 		
 		menuPane.setTop(accordion);
 		return menuPane;

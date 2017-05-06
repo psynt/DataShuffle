@@ -6,7 +6,9 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import content.Attribute;
 import content.Item;
+import content.Selected;
 import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
@@ -15,7 +17,6 @@ import javafx.stage.Stage;
 import model.Data;
 import saver.ExcelSaver;
 
-import static splash.Controller.getData;
 
 
 public class SideMenuController extends SideMenuItems
@@ -128,23 +129,23 @@ public class SideMenuController extends SideMenuItems
 			
 		});
 
-		yesButton.setOnAction(event -> {
-			addToGroup=YES;
-			notifyAllObservers();
-			System.out.print("yes test");
-		});
-
-		maybeButton.setOnAction(event -> {
-			addToGroup=NO;
-			notifyAllObservers();
-			System.out.print("maybe test");
-		});
-
-		noButton.setOnAction(event -> {
-			addToGroup=MAYBE;
-			notifyAllObservers();
-			System.out.print("no test");
-		});
+//		yesButton.setOnAction(event -> {
+//			addToGroup=YES;
+//			notifyAllObservers();
+//			System.out.print("yes test");
+//		});
+//
+//		maybeButton.setOnAction(event -> {
+//			addToGroup=NO;
+//			notifyAllObservers();
+//			System.out.print("maybe test");
+//		});
+//
+//		noButton.setOnAction(event -> {
+//			addToGroup=MAYBE;
+//			notifyAllObservers();
+//			System.out.print("no test");
+//		});
 
 		exportExcelButton.setOnAction(event -> {
 			System.out.println(d);
@@ -160,6 +161,7 @@ public class SideMenuController extends SideMenuItems
 		CheckBox newCheckBox = new CheckBox(key);
 		newCheckBox.setSelected(true);
 		newCheckBox.setOnAction(event -> {
+			Attribute.setSel(key, ((CheckBox)event.getSource()).isSelected());
 			notifyAllObservers();
 		});
 		

@@ -24,7 +24,7 @@ public class Deck extends TabPane implements Serializable {
 		return gr;
 	}
 
-	public Deck(ObjectProperty<Tab> draggingTab, Group g){//, int num) {
+	public Deck(ObjectProperty<Tab> draggingTab, Group g){
 		gr = g;
 		allCards= new ArrayList<>();
 
@@ -63,15 +63,17 @@ public class Deck extends TabPane implements Serializable {
 			}
 		});
 
+//		getStyleClass().add("deck");
+//		getStyleClass().add(gr.getColour());
 
 		switch (gr.getColour()) {
-		case 0:
+		case "green":
 			setStyle("-fx-background-color: #b9eeb7;");
 			break;
-		case 1:
+		case "yellow":
 			setStyle("-fx-background-color: #ffe766;");
 			break;
-		case 2:
+		case "red":
 			setStyle("-fx-background-color: #d28f8f;");
 			break;
 		}
@@ -117,9 +119,7 @@ public class Deck extends TabPane implements Serializable {
 
 		);
 		deleteCard.setOnAction(event ->
-				{
-					getTabs().remove(this.getSelectionModel().getSelectedItem());
-				}
+				getTabs().remove(this.getSelectionModel().getSelectedItem())
 		);
 
 
