@@ -1,6 +1,6 @@
 package cards;
 
-import content.Group;
+import model.Group;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.*;
 import javafx.scene.input.Dragboard;
@@ -9,7 +9,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Deck extends TabPane implements Serializable {
 

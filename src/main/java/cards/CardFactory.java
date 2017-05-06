@@ -1,6 +1,6 @@
 package cards;
 
-import content.Group;
+import model.Group;
 import content.Item;
 import sidebar.SideMenuItems;
 

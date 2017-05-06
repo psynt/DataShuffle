@@ -1,11 +1,7 @@
 package splash;
 
 import cards.CardState;
-import cards.Deck;
 import content.Attribute;
-import content.Group;
-import content.Item;
-import debug.Debug;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,10 +16,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Data;
-import org.jsoup.nodes.Document;
-import webscraper.*;
-import webscraper.clever.CoursePOSTReq;
-import webscraper.clever.ModulePOSTReq;
 import webscraper.reterivers.EbayGetter;
 import webscraper.reterivers.ModuleGetter;
 
@@ -32,9 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Controller {
 

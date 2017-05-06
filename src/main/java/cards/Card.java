@@ -1,7 +1,7 @@
 package cards;
 
 import content.Attribute;
-import content.Group;
+import model.Group;
 import content.Item;
 import javafx.animation.PauseTransition;
 import javafx.event.Event;

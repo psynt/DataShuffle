@@ -1,8 +1,6 @@
 package webscraper.reterivers;
 
-import content.Group;
-import content.Item;
-import debug.Debug;
+import model.Group;
 import javafx.scene.control.ChoiceDialog;
 import model.Data;
 import webscraper.CourseScraper;
@@ -17,7 +15,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by nichita on 06/05/17.

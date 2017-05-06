@@ -2,7 +2,7 @@ package cards;
 
 import java.io.Serializable;
 
-import content.Group;
+import model.Group;
 import content.Item;
 import sidebar.SideMenuItems;
 

@@ -1,16 +1,13 @@
 package model;
 
-import content.Group;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 /**
  * Created by nichita on 04/05/17.
  */
 
-public class Data extends ArrayList<Group> {//implements GetData{
+public class Data extends ArrayList<Group> {
 
     private String type;
 
@@ -55,17 +52,4 @@ public class Data extends ArrayList<Group> {//implements GetData{
         return "\n" + type + " : [" + sb.toString() + "]\n";
     }
 
-    //    public Data groupBy(String thing){
-//        HashMap<String,Group> gs = new HashMap<>();
-//
-//        get(0).forEach(it -> {
-//            String s = it.get(thing);
-//            gs.putIfAbsent(s,new Group(s));
-//            gs.get(s).add(it);
-//        });
-//
-//        Data d = new Data(gs.values());
-//        d.setType(type);
-//        return d;
-//    }
 }

@@ -3,14 +3,8 @@ package cards;
 import static cards.CardFactory.createCard;
 import static splash.Controller.getData;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
 import content.Attribute;
-import content.Group;
+import model.Group;
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -36,7 +30,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import model.Data;
 import sidebar.SideMenu;
 import sidebar.SideMenuController;
 

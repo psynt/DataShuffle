@@ -1,6 +1,6 @@
 package webscraper.reterivers;
 
-import content.Group;
+import model.Group;
 import content.Item;
 import model.Data;
 import org.jsoup.nodes.Document;
@@ -12,7 +12,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by nichita on 06/05/17.

@@ -2,9 +2,8 @@ package saver;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import content.Group;
+import model.Group;
 import content.Item;
 import model.Data;
 

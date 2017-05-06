@@ -1,5 +1,6 @@
-package content;
+package model;
 
+import content.Item;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
