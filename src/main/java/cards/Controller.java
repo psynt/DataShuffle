@@ -72,21 +72,12 @@ public class Controller {
 
 	@FXML
 	public void initialize() {
-//		d = new Data(getData());
-		System.err.println(d);
+//		System.err.println(d);
 		d.last().setColor("red");
 		
 		mainPane.setStyle("-fx-background-color: #2f4f4f;");
         
 		draggingTab = new SimpleObjectProperty<>();
-//		incNumDecks();
-		Deck cardStackGreen = new Deck(draggingTab, d.last());//getNumDecks());
-//		incNumDecks();
-//		Deck cardStackYellow = new Deck(draggingTab, 1, getNumDecks());
-
-		centerPane.getChildren().add(cardStackGreen);
-//		centerPane.getChildren().add(cardStackYellow);
-		
 		
 		
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -103,36 +94,6 @@ public class Controller {
 		menuPane.setStyle("-fx-background-color: #D1D1D1;");
 		sideMenu = new SideMenu(sideMenuWidth, menuPane);
 		VBox.setVgrow(menuPane, Priority.ALWAYS);
-		
-//		ArrayList<Item> results = getSearchResults();
-		ArrayList<Card> cards = new ArrayList<>();
-		d.last().forEach(e -> cards.add(newCard(getData().get(0),e, getData().getType())));
-
-		// add the left cards to the left vbox
-		for(int i=0 ; i<cards.size() ; i++){
-
-//			if((i&1) == 1) {
-//				cardStackYellow.getTabs().add(cards.get(i));
-//			} else {
-				cardStackGreen.getTabs().add(cards.get(i));
-//			}
-
-		}
-		
-		//if loading from a file
-//		if(splash.Controller.getLoadFlag()){
-//			//splash.Controller.getLoadResults().forEach(e -> centerPane.getChildren().add(e));
-//			for(int i = 0; i < splash.Controller.getLoadResults().size(); i++){
-//				System.out.println("adding card " + i);
-//				centerPane.getChildren().add(splash.Controller.getLoadResults().get(i));
-//				((Deck) centerPane.getChildren().get(i)).readAllCards();
-//			}
-//		}
-		
-		//Adds tick boxes for each label on the cards
-//		if (cards.size() >= 1){
-//			cards.get(0).getKeys().forEach( e -> sideMenuController.addShowTickBox(e) );
-//		}
 
 		Attribute.getAtts().keySet().forEach(e->sideMenuController.addShowTickBox(e));
 
@@ -154,10 +115,23 @@ public class Controller {
 		//sideMenuContainer.setMinWidth(200);
 
 
+		makeDecks();
+
 
 
 	}
 
+	private void makeDecks(){
+		centerPane.getChildren().clear();
+		d.forEach(e -> {
+			Deck cards = new Deck(draggingTab, e);
+
+			e.forEach(it -> cards.getTabs().add(newCard(e,it, d.getType())));
+
+			centerPane.getChildren().add(cards);
+		});
+
+	}
 
 	public Data getData(){
 		return d;
@@ -216,36 +190,39 @@ public class Controller {
 	}
 	
 	
-	@FXML
-	private CardState saveState(){
-		
-		CardState saveState = new CardState();
-		
-		for(int i = 0; i < centerPane.getChildren().size(); i++){
-			Deck newDeck = (Deck)centerPane.getChildren().get(i);
-			newDeck.getTabs().forEach(e -> newDeck.saveCard((Card)e));
-			saveState.addDeck(newDeck);
-		}
-		
-		// Write to disk with FileOutputStream
-		FileOutputStream f_out = null;
-		ObjectOutputStream obj_out = null;
-		try {
-			f_out = new FileOutputStream("cards.data");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+//	@FXML
+//	private CardState saveState(){
+//
+//		CardState saveState = new CardState();
+//
+//		for(int i = 0; i < centerPane.getChildren().size(); i++){
+//			Deck newDeck = (Deck)centerPane.getChildren().get(i);
+//			newDeck.getTabs().forEach(e -> newDeck.saveCard((Card)e));
+//			saveState.addDeck(newDeck);
+//		}
+//
+//		// Write to disk with FileOutputStream
+//		FileOutputStream f_out = null;
+//		ObjectOutputStream obj_out = null;
+//		try {
+//			f_out = new FileOutputStream("cards.data");
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//
+//		// Write object with ObjectOutputStream
+//		try {
+//			obj_out = new ObjectOutputStream (f_out);
+//			obj_out.writeObject ( saveState );
+//			f_out.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return saveState;
+//	}
 
-		// Write object with ObjectOutputStream
-		try {
-			obj_out = new ObjectOutputStream (f_out);
-			obj_out.writeObject ( saveState );
-			f_out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return saveState;
+	public static void update() {
+//		makeDecks();
 	}
-	
 }

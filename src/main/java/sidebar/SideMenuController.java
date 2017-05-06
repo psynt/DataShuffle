@@ -2,6 +2,7 @@ package sidebar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -148,8 +149,13 @@ public class SideMenuController extends SideMenuItems
 //		});
 
 		exportExcelButton.setOnAction(event -> {
-			System.out.println(d);
-//			new ExcelSaver(results).save(new Item());
+//			System.out.println(d);
+			try {
+				new ExcelSaver(d).writeToFile(new File("cards.xls"));
+				System.out.println("Exported");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 //			System.out.print("excel test");
 
 		});

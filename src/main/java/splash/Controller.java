@@ -225,6 +225,7 @@ public class Controller {
 			window.showAndWait();
 			if (!d.isEmpty()) {
 				d.last().setColor("red");
+				d.last().setName("initial group");
 				cards.Main.start1((Stage) pane.getScene().getWindow());
 			}
 		} catch (Throwable t) {
@@ -270,7 +271,7 @@ public class Controller {
 				e1.printStackTrace();
 			}
 			return null;
-		}).map(ModuleScraper::new).map(ModuleScraper::scrapeDocument).collect(Collectors.toList());
+		}).map(ModuleScraper::new).map(ModuleScraper::scrapeDocument).filter(e -> !e.get("Module Code").matches("G\\d\\dTUT")).collect(Collectors.toList());
 
 		return new ArrayList<>(results);
 	}

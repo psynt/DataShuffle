@@ -23,7 +23,12 @@ public class Item extends HashMap<String, String> {
 	}
 
 	public Item() {
-		this(Selected.Maybe);
+		this(Selected.Yes);
+	}
+
+
+	public void unSelect(){
+		sel = Selected.Never;
 	}
 
 	/**

@@ -22,7 +22,7 @@ public class Attribute<T> implements Map.Entry<String,T>{
 		selectedAtts.putIfAbsent(name,s);
 	}
 	public Attribute(String name, T t){
-		this(name,t,Selected.Maybe);
+		this(name,t,Selected.Yes);
 	}
 	public Attribute(Map.Entry<String,T> x){
 		this(x.getKey(),x.getValue());

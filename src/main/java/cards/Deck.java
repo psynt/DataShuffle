@@ -18,7 +18,7 @@ public class Deck extends TabPane implements Serializable {
 
 	private Group gr;
 	
-	private ArrayList<Card> allCards;
+//	private ArrayList<Card> allCards;
 
 	private Group getGroup(){
 		return gr;
@@ -26,7 +26,7 @@ public class Deck extends TabPane implements Serializable {
 
 	public Deck(ObjectProperty<Tab> draggingTab, Group g){
 		gr = g;
-		allCards= new ArrayList<>();
+//		allCards= new ArrayList<>();
 
 		setOnDragOver(event -> {
 			final Dragboard dragboard = event.getDragboard();
@@ -132,17 +132,17 @@ public class Deck extends TabPane implements Serializable {
 
 	}
 	
-	public void saveCard(Card newCard){
-		allCards.add(newCard);
-	}
-	
-	public ArrayList<Card> getCards(){
-		return allCards;
-	}
-	
-	public void readAllCards(){
-		for (Card it : allCards) {
-			this.getTabs().add(it);
-		}
-	}
+//	public void saveCard(Card newCard){
+//		allCards.add(newCard);
+//	}
+//
+//	public ArrayList<Card> getCards(){
+//		return allCards;
+//	}
+//
+//	public void readAllCards(){
+//		for (Card it : allCards) {
+//			this.getTabs().add(it);
+//		}
+//	}
 }
