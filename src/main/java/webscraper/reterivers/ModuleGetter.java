@@ -25,39 +25,28 @@ import java.util.stream.Collectors;
 public class ModuleGetter implements Getter {
     @Override
     public Data getTheStuff(Map<String, String> args) throws MalformedURLException {
+        System.err.println(args);
 
         Data d = new Data("Module");
 
         CoursePOSTReq courseGetter = new CoursePOSTReq();
 
         Map<String, String> res;
-        if (args.get("code") != null && args.get("code").length() > 0) {
-            res = courseGetter.ucasCode(args.get("code"));
-        } else if (args.get("keyword") != null && args.get("keyword").length() > 0) {
+        res = courseGetter.ucasCode(args.get("code"));
+        if(res.size()<1) {
             res = courseGetter.keyword(args.get("keyword"));
-        } else
-            throw new NullPointerException("either code or keyword needed");
-
-        if (Debug.DEBUG) {
-            if (res != null) {
-                System.out.println(res);
-            }
         }
 
-        String selCourse;
+        List<String> courses = new ArrayList<>(res.keySet());
+        ChoiceDialog<String> userChoice = new ChoiceDialog<>(courses.get(0), courses);
+        userChoice.setContentText("Please choose your course");
+
 
         if (res.size() > 1) {
-//            System.err.println("Searches that return multiple results are not yet supported");
-//            throw new UnsupportedOperationException("Multi-result search not quite ready yet");
-            List<String> courses = new ArrayList<>(res.keySet());
-            ChoiceDialog<String> userChoice = new ChoiceDialog<>(courses.get(0), courses);
             userChoice.showAndWait();
-            selCourse = res.get(userChoice.getSelectedItem());
-        } else {
-            List<String> urls = new ArrayList<>(res.values());
-            selCourse = urls.get(0);
-
         }
+
+        String selCourse = res.get(userChoice.getSelectedItem());
 
 
         CourseScraper cs = new CourseScraper(DocumentLoader.load(new URL(selCourse)));

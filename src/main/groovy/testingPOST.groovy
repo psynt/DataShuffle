@@ -21,8 +21,8 @@ import java.util.stream.Collectors
 //
 ////println res
 //
-//def courses =  new CoursePOSTReq()
-//def res  = courses. ucasCode("g4g1") values() asList()
+def courses =  new CoursePOSTReq()
+println courses. keyword("science")
 //println new CourseScraper(DocumentLoader.load(new URL(res.get(0)))).getReqModules()
 //
 //println new ModuleScraper(new ModulePOSTReq().courseCode("g52afp")).scrapeDocument()//.map(ModuleScraper::new).map(ModuleScraper::scrapeDocument).collect(Collectors.toList())

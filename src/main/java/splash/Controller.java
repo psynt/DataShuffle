@@ -238,8 +238,9 @@ public class Controller {
 
 	private Data modules(String keyword, String code) throws MalformedURLException {
 		Map<String,String> args = new HashMap<>();
-		args.put("code",code);
-		args.put("keyord",keyword);
+		if (code != null) args.put("code",code);
+		if (keyword != null) args.put("keyword",keyword);
+//		System.err.println("search module k " + keyword + ", c " + code);
 		return new ModuleGetter().getTheStuff(args);
 	}
 
