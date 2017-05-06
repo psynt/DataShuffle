@@ -25,12 +25,12 @@ public class Card extends Tab implements Observer, Serializable{
 	private static final long serialVersionUID = -630866289349768478L;
 	private Item item;
 	private Group parent;
-	boolean mouseSelected = false;
+	private boolean mouseSelected = false;
 	private VBox layoutManager;
 	private HashMap <String,Label> labels = new HashMap<>();
-	final Label label = new Label();
-	final TextField tabTitle = new TextField();
-	Controller ob;
+	private final Label label = new Label();
+	private final TextField tabTitle = new TextField();
+	private Controller ob;
 
 	public Card(Group g, Item i, SideMenuItems subjectSidebar, String name) {
 		parent = g;
@@ -41,7 +41,7 @@ public class Card extends Tab implements Observer, Serializable{
 		layoutManager.setMinHeight(50);
 		layoutManager.setMinWidth(120);
 
-		Attribute.getAtts().entrySet().forEach(it -> addLabel(it.getKey(),i.get(it.getKey())));
+		Attribute.getAtts().forEach((key, value) -> addLabel(key, i.get(key)));
 
 		label.setText(name);
 		setGraphic(label);
@@ -85,25 +85,12 @@ public class Card extends Tab implements Observer, Serializable{
 		Menu addCardMenu = new Menu("Delete");
 		MenuItem noCard = new MenuItem("Remove Card");
 		addCardMenu.getItems().addAll(noCard);
-		noCard.setOnAction(e -> {
-//			item.unSelect();
-//			ob.notifyObserver();
-			deleteCard(e);
-		});
+		noCard.setOnAction(this::deleteCard);
 		
 		//method to detect if card is left clicked
 		layoutManager.setOnMouseClicked(e ->{
 			mouseSelected=true;
 			System.out.print("Save as test");
-		});
-		
-		//method to detect if mouse has been clicked outside card
-		layoutManager.setOnMouseExited(e ->{
-			Controller.cardUnselect();
-			if(!Controller.cardSelected){
-				mouseSelected=false;
-				System.out.print("Sst");
-			}
 		});
 
 
@@ -123,7 +110,7 @@ public class Card extends Tab implements Observer, Serializable{
 		setContent(layoutManager);
 		setClosable(true);
 
-		setOnCloseRequest(e -> deleteCard(e));
+		setOnCloseRequest(this::deleteCard);
 		
 		//add sidebar subject
 		subjectSidebar.attach(this);
@@ -141,7 +128,6 @@ public class Card extends Tab implements Observer, Serializable{
 
 
 	private void addLabel(String key, String val) {
-//		System.err.println("add [" + e.getKey() + ":" + e.getValue() + "]");
 		labels.put(key,new Label(key + "\t:\t" + val));
 	}
 

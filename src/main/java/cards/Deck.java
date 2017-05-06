@@ -63,34 +63,18 @@ public class Deck extends TabPane implements Serializable {
 			}
 		});
 
-//		getStyleClass().add("deck");
-//		getStyleClass().add(gr.getColour());
+		getStyleClass().add(gr.getColour());
 
-		switch (gr.getColour()) {
-		case "green":
-			setStyle("-fx-background-color: #b9eeb7;");
-			break;
-		case "yellow":
-			setStyle("-fx-background-color: #ffe766;");
-			break;
-		case "red":
-			setStyle("-fx-background-color: #d28f8f;");
-			break;
-		}
 
-		//setMinWidth(120);
-		//setMaxWidth(480);
 		setPrefHeight(140);
 		setPrefWidth(200);
 
-		//setMaxHeight(480);
-		//setMinHeight(150);
 
 		setTabMinWidth(50);
 		setTabMaxWidth(75);
 
 		ContextMenu rightClickMenu = new ContextMenu();
-		Menu editDeckCard = new Menu("Edit");
+		Menu editDeckCard = new Menu("Size");
 		MenuItem incSize = new MenuItem("Increase Size");
 		MenuItem decSize = new MenuItem("Decrease Size");
 		editDeckCard.getItems().addAll(incSize, decSize);
@@ -103,29 +87,29 @@ public class Deck extends TabPane implements Serializable {
 
 
 
-//		incSize.setOnAction(event -> {
-//            this.setPrefHeight(getHeight() + 30);
-//            this.setPrefWidth(getWidth() + 50);
-//        });
-//		decSize.setOnAction(event -> {
-//            this.setPrefHeight(getHeight() - 30);
-//            this.setPrefWidth(getWidth() - 50);
-//        });
+		incSize.setOnAction(event -> {
+            this.setPrefHeight(getHeight() + 30);
+            this.setPrefWidth(getWidth() + 50);
+        });
+		decSize.setOnAction(event -> {
+            this.setPrefHeight(getHeight() - 30);
+            this.setPrefWidth(getWidth() - 50);
+        });
 		deleteDeck.setOnAction(event ->
-				{
-					gr.forEach(Item::unSelect);
+			{
+				gr.forEach(Item::unSelect);
 
-					Card se = (Card) this.getSelectionModel().getSelectedItem();
-					se.deleteCard(event);
-//					getTabs().clear();
-					((FlowPane)this.getParent()).getChildren().remove(this);
-				}
+				Card se = (Card) this.getSelectionModel().getSelectedItem();
+				se.deleteCard(event);
+				((FlowPane)this.getParent()).getChildren().remove(this);
+			}
 
 		);
 		deleteCard.setOnAction(event -> {
 			Card se = (Card) this.getSelectionModel().getSelectedItem();
 			se.deleteCard(event);
-//			getTabs().remove(se);
+			if (this.getTabs().size() == 0)
+				((FlowPane)this.getParent()).getChildren().remove(this);
 		});
 
 
