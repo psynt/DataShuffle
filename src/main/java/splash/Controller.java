@@ -24,6 +24,8 @@ import org.jsoup.nodes.Document;
 import webscraper.*;
 import webscraper.clever.CoursePOSTReq;
 import webscraper.clever.ModulePOSTReq;
+import webscraper.reterivers.EbayGetter;
+import webscraper.reterivers.ModuleGetter;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,10 +33,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Controller {
@@ -50,11 +49,11 @@ public class Controller {
 
 	private static boolean loadFlag = false;
 
-	public static final Data d = new Data();
+	private static Data d = new Data();
 
-//	public static Data getData(){
-//		return d;
-//	}
+	public static Data getData(){
+		return d;
+	}
 
 	@FXML
 	public void initialize() {
@@ -111,7 +110,6 @@ public class Controller {
 	public void ebayEvent(ActionEvent actionEvent){
 		d.setType("Ebay");
 		clickEvent(actionEvent);
-
 	}
 	@FXML
 	public void moduleEvent(ActionEvent actionEvent){
@@ -170,7 +168,10 @@ public class Controller {
 			grid.add(cb, 1, 1);
 			searchButton.setOnAction(e -> { // ebay
 				try {
-					d.add(new Group(ebay(userTextField.getText(), minTextField.getText(), maxTextField.getText(), cb.getSelectionModel().getSelectedItem().toString() )));
+					d = ebay(userTextField.getText()
+							, minTextField.getText()
+							, maxTextField.getText()
+							, cb.getSelectionModel().getSelectedItem().toString());
 					System.out.println(d);
 					window.close();
 				} catch (MalformedURLException ex) {
@@ -191,7 +192,8 @@ public class Controller {
 
 			searchButton.setOnAction(e -> {
 				try {
-					d.add(new Group( modules(userTextField.getText(), minTextField.getText())));
+					d = modules(userTextField.getText()
+							   , minTextField.getText());
 					System.out.println(d);
 					window.close();
 				} catch (MalformedURLException ex) {
@@ -234,69 +236,20 @@ public class Controller {
 		}
 	}
 
-	private ArrayList<Item> modules(String keyword, String code) throws MalformedURLException {
-		d.setType ("Module");
-		CoursePOSTReq courseGetter = new CoursePOSTReq();
-
-		Map<String, String> res;
-		if (code != null && code.length() > 0) {
-			res = courseGetter.ucasCode(code);
-		} else if (keyword != null && keyword.length() > 0) {
-			res = courseGetter.keyword(keyword);
-		} else
-			throw new NullPointerException("either code or keyword needed");
-
-		if (Debug.DEBUG) {
-			if (res != null) {
-				System.out.println(res);
-			}
-		}
-
-		if (res.size() > 1) {
-			System.err.println("Searches that return multiple results are not yet supported");
-			throw new UnsupportedOperationException("Multi-result search not quite ready yet");
-		} else if (res.size() < 1) {
-			throw new NullPointerException("No results");
-		}
-
-		List<String> urls = new ArrayList<>(res.values());
-
-		CourseScraper cs = new CourseScraper(DocumentLoader.load(new URL(urls.get(0))));
-		List<String> modules = cs.getReqModules();
-		List<Item> results = modules.stream().filter(e -> e.matches("G5\\d...")).map(e -> {
-//			if(e.matches("G5\\d..."))
-			try {
-				return new ModulePOSTReq().courseCode(e);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			return null;
-		}).map(ModuleScraper::new).map(ModuleScraper::scrapeDocument).filter(e -> !e.get("Module Code").matches("G\\d\\dTUT")).collect(Collectors.toList());
-
-		return new ArrayList<>(results);
+	private Data modules(String keyword, String code) throws MalformedURLException {
+		Map<String,String> args = new HashMap<>();
+		args.put("code",code);
+		args.put("keyord",keyword);
+		return new ModuleGetter().getTheStuff(args);
 	}
 
-	private ArrayList<Item> ebay(String searchTerm, String min, String max, String auctionType) throws MalformedURLException {
-		d.setType("Ebay");
-		if(Objects.equals(auctionType, "Buy It Now!")){auctionType = "BIN";}
-
-		//String searchUrl = "http://www.ebay.co.uk/sch/i.html?_&_nkw=datashuffle&_sacat=0".replace("datashuffle",searchTerm);
-
-		String searchUrl = "http://www.ebay.co.uk/sch/i.html?_from=R40&_nkw=mario&_in_kw=1&_ex_kw=&_sacat=0&_mPrRngCbx=1&_udlo=2&_udhi=8&LH_AUCTYPE=1&_ftrt=901&_ftrv=1&_sabdlo=&_sabdhi=&_samilow=&_samihi=&_sadis=15&_stpos=&_sargn=-1%26saslc%3D1&_salic=3&_sop=12&_dmd=1&_ipg=50".replace("datashuffle", searchTerm).replace("minprice", min).replace("maxprice", max).replace("AUCTYPE", auctionType);
-
-		ArrayList<Item> whatYouWant = new ArrayList<>();
-		Document guitarSearch = DocumentLoader.load(new URL(searchUrl));
-		EbayResultScraper thing1 = new EbayResultScraper(guitarSearch);
-		ArrayList<String> links = thing1.scrapeLinks();
-
-		for (String link : links) {
-			Document res = DocumentLoader.load(new URL(link));
-			EbayItemScraper ebayScraper = new EbayItemScraper(res);
-
-			whatYouWant.add(ebayScraper.scrapeDocument());
-
-		}
-		return whatYouWant;
+	private Data ebay(String searchTerm, String min, String max, String auctionType) throws MalformedURLException {
+		Map<String,String> args = new HashMap<>();
+		args.put("searchTerm",searchTerm);
+		args.put("min",min);
+		args.put("max",max);
+		args.put("auctionType",auctionType);
+		return new EbayGetter().getTheStuff(args);
 	}
 
 //	public static Group getSearchResults() {
@@ -309,7 +262,7 @@ public class Controller {
 	}
 
 	public static void reset() {
-		d.clear();
+		d = new Data();
 		Attribute.reset();
 	}
 }

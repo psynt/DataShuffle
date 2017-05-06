@@ -3,22 +3,17 @@ package cards;
 import content.Attribute;
 import content.Group;
 import content.Item;
-import groovy.util.MapEntry;
 import javafx.animation.PauseTransition;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import sidebar.SideMenuController;
 import sidebar.SideMenuItems;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The 'card'

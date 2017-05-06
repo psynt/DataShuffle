@@ -14,6 +14,10 @@ public class Data extends ArrayList<Group> {//implements GetData{
 
     private String type;
 
+    public Data(String s){
+        type = s;
+    }
+
     public Data(Data d){
         super(d);
         type = d.type;

@@ -1,7 +1,7 @@
 package cards;
 
 import static cards.CardFactory.createCard;
-import static splash.Controller.d;
+import static splash.Controller.getData;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -73,7 +73,7 @@ public class Controller {
 	@FXML
 	public void initialize() {
 //		System.err.println(d);
-		d.last().setColor("red");
+		getData().last().setColor("red");
 		
 		mainPane.setStyle("-fx-background-color: #2f4f4f;");
         
@@ -97,7 +97,7 @@ public class Controller {
 
 		Attribute.getAtts().keySet().forEach(e->sideMenuController.addShowTickBox(e));
 
-		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane, d);
+		sideMenuController.Initialize(sideMenuWidth, sideMenu, menuPane, getData());
 
 		// layout the scene.
 		StackPane buttonLocation = new StackPane();
@@ -123,10 +123,10 @@ public class Controller {
 
 	private void makeDecks(){
 		centerPane.getChildren().clear();
-		d.forEach(e -> {
+		getData().forEach(e -> {
 			Deck cards = new Deck(draggingTab, e);
 
-			e.stream().filter(Item::isSelected).forEach(it -> cards.getTabs().add(newCard(e,it, d.getType())));
+			e.stream().filter(Item::isSelected).forEach(it -> cards.getTabs().add(newCard(e,it, getData().getType())));
 			cards.getTabs().forEach(it -> ((Card)it).setListener(this));
 
 			centerPane.getChildren().add(cards);
@@ -134,29 +134,25 @@ public class Controller {
 
 	}
 
-	public Data getData(){
-		return d;
-	}
-
 	@FXML public void newGreenDeck() {
 		incNumDecks();
-		d.last().setColour("green");
-		Deck newDeck = new Deck(draggingTab, d.last());
+		getData().last().setColour("green");
+		Deck newDeck = new Deck(draggingTab, getData().last());
 
 		centerPane.getChildren().add(newDeck);
 	}
 	
 	@FXML public void newYellowDeck() {
 		incNumDecks();
-		d.last().setColour("yellow");
-		Deck newDeck = new Deck(draggingTab, d.last());
+		getData().last().setColour("yellow");
+		Deck newDeck = new Deck(draggingTab, getData().last());
 		centerPane.getChildren().add(newDeck);
 	}
 	
 	@FXML public void newRedDeck() {
 		incNumDecks();
-		d.last().setColour("red");
-		Deck newDeck = new Deck(draggingTab, d.last());
+		getData().last().setColour("red");
+		Deck newDeck = new Deck(draggingTab, getData().last());
 		centerPane.getChildren().add(newDeck);
 		
 
@@ -183,11 +179,11 @@ public class Controller {
 	}
 
 	private int getNumDecks(){
-		return d.size();
+		return getData().size();
 	}
 
 	private void incNumDecks(){
-		d.add(new Group("Deck "+d.size()));
+		getData().add(new Group("Deck "+getData().size()));
 	}
 	
 	
