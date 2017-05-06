@@ -90,4 +90,8 @@ public class Item extends HashMap<String, String> {
 		forEach((key, value) -> sb.append("[").append(key).append(":").append(value).append("], "));
 		return "\n\t\t[" + sb.toString() + "]\n";
 	}
+
+    public boolean isSelected() {
+		return sel.value()>Selected.Maybe.value();
+    }
 }

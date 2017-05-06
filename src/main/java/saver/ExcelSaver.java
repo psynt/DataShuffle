@@ -107,25 +107,14 @@ public class ExcelSaver implements Saver {
 
 	@Override
 	public void save(Group items) {
-		for(Item b :items){
-			if(b.getSelected().value()<threshold){
-				continue;
-			}
-			save(b);
-		}
-		
+		items.stream().filter(Item::isSelected).forEach(this::save);
 	}
 	@Override
 	public void save(Item item) {
 		Row r=s.createRow(rowcount++);
 		Cell c;
-//		c = r.createCell(0);
-//		c.setCellValue(item.getSelected().toString());
 		int colcount=1;
-//		for(Map.Entry<String,String> e : item.getAttributes().entrySet()){
 		for (String it : headers){
-//			if(!isSel(e.getKey(), threshold))
-//				continue;
 			c = r.createCell(colcount++);
 			c.setCellValue(item.get(it));
 		}
