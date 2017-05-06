@@ -1,45 +1,30 @@
 package cards;
 
-import static cards.CardFactory.createCard;
-import static splash.Controller.getData;
-
 import content.Attribute;
-import model.Group;
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
-import javafx.scene.control.ToolBar;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import model.Group;
 import sidebar.SideMenu;
 import sidebar.SideMenuController;
+
+import static cards.CardFactory.createCard;
+import static splash.Controller.getData;
 
 public class Controller {
 	private static final String TAB_DRAG_KEY = "tab";
 	private ObjectProperty<Tab> draggingTab;
-	static boolean cardSelected = true;
-//	private Data d;
+//	static boolean cardSelected = true;
 
-	boolean selected;
 	@FXML
 	BorderPane mainPane;
 	@FXML
@@ -50,40 +35,22 @@ public class Controller {
 
 	@FXML
 	BorderPane sideMenuContainer;
-	
-	@FXML
-	ToolBar toolbar;
-	@FXML
-	Button newGreenDeckButton;
-	@FXML 
-	Button newYellowDeckButton;
-	@FXML 
-	Button newRedDeckButton;
-	
+
 	SideMenu sideMenu;
 	SideMenuController sideMenuController;
 
 	@FXML
 	public void initialize() {
-//		System.err.println(d);
-		
-		mainPane.setStyle("-fx-background-color: #2f4f4f;");
         
 		draggingTab = new SimpleObjectProperty<>();
-		
-		
-		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-		scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
 		scrollPane.setContent(centerPane);
-		scrollPane.setStyle("-fx-background-color: #2f4f4f;");
-		centerPane.setStyle("-fx-background-color: #2f4f4f;");
-		centerPane.setOrientation(Orientation.VERTICAL);
 
 		// create a sidebar with some content in it.
 		int sideMenuWidth = 250;
 		sideMenuController = new SideMenuController();
 		final Pane menuPane = sideMenuController.createSidebarItems();
-		menuPane.setStyle("-fx-background-color: #D1D1D1;");
+		menuPane.setId("menuPane");
 		sideMenu = new SideMenu(sideMenuWidth, menuPane);
 		VBox.setVgrow(menuPane, Priority.ALWAYS);
 
@@ -102,9 +69,7 @@ public class Controller {
 
 		mainPane.setRight(sideMenuContainer);
 		mainPane.setCenter(scrollPane);
-		//activate if you want to be able to see the side menu container
 		sideMenuContainer.setBorder(new Border( new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
-		//sideMenuContainer.setMinWidth(200);
 
 
 		makeDecks();
@@ -130,7 +95,6 @@ public class Controller {
 		incNumDecks();
 		getData().last().setColour("green");
 		Deck newDeck = new Deck(draggingTab, getData().last());
-
 		centerPane.getChildren().add(newDeck);
 	}
 	
@@ -146,15 +110,8 @@ public class Controller {
 		getData().last().setColour("red");
 		Deck newDeck = new Deck(draggingTab, getData().last());
 		centerPane.getChildren().add(newDeck);
-		
-
 	}
 
-	public static void cardUnselect(){
-	//centerPane.setOnMouseClicked(event->{
-		cardSelected=false;
-	//});
-	}
 
 	private Card newCard(Group g, Item item, String type) {
 		final Card card = createCard(g, item, type, sideMenuController);

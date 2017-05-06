@@ -1,5 +1,7 @@
 package splash;
 
+import com.sun.javafx.application.PlatformImpl;
+import com.sun.javafx.css.StyleManager;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

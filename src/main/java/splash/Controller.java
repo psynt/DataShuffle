@@ -1,6 +1,7 @@
 package splash;
 
 import cards.CardState;
+import cards.SecondMain;
 import content.Attribute;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -87,7 +88,7 @@ public class Controller {
 //			loadResults = ((CardState) obj).getAllDecks();
 			try {
 				loadFlag = true;
-				cards.Main.start1((Stage) pane.getScene().getWindow());
+				SecondMain.start1((Stage) pane.getScene().getWindow());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -184,7 +185,6 @@ public class Controller {
 				try {
 					d = modules(userTextField.getText()
 							   , minTextField.getText());
-					System.out.println(d);
 					window.close();
 				} catch (MalformedURLException ex) {
 					System.out.println("Bad url:");
@@ -215,8 +215,9 @@ public class Controller {
 		scene.getStylesheets().add(Controller.class.getResource("/application.css").toExternalForm());
 		try {
 			window.showAndWait();
+			source.getScene().getStylesheets().clear();
 			if (!d.isEmpty()) {
-				cards.Main.start1((Stage) pane.getScene().getWindow());
+				SecondMain.start1((Stage) pane.getScene().getWindow());
 			}
 		} catch (Throwable t) {
 			t.printStackTrace();
@@ -228,7 +229,6 @@ public class Controller {
 		Map<String,String> args = new HashMap<>();
 		if (code != null) args.put("code",code);
 		if (keyword != null) args.put("keyword",keyword);
-//		System.err.println("search module k " + keyword + ", c " + code);
 		return new ModuleGetter().getTheStuff(args);
 	}
 
@@ -241,9 +241,6 @@ public class Controller {
 		return new EbayGetter().getTheStuff(args);
 	}
 
-//	public static Group getSearchResults() {
-//		return d.get(0);
-//	}
 
 	
 	public static boolean getLoadFlag(){

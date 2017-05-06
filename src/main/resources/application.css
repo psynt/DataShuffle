@@ -5,27 +5,32 @@
    -fx-font-family: "Segoe UI Light";  
    -fx-fill: #818181;  
    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );  
-}  
+}
+
+.mainPane {
+    -fx-background-color: #2f4f4f;
+}
+
+#menuPane{
+    -fx-background-color: #D1D1D1;
+}
+
 .background {
-
-
     -fx-background-color:#98C1D9;
     -fx-background-size: 1000, 100;
     -fx-background-repeat: no-repeat;
 
    	 -fx-background-position: center center;
-     
 
-     
 }
 
-.deck.green{
+.green{
     -fx-background-color: #b9eeb7;
 }
-.deck.yellow {
+.yellow {
     -fx-background-color: #ffe766;
 }
-.deck.red{
+.red{
     -fx-background-color: #d28f8f;
 }
 
