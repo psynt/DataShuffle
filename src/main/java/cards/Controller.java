@@ -73,7 +73,6 @@ public class Controller {
 	@FXML
 	public void initialize() {
 //		System.err.println(d);
-		getData().last().setColor("red");
 		
 		mainPane.setStyle("-fx-background-color: #2f4f4f;");
         

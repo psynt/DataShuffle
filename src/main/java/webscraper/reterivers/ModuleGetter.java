@@ -43,25 +43,40 @@ public class ModuleGetter implements Getter {
 
 
         if (res.size() > 1) {
+            userChoice.setSelectedItem("");
             userChoice.showAndWait();
         }
 
         String selCourse = res.get(userChoice.getSelectedItem());
 
+        if (selCourse.length()<2){
+            throw new NullPointerException("User selected nothing");
+        }
+
 
         CourseScraper cs = new CourseScraper(DocumentLoader.load(new URL(selCourse)));
         List<String> modules = cs.getReqModules();
-        List<Item> results = modules.stream().filter(e -> e.matches("G5\\d...")).map(e -> {
-//			if(e.matches("G5\\d..."))
-            try {
-                return new ModulePOSTReq().courseCode(e);
-            } catch (IOException e1) {
-                e1.printStackTrace();
+
+        Group currentGroup = new Group();
+        currentGroup.setColour("red");
+        for (String e:modules ) {
+            if(e.matches("G5\\d...")){
+                try {
+                    currentGroup.add(new ModuleScraper(new ModulePOSTReq().courseCode(e)).scrapeDocument());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }else{
+                d.add(currentGroup);
+                currentGroup = new Group(e + " " + d.size());
+                if (e.contains("all")){
+                    currentGroup.setColour("red");
+                }else {
+                    currentGroup.setColour("yellow");
+                }
             }
-            return null;
-        }).map(ModuleScraper::new).map(ModuleScraper::scrapeDocument).filter(e -> !e.get("Module Code")
-                .matches("G\\d\\dTUT")).collect(Collectors.toList());
-        d.add(new Group(results));
+        }
+        d.remove(0);
         return d;
     }
 }
