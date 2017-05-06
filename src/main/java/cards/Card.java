@@ -129,7 +129,7 @@ public class Card extends Tab implements Observer, Serializable{
 		subjectSidebar.attach(this);
 	}
 
-	private void deleteCard(Event e){
+	public void deleteCard(Event e){
 		item.unSelect();
 		ob.notifyObserver();
 

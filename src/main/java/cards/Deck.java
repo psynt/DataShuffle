@@ -1,5 +1,6 @@
 package cards;
 
+import content.Item;
 import model.Group;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.*;
@@ -101,25 +102,31 @@ public class Deck extends TabPane implements Serializable {
 		rightClickMenu.getItems().addAll(editDeckCard, deleteMenu);
 
 
-		incSize.setOnAction(event -> {
-            this.setPrefHeight(getHeight() + 30);
-            this.setPrefWidth(getWidth() + 50);
-        });
-		decSize.setOnAction(event -> {
-            this.setPrefHeight(getHeight() - 30);
-            this.setPrefWidth(getWidth() - 50);
-        });
+
+//		incSize.setOnAction(event -> {
+//            this.setPrefHeight(getHeight() + 30);
+//            this.setPrefWidth(getWidth() + 50);
+//        });
+//		decSize.setOnAction(event -> {
+//            this.setPrefHeight(getHeight() - 30);
+//            this.setPrefWidth(getWidth() - 50);
+//        });
 		deleteDeck.setOnAction(event ->
 				{
-					getTabs().clear();
-					((FlowPane)this.getParent()).getChildren().remove(this);
+					gr.forEach(Item::unSelect);
 
+					Card se = (Card) this.getSelectionModel().getSelectedItem();
+					se.deleteCard(event);
+//					getTabs().clear();
+					((FlowPane)this.getParent()).getChildren().remove(this);
 				}
 
 		);
-		deleteCard.setOnAction(event ->
-				getTabs().remove(this.getSelectionModel().getSelectedItem())
-		);
+		deleteCard.setOnAction(event -> {
+			Card se = (Card) this.getSelectionModel().getSelectedItem();
+			se.deleteCard(event);
+//			getTabs().remove(se);
+		});
 
 
 		super.setContextMenu(rightClickMenu);
