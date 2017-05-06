@@ -50,19 +50,6 @@ public class ExcelSaver implements Saver {
 		setHeaders(headers);
 		save(itemsToSave);
 	}
-	
-//	/**
-//	 * Constructs an object that will save to spreadsheet
-//	 * @param itemToSave item to be saved
-//	 * @param threshold minimum Selected-ness for an item/attribute to be printed out
-//	 */
-//	public ExcelSaver(T itemToSave, int threshold) {
-//		this.threshold = threshold;
-//		wb = new HSSFWorkbook();
-//		s = wb.createSheet();
-//		setHeaders(itemToSave.getAttributes());
-//		save(itemToSave);
-//	}
 
 	/**
 	 * Constructs an object that will save to spreadsheet with minimum Selected-ness Maybe
@@ -71,15 +58,7 @@ public class ExcelSaver implements Saver {
 	public ExcelSaver(Data itemsToSave){
 		this(itemsToSave, Selected.Maybe.value());
 	}
-	
-//	/**
-//	 * Constructs an object that will save to spreadsheet with minimum Selected-ness Maybe
-//	 * @param itemToSave item to be saved
-//	 */
-//	public ExcelSaver(T itemToSave){
-//		this(itemToSave,0);
-//	}
-	
+
 	
 	private void setHeaders(List<String> a){
 		Font hfont = wb.createFont();
