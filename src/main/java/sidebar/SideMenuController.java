@@ -44,11 +44,6 @@ public class SideMenuController extends SideMenuItems
 			
 		});
 
-		/*save button disabled until "save as" button has been pressed at least once*/
-		saveButton.setOnAction(event -> {
-			saveData("cards");
-		});
-
 		saveAsButton.setOnAction(event -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Save file as..");
@@ -76,39 +71,6 @@ public class SideMenuController extends SideMenuItems
 //			System.out.println(d);
 		});
 
-		openButton.setOnAction(event -> {
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Choose file to open");
-			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-			
-			/*Filter out all files except text files*/
-//			fileChooser.getExtensionFilters().addAll(
-//					new FileChooser.ExtensionFilter("Data Files", "*.data")
-//					//new FileChooser.ExtensionFilter("Java Files", "*.java")
-//					);
-			
-			File file = fileChooser.showOpenDialog(fileMenu);
-			
-			
-			if(file != null){
-				System.out.println("File opened: "+ file);
-					try (Scanner scan = new Scanner(file)) {
-						// grabbing the file data
-						String content = scan.useDelimiter("\\z").next();
-						System.out.println("file content:"+ content);
-						// saving the file
-						dataFile = file;
-
-						// enabling saveMI
-						saveButton.setDisable(false);
-
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					}
-			    }
-			System.out.print("open test");
-			
-		});
 		exportExcelButton.setOnAction(event -> {
 //			System.out.println(d);
 			try {

@@ -14,20 +14,13 @@ import javafx.scene.layout.VBox;
 
 public class SideMenuItems {
 	
-	protected List<Card> observerCards = new ArrayList<>();
+	private List<Card> observerCards = new ArrayList<>();
 	
-	protected VBox showItemsCheckBoxLayout;
+	VBox showItemsCheckBoxLayout;
 	
 	//project buttons
 	Button newProjectButton = new Button("New");
-	Button saveButton = new Button("Save");
 	Button saveAsButton = new Button("Save As..");
-	Button openButton = new Button("Open");
-
-	//add to buttons
-//	Button yesButton = new Button("Yes");
-//	Button noButton = new Button("No");
-//	Button maybeButton = new Button("Maybe");
 
 	//export to buttons
 	Button exportExcelButton = new Button("Excel");
@@ -40,8 +33,7 @@ public class SideMenuItems {
 		 */
 
 		//Create project button layout and add buttons
-		saveButton.setDisable(true);//initially disabled until save as is pressed once
-		VBox projectButtonLayout = new VBox(newProjectButton,saveButton , saveAsButton, openButton );
+		VBox projectButtonLayout = new VBox(newProjectButton, saveAsButton);
 		projectButtonLayout.setAlignment(Pos.CENTER);
 		
 		//Create layout for add card to button in side menu and add buttons
