@@ -54,29 +54,21 @@ public class SideMenuController extends SideMenuItems
 			fileChooser.setTitle("Save file as..");
 			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-			String text = ("hello");
-
 			fileChooser.getExtensionFilters().addAll(
-					new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-					new FileChooser.ExtensionFilter("Java Files", "*.java"),
 					new FileChooser.ExtensionFilter("Data Files", "*.data")
 					);
 
 			File file = fileChooser.showSaveDialog(fileMenu);
 
-			if(file != null)
-			{
-				try (PrintStream ps = new PrintStream(file)) {
-					ps.print(text);
-					//ps.print(textArea.getText());
-
-					// saving the file
-					dataFile = file;
-
-					// enabling save as button
-					saveButton.setDisable(false);
-
-				} catch (FileNotFoundException e) {
+			if(file != null){
+				CardState saveState = new CardState();
+				saveState.setData(getData());
+				try {
+					ObjectOutputStream obj_out = null;
+					obj_out = new ObjectOutputStream (new FileOutputStream(file));
+					obj_out.writeObject ( saveState );
+					obj_out.close();
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
@@ -147,7 +139,6 @@ public class SideMenuController extends SideMenuItems
 	private CardState saveData(String fileName){
 
 		CardState saveState = new CardState();
-
 		saveState.setData(getData());
 
 		// Write to disk with FileOutputStream

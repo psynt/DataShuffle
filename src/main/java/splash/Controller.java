@@ -14,12 +14,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Data;
 import webscraper.reterivers.EbayGetter;
 import webscraper.reterivers.ModuleGetter;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -58,22 +60,23 @@ public class Controller {
 
 	@FXML
 	public void openFile(ActionEvent actionEvent) {
-		// Read from disk using FileInputStream
-		FileInputStream f_in = null;
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Load file");
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("Data Files", "*.data")
+				);
+		File file = fileChooser.showOpenDialog((Stage) pane.getScene().getWindow());
 		ObjectInputStream obj_in = null;
-		try {
-			f_in = new FileInputStream("cards.data");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		if(file != null){
+			try {
+				obj_in = new ObjectInputStream(new FileInputStream(file));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-
-		// Read object using ObjectInputStream
-		try {
-			obj_in = new ObjectInputStream(f_in);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		
 		// Read an object
 		Object obj = null;
 		try {
