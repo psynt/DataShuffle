@@ -119,7 +119,6 @@ public class Card extends Tab implements Observer, Serializable{
 	public void deleteCard(Event e){
 		item.unSelect();
 		ob.notifyObserver();
-
 	}
 
 	public void setListener(Controller c){

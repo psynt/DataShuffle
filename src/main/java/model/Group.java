@@ -62,6 +62,10 @@ public class Group extends ArrayList<Item> implements Serializable {
         return "\n\t[" + sb.toString() + "]\n";
     }
 
+    public static boolean isSelected(Group items) {
+        return items.stream().anyMatch(Item::isSelected);
+    }
+
     //    @Override
 //    public Stream<Item> stream() {
 //        return super.stream();

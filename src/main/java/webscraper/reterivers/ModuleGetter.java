@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by nichita on 06/05/17.
@@ -35,16 +36,16 @@ public class ModuleGetter implements Getter {
         }
 
         List<String> courses = new ArrayList<>(res.keySet());
+
         ChoiceDialog<String> userChoice = new ChoiceDialog<>(courses.get(0), courses);
         userChoice.setContentText("Please choose your course");
-
-
         if (res.size() > 1) {
             userChoice.setSelectedItem("");
             userChoice.showAndWait();
         }
-
         String selCourse = res.get(userChoice.getSelectedItem());
+
+//        String selCourse = new ArrayList<>(res.values()).get(0);
 
         if (selCourse.length()<2){
             throw new NullPointerException("User selected nothing");
@@ -59,11 +60,14 @@ public class ModuleGetter implements Getter {
         for (String e:modules ) {
             if(e.matches("G5\\d...")){
                 try {
+//                    System.out.println(currentGroup.getName() + " << " + e);
                     currentGroup.add(new ModuleScraper(new ModulePOSTReq().courseCode(e)).scrapeDocument());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
             }else{
+                if(e.matches("Students completing .*")) continue;
+//                System.out.println("New group on " + e);
                 d.add(currentGroup);
                 currentGroup = new Group(e + " " + d.size());
                 if (e.contains("all")){
@@ -73,7 +77,10 @@ public class ModuleGetter implements Getter {
                 }
             }
         }
+        d.add(currentGroup);
         d.remove(0);
+//        d.forEach(e -> System.out.println(e.getName()));
+//        System.err.println(d.size());
         return d;
     }
 }

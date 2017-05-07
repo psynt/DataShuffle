@@ -3,6 +3,8 @@ import webscraper.DocumentLoader
 import webscraper.ModuleScraper
 import webscraper.clever.CoursePOSTReq
 import webscraper.clever.ModulePOSTReq
+import webscraper.reterivers.EbayGetter
+import webscraper.reterivers.ModuleGetter
 
 import java.util.stream.Collectors
 
@@ -21,9 +23,11 @@ import java.util.stream.Collectors
 //
 ////println res
 //
-def courses =  new CoursePOSTReq()
-def res  = courses. ucasCode("g4g1") values() asList()
-println new CourseScraper(DocumentLoader.load(new URL(res.get(0)))).getReqModules()
+//def courses =  new CoursePOSTReq()
+//def res  = courses. ucasCode("g4g1") values() asList()
+//println new CourseScraper(DocumentLoader.load(new URL(res.get(0)))).getReqModules()
+println new ModuleGetter().getTheStuff(["code":"g404"])
+//println new EbayGetter().getTheStuff(["searchTerm":"guitar"])
 //
 //println new ModuleScraper(new ModulePOSTReq().courseCode("g52afp")).scrapeDocument()//.map(ModuleScraper::new).map(ModuleScraper::scrapeDocument).collect(Collectors.toList())
 

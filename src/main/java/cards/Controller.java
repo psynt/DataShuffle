@@ -95,7 +95,7 @@ public class Controller {
 
 	private void makeDecks(){
 		centerPane.getChildren().clear();
-		getData().forEach(e -> {
+		getData().stream().filter(Group::isSelected).forEach(e -> {
 			Deck cards = new Deck(draggingTab, e);
 
 			e.stream().filter(Item::isSelected).forEach(it -> cards.getTabs().add(newCard(e,it, getData().getType())));

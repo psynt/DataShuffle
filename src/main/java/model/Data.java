@@ -53,4 +53,9 @@ public class Data extends ArrayList<Group> implements Serializable {
         return "\n" + type + " : [" + sb.toString() + "]\n";
     }
 
+    @Override
+    public int size() {
+//        System.out.println("Size = " + super.size());
+        return super.size();
+    }
 }
