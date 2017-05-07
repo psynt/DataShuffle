@@ -9,8 +9,9 @@ import content.Item;
 /**
  * Scraper for university Staff Webpages.  Loads all data into an Item object.
  * @author zane
- *
+ * @deprecated not used at the moment
  */
+@Deprecated
 public class StaffScraper extends PageScraper {
 	
 	public StaffScraper(Document doc){
