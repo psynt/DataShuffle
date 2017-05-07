@@ -98,7 +98,6 @@ public class Deck extends TabPane implements Serializable {
 		deleteDeck.setOnAction(event ->
 			{
 				gr.forEach(Item::unSelect);
-
 				Card se = (Card) this.getSelectionModel().getSelectedItem();
 				((FlowPane)this.getParent()).getChildren().remove(this);
 				se.deleteCard(event);
