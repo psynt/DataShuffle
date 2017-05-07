@@ -24,15 +24,6 @@
 
 }
 
-.green{
-    -fx-background-color: #b9eeb7;
-}
-.yellow {
-    -fx-background-color: #ffe766;
-}
-.red{
-    -fx-background-color: #d28f8f;
-}
 
 .main-bckground
 {
@@ -143,4 +134,14 @@
 .show-right:hover
 {
 	 -fx-background-color: #d8d8d8; 
+}
+
+.green{
+    -fx-background-color: #b9eeb7;
+}
+.yellow {
+    -fx-background-color: #ffe766;
+}
+.red{
+    -fx-background-color: #d28f8f;
 }

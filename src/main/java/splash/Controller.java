@@ -64,9 +64,9 @@ public class Controller {
 		fileChooser.setTitle("Load file");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-		fileChooser.getExtensionFilters().addAll(
-				new FileChooser.ExtensionFilter("Data Files", "*.data")
-				);
+//		fileChooser.getExtensionFilters().addAll(
+//				new FileChooser.ExtensionFilter("Data Files", "*.data")
+//				);
 		File file = fileChooser.showOpenDialog(pane.getScene().getWindow());
 		ObjectInputStream obj_in = null;
 		if(file != null){
@@ -80,7 +80,7 @@ public class Controller {
 		// Read an object
 		Object obj = null;
 		try {
-			obj = (CardState)obj_in.readObject();
+			obj = obj_in.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -247,11 +247,6 @@ public class Controller {
 		return new EbayGetter().getTheStuff(args);
 	}
 
-
-	
-	public static boolean getLoadFlag(){
-		return loadFlag;
-	}
 
 	public static void reset() {
 		d = new Data();

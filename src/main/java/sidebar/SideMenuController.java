@@ -1,7 +1,7 @@
 package sidebar;
 
+import cards.CardState;
 import content.Attribute;
-import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -9,17 +9,12 @@ import javafx.stage.Stage;
 import model.Data;
 import saver.ExcelSaver;
 
-import static splash.Controller.getData;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
-import java.util.Scanner;
 
-import cards.CardState;
+import static splash.Controller.getData;
 
 
 
