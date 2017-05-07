@@ -85,7 +85,7 @@ public class Controller {
 		}
 
 		if (obj instanceof CardState) {
-//			loadResults = ((CardState) obj).getAllDecks();
+			d = ((CardState) obj).getData();
 			try {
 				loadFlag = true;
 				SecondMain.start1((Stage) pane.getScene().getWindow());

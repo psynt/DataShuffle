@@ -1,5 +1,13 @@
 package cards;
 
+import static cards.CardFactory.createCard;
+import static splash.Controller.getData;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 import content.Attribute;
 import content.Item;
 import javafx.beans.property.ObjectProperty;
@@ -11,14 +19,21 @@ import javafx.scene.control.Tab;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Group;
 import sidebar.SideMenu;
 import sidebar.SideMenuController;
-
-import static cards.CardFactory.createCard;
-import static splash.Controller.getData;
 
 public class Controller {
 	private static final String TAB_DRAG_KEY = "tab";
@@ -134,39 +149,6 @@ public class Controller {
 	private void incNumDecks(){
 		getData().add(new Group("Deck "+getData().size()));
 	}
-	
-	
-//	@FXML
-//	private CardState saveState(){
-//
-//		CardState saveState = new CardState();
-//
-//		for(int i = 0; i < centerPane.getChildren().size(); i++){
-//			Deck newDeck = (Deck)centerPane.getChildren().get(i);
-//			newDeck.getTabs().forEach(e -> newDeck.saveCard((Card)e));
-//			saveState.addDeck(newDeck);
-//		}
-//
-//		// Write to disk with FileOutputStream
-//		FileOutputStream f_out = null;
-//		ObjectOutputStream obj_out = null;
-//		try {
-//			f_out = new FileOutputStream("cards.data");
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//
-//		// Write object with ObjectOutputStream
-//		try {
-//			obj_out = new ObjectOutputStream (f_out);
-//			obj_out.writeObject ( saveState );
-//			f_out.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return saveState;
-//	}
 
 
 	public void notifyObserver() {

@@ -1,6 +1,7 @@
 package sidebar;
 
 import content.Attribute;
+import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -8,11 +9,17 @@ import javafx.stage.Stage;
 import model.Data;
 import saver.ExcelSaver;
 
+import static splash.Controller.getData;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+
+import cards.CardState;
 
 
 
@@ -39,50 +46,41 @@ public class SideMenuController extends SideMenuItems
 
 		/*save button disabled until save as button has been pressed at least once*/
 		saveButton.setOnAction(event -> {
-			try (PrintStream ps = 
-			        new PrintStream(dataFile)) {
-			      
-				  String text = ("goodbye");
-				
-			      ps.print(text);
-			      
-			    } catch (FileNotFoundException e) {
-			      e.printStackTrace();
-			    }
-
+			saveData("cards");
 		});
 
 		saveAsButton.setOnAction(event -> {
-//			FileChooser fileChooser = new FileChooser();
-//			fileChooser.setTitle("Save file as..");
-//			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-//
-//			String text = ("hello");
-//
-//			fileChooser.getExtensionFilters().addAll(
-//					new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-//					new FileChooser.ExtensionFilter("Java Files", "*.java")
-//					);
-//
-//			File file = fileChooser.showSaveDialog(fileMenu);
-//
-//			if(file != null)
-//			{
-//				try (PrintStream ps = new PrintStream(file)) {
-//					ps.print(text);
-//					//ps.print(textArea.getText());
-//
-//					// saving the file
-//					dataFile = file;
-//
-//					// enabling save as button
-//					saveButton.setDisable(false);
-//
-//				} catch (FileNotFoundException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			System.out.print("Save as test");
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Save file as..");
+			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+			String text = ("hello");
+
+			fileChooser.getExtensionFilters().addAll(
+					new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+					new FileChooser.ExtensionFilter("Java Files", "*.java"),
+					new FileChooser.ExtensionFilter("Data Files", "*.data")
+					);
+
+			File file = fileChooser.showSaveDialog(fileMenu);
+
+			if(file != null)
+			{
+				try (PrintStream ps = new PrintStream(file)) {
+					ps.print(text);
+					//ps.print(textArea.getText());
+
+					// saving the file
+					dataFile = file;
+
+					// enabling save as button
+					saveButton.setDisable(false);
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+			System.out.print("Save as test");
 			System.out.println(d);
 		});
 
@@ -144,6 +142,33 @@ public class SideMenuController extends SideMenuItems
 		
 		showItemsCheckBoxLayout.getChildren().add(newCheckBox);
 		
+	}
+	
+	private CardState saveData(String fileName){
+
+		CardState saveState = new CardState();
+
+		saveState.setData(getData());
+
+		// Write to disk with FileOutputStream
+		FileOutputStream f_out = null;
+		ObjectOutputStream obj_out = null;
+		try {
+			f_out = new FileOutputStream(fileName + ".data");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		// Write object with ObjectOutputStream
+		try {
+			obj_out = new ObjectOutputStream (f_out);
+			obj_out.writeObject ( saveState );
+			f_out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return saveState;
 	}
 				
 				
