@@ -67,7 +67,7 @@ public class Controller {
 		fileChooser.getExtensionFilters().addAll(
 				new FileChooser.ExtensionFilter("Data Files", "*.data")
 				);
-		File file = fileChooser.showOpenDialog((Stage) pane.getScene().getWindow());
+		File file = fileChooser.showOpenDialog(pane.getScene().getWindow());
 		ObjectInputStream obj_in = null;
 		if(file != null){
 			try {

@@ -44,7 +44,7 @@ public class SideMenuController extends SideMenuItems
 			
 		});
 
-		/*save button disabled until save as button has been pressed at least once*/
+		/*save button disabled until "save as" button has been pressed at least once*/
 		saveButton.setOnAction(event -> {
 			saveData("cards");
 		});
@@ -54,9 +54,9 @@ public class SideMenuController extends SideMenuItems
 			fileChooser.setTitle("Save file as..");
 			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-			fileChooser.getExtensionFilters().addAll(
-					new FileChooser.ExtensionFilter("Data Files", "*.data")
-					);
+//			fileChooser.getExtensionFilters().addAll(
+//					new FileChooser.ExtensionFilter("Data Files", "*.data")
+//					);
 
 			File file = fileChooser.showSaveDialog(fileMenu);
 
@@ -64,7 +64,7 @@ public class SideMenuController extends SideMenuItems
 				CardState saveState = new CardState();
 				saveState.setData(getData());
 				try {
-					ObjectOutputStream obj_out = null;
+					ObjectOutputStream obj_out;
 					obj_out = new ObjectOutputStream (new FileOutputStream(file));
 					obj_out.writeObject ( saveState );
 					obj_out.close();
@@ -73,7 +73,7 @@ public class SideMenuController extends SideMenuItems
 				}
 			}
 			System.out.print("Save as test");
-			System.out.println(d);
+//			System.out.println(d);
 		});
 
 		openButton.setOnAction(event -> {
@@ -82,10 +82,10 @@ public class SideMenuController extends SideMenuItems
 			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 			
 			/*Filter out all files except text files*/
-			fileChooser.getExtensionFilters().addAll(
-					new FileChooser.ExtensionFilter("Text Files", "*.txt")
-					//new FileChooser.ExtensionFilter("Java Files", "*.java")
-					);
+//			fileChooser.getExtensionFilters().addAll(
+//					new FileChooser.ExtensionFilter("Data Files", "*.data")
+//					//new FileChooser.ExtensionFilter("Java Files", "*.java")
+//					);
 			
 			File file = fileChooser.showOpenDialog(fileMenu);
 			
