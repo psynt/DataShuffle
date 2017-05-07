@@ -92,6 +92,7 @@ public class Controller {
 			try {
 				loadFlag = true;
 				if (!d.isEmpty()) {
+					Attribute.addAtts(d.get(0).get(0).getAttributes().values());
 					SecondMain.start1((Stage) pane.getScene().getWindow());
 				}
 			} catch (Exception e) {

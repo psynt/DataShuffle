@@ -24,7 +24,7 @@ public class EbayGetter implements Getter {
 
         if(args.get("auctionType").equals("Buy It Now!")) {args.put("auctionType", "BIN");}
 
-        String searchUrl = "http://www.ebay.co.uk/sch/i.html?_from=R40&_nkw=mario&_in_kw=1&_ex_kw=&_sacat=0&_mPrRngCbx=1&_udlo=2&_udhi=8&LH_AUCTYPE=1&_ftrt=901&_ftrv=1&_sabdlo=&_sabdhi=&_samilow=&_samihi=&_sadis=15&_stpos=&_sargn=-1%26saslc%3D1&_salic=3&_sop=12&_dmd=1&_ipg=50"
+        String searchUrl = "http://www.ebay.co.uk/sch/i.html?_from=R40&_nkw=datashuffle&_in_kw=1&_ex_kw=&_sacat=0&_mPrRngCbx=1&_udlo=2&_udhi=8&LH_AUCTYPE=1&_ftrt=901&_ftrv=1&_sabdlo=&_sabdhi=&_samilow=&_samihi=&_sadis=15&_stpos=&_sargn=-1%26saslc%3D1&_salic=3&_sop=12&_dmd=1&_ipg=50"
                 .replace("datashuffle", args.get("searchTerm")).replace("minprice", args.get("min"))
                 .replace("maxprice", args.get("max")).replace("AUCTYPE", args.get("auctionType"));
 
@@ -41,6 +41,7 @@ public class EbayGetter implements Getter {
 
         }
         d.add(new Group(whatYouWant));
+        d.get(0).setColour("green");
         return d;
     }
 }

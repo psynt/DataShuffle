@@ -2,10 +2,7 @@ package content;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Represents each attribute of an Item, along with a getSelected
@@ -35,10 +32,12 @@ public class Attribute<T> implements Map.Entry<String,T>, Serializable {
 	}
 
 	public static boolean isSel(String k, Selected x){
+		selectedAtts.putIfAbsent(k,Selected.Yes);
 		return selectedAtts.getOrDefault(k,Selected.Never).value() >= x.value();
 	}
 
 	public static boolean isSel(String k, int x){
+		selectedAtts.putIfAbsent(k,Selected.Yes);
 		return selectedAtts.getOrDefault(k,Selected.Never).value() >= x;
 	}
 
@@ -87,5 +86,9 @@ public class Attribute<T> implements Map.Entry<String,T>, Serializable {
 
 	public static Map<String,Selected> getAtts() {
 		return selectedAtts;
+	}
+
+	public static void addAtts(Collection<String> arr){
+		arr.forEach(it -> selectedAtts.put(it,Selected.Yes));
 	}
 }
