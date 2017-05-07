@@ -129,6 +129,7 @@ public class Controller {
 
 
 	private Card newCard(Group g, Item item, String type) {
+		System.out.println(type);
 		final Card card = createCard(g, item, type, sideMenuController);
 		card.getGraphic().setOnDragDetected(event -> {
 			Dragboard dragboard = card.getGraphic().startDragAndDrop(TransferMode.MOVE);

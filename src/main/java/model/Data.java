@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -7,9 +8,9 @@ import java.util.Collection;
  * Created by nichita on 04/05/17.
  */
 
-public class Data extends ArrayList<Group> {
-
-    private String type;
+public class Data extends ArrayList<Group> implements Serializable {
+	private static final long serialVersionUID = 7492858336091135634L;
+	private String type;
 
     public Data(String s){
         type = s;

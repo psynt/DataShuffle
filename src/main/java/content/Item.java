@@ -1,5 +1,6 @@
 package content;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,8 @@ import java.util.Map;
  *
  */
 
-public class Item extends HashMap<String, String> {
+public class Item extends HashMap<String, String> implements Serializable {
+	private static final long serialVersionUID = 5922686108268054895L;
 	private Selected sel;
 
 	public Item(Selected sel) {

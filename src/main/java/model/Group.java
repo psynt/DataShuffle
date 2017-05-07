@@ -3,6 +3,7 @@ package model;
 import content.Item;
 import javafx.scene.paint.Color;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -11,8 +12,9 @@ import java.util.stream.Stream;
 /**
  * Created by nichita on 04/05/17.
  */
-public class Group extends ArrayList<Item>{
-    private String name = null;
+public class Group extends ArrayList<Item> implements Serializable {
+	private static final long serialVersionUID = 2154804434493761172L;
+	private String name = null;
     private String col;
 
     public Group(String name){

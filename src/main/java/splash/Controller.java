@@ -80,7 +80,7 @@ public class Controller {
 		// Read an object
 		Object obj = null;
 		try {
-			obj = obj_in.readObject();
+			obj = (CardState)obj_in.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -91,7 +91,9 @@ public class Controller {
 			d = ((CardState) obj).getData();
 			try {
 				loadFlag = true;
-				SecondMain.start1((Stage) pane.getScene().getWindow());
+				if (!d.isEmpty()) {
+					SecondMain.start1((Stage) pane.getScene().getWindow());
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

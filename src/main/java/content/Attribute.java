@@ -1,6 +1,7 @@
 package content;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.Map;
  * @author nichita, zane
  *
  */
-public class Attribute<T> implements Map.Entry<String,T>{
+public class Attribute<T> implements Map.Entry<String,T>, Serializable {
+	private static final long serialVersionUID = 393482718211080790L;
 	private T t;
 	private String name;
 	private static Map<String,Selected> selectedAtts = new HashMap<>();
