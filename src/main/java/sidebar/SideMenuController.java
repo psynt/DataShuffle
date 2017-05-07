@@ -26,11 +26,10 @@ import cards.CardState;
 public class SideMenuController extends SideMenuItems
 {
 
-	File dataFile = null;
 	Stage fileMenu;
 
 	public void Initialize(int sideMenuWidth, SideMenu sideMenu, Pane menuPane, Data d){
-	
+
 		//setup observer pattern
 		
 		SideMenu.displayMenuButton.setOnAction(event -> sideMenu.collapseSideMenu(sideMenuWidth, menuPane));
@@ -49,10 +48,6 @@ public class SideMenuController extends SideMenuItems
 			fileChooser.setTitle("Save file as..");
 			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-//			fileChooser.getExtensionFilters().addAll(
-//					new FileChooser.ExtensionFilter("Data Files", "*.data")
-//					);
-
 			File file = fileChooser.showSaveDialog(fileMenu);
 
 			if(file != null){
@@ -68,18 +63,23 @@ public class SideMenuController extends SideMenuItems
 				}
 			}
 			System.out.print("Save as test");
-//			System.out.println(d);
 		});
 
 		exportExcelButton.setOnAction(event -> {
-//			System.out.println(d);
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Save file as..");
+			fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+			fileChooser.getExtensionFilters().addAll(
+					new FileChooser.ExtensionFilter("Excel spreadsheets", "*.xls")
+					);
+			File file = fileChooser.showSaveDialog(fileMenu);
 			try {
-				new ExcelSaver(d).writeToFile(new File("cards.xls"));
+				new ExcelSaver(d).writeToFile(file);
 				System.out.println("Exported");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-//			System.out.print("excel test");
 
 		});
 
@@ -97,33 +97,6 @@ public class SideMenuController extends SideMenuItems
 		showItemsCheckBoxLayout.getChildren().add(newCheckBox);
 		
 	}
-	
-	private CardState saveData(String fileName){
 
-		CardState saveState = new CardState();
-		saveState.setData(getData());
 
-		// Write to disk with FileOutputStream
-		FileOutputStream f_out = null;
-		ObjectOutputStream obj_out = null;
-		try {
-			f_out = new FileOutputStream(fileName + ".data");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		// Write object with ObjectOutputStream
-		try {
-			obj_out = new ObjectOutputStream (f_out);
-			obj_out.writeObject ( saveState );
-			f_out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return saveState;
-	}
-				
-				
-			
 }

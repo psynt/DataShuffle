@@ -66,8 +66,8 @@ public class Deck extends TabPane implements Serializable {
 		getStyleClass().add(gr.getColour());
 
 
-		setPrefHeight(140);
-		setPrefWidth(200);
+		setPrefHeight(300);
+		setPrefWidth(300);
 
 
 		setTabMinWidth(50);

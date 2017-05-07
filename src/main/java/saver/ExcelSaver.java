@@ -89,6 +89,7 @@ public class ExcelSaver implements Saver {
 	}
 	@Override
 	public void save(Group g, Item item) {
+		System.out.println(item);
 		Row r=s.createRow(rowcount++);
 		Cell c;
 		int colcount=1;
