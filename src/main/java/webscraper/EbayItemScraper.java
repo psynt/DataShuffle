@@ -18,7 +18,7 @@ import java.net.URL;
 public class EbayItemScraper extends PageScraper {
 
 	public static final int NUM_FIELDS = 6;
-	public static final String NOT_FOUND = "Not mentioned";
+	private static final String NOT_FOUND = "Not mentioned";
 	
 	public EbayItemScraper(Document doc) {
 		super(doc);
@@ -49,9 +49,9 @@ public class EbayItemScraper extends PageScraper {
 		try {
 			Element name = doc.getElementById("itemTitle");
 			String itemName = name.text().substring(15);
-			return new Attribute<String>("name", itemName);
+			return new Attribute<>("name", itemName);
 		} catch (NullPointerException e) {
-			return new Attribute<String>("name", NOT_FOUND);
+			return new Attribute<>("name", NOT_FOUND);
 		}
 	}
 
@@ -59,43 +59,43 @@ public class EbayItemScraper extends PageScraper {
 	private Attribute<String> getCondition() {
 		try{
 			Element condition = doc.getElementById("vi-itm-cond");
-			return new Attribute<String>("condition", condition.text());
+			return new Attribute<>("condition", condition.text());
 		} catch (NullPointerException e) {
-			return new Attribute<String>("condition", NOT_FOUND);
+			return new Attribute<>("condition", NOT_FOUND);
 		}
 	}
 	
 	private Attribute<String> getPrice() {
 		try{
 			Element price = doc.getElementById("vi-mskumap-none");
-			return new Attribute<String>("price", price.text());
+			return new Attribute<>("price", price.text());
 		} catch (NullPointerException e) {
-			return new Attribute<String>("price", NOT_FOUND);
+			return new Attribute<>("price", NOT_FOUND);
 		}
 	}
 	
 	private Attribute<String> getRemainingTime() {
 		try{
 			Element remainingTime = doc.getElementById("vi-cdown_timeLeft");
-			return new Attribute<String>("remaining time", remainingTime.text());
+			return new Attribute<>("remaining time", remainingTime.text());
 		} catch (NullPointerException e) {
-			return new Attribute<String>("remaining time", NOT_FOUND);
+			return new Attribute<>("remaining time", NOT_FOUND);
 		}
 	}
 	
 	private Attribute<String> getShipping() {
 		try{
 			Element shipping = doc.getElementById("fShippingSvc");
-			return new Attribute<String>("shipping", shipping.text());
+			return new Attribute<>("shipping", shipping.text());
 		} catch (NullPointerException e) {
-			return new Attribute<String>("shipping", NOT_FOUND);
+			return new Attribute<>("shipping", NOT_FOUND);
 		}
 	}
 
 	private Attribute<String> getImageURL(){
 		Element im = doc.getElementById("icImg");
 		String s = im.absUrl("src");
-		return new Attribute<String>("image",s);
+		return new Attribute<>("image", s);
 	}
 
 }

@@ -17,16 +17,10 @@ public class Deck extends TabPane implements Serializable {
 	private static final String TAB_DRAG_KEY = "tab";
 
 	private Group gr;
-	
-//	private ArrayList<Card> allCards;
-
-	private Group getGroup(){
-		return gr;
-	}
 
 	public Deck(ObjectProperty<Tab> draggingTab, Group g){
+		System.out.println(super.isResizable());
 		gr = g;
-//		allCards= new ArrayList<>();
 
 		setOnDragOver(event -> {
 			final Dragboard dragboard = event.getDragboard();
@@ -65,9 +59,9 @@ public class Deck extends TabPane implements Serializable {
 
 		getStyleClass().add(gr.getColour());
 
-
 		setPrefHeight(300);
 		setPrefWidth(300);
+
 
 
 		setTabMinWidth(50);
@@ -99,7 +93,7 @@ public class Deck extends TabPane implements Serializable {
 			{
 				gr.forEach(Item::unSelect);
 				Card se = (Card) this.getSelectionModel().getSelectedItem();
-				((FlowPane)this.getParent()).getChildren().remove(this);
+				((Pane)this.getParent()).getChildren().remove(this);
 				se.deleteCard(event);
 			}
 
@@ -108,7 +102,7 @@ public class Deck extends TabPane implements Serializable {
 			Card se = (Card) this.getSelectionModel().getSelectedItem();
 			se.deleteCard(event);
 			if (this.getTabs().size() == 0)
-				((FlowPane)this.getParent()).getChildren().remove(this);
+				((Pane)this.getParent()).getChildren().remove(this);
 		});
 
 
@@ -120,18 +114,5 @@ public class Deck extends TabPane implements Serializable {
 				new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 
 	}
-	
-//	public void saveCard(Card newCard){
-//		allCards.add(newCard);
-//	}
-//
-//	public ArrayList<Card> getCards(){
-//		return allCards;
-//	}
-//
-//	public void readAllCards(){
-//		for (Card it : allCards) {
-//			this.getTabs().add(it);
-//		}
-//	}
+
 }

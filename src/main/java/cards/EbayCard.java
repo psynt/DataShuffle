@@ -25,6 +25,7 @@ public class EbayCard extends Card implements Serializable {
 
 		super.addComponent(cardImg);
 
+
 	}
 
 }

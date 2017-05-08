@@ -1,6 +1,7 @@
 package webscraper;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import content.Attribute;
@@ -33,13 +34,16 @@ public class ModuleScraper extends PageScraper {
 		item.addAttribute(new Attribute<String>("Module Name", myString[1]));
 		
 		Elements paras = doc.select("p");
-		
-		for(int i = 0; i < paras.size(); i++){
-			String fieldData[] = paras.get(i).text().split(":");
-			if(paras.get(i).text().split(":").length == 2){
-				item.addAttribute(new Attribute<String>(fieldData[0], fieldData[1]));
+
+		for (Element para : paras) {
+			String fieldData[] = para.text().split(":");
+			if (para.text().split(":").length == 2) {
+				item.addAttribute(new Attribute<>(fieldData[0], fieldData[1]));
 			}
-		}	
+		}
+
+
+
 		return item;
 	}
 }

@@ -1,8 +1,10 @@
 package webscraper.clever;
 
+import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,14 +16,22 @@ public class ModulePOSTReq extends POSTRequest {
         super("http://modulecatalogue.nottingham.ac.uk/nottingham/asp/main_search.asp");
     }
 
-    public Document courseCode(String code) throws IOException {
+    public Connection.Response courseCode(String code) throws IOException {
         Map<String,String> args = new HashMap<>();
         String secondUrl = "http://modulecatalogue.nottingham.ac.uk/nottingham/asp/FindModule.asp";
 
         args.put("mnem",code);
 
-        return getTheGoodies(args,secondUrl).parse();
+        return getTheGoodies(args,secondUrl);
 
     }
-
+//    public URL cC(String code) throws IOException {
+//        Map<String,String> args = new HashMap<>();
+//        String secondUrl = "http://modulecatalogue.nottingham.ac.uk/nottingham/asp/FindModule.asp";
+//
+//        args.put("mnem",code);
+//
+//        return getTheGoodies(args,secondUrl).url();
+//
+//    }
 }

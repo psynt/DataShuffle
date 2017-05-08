@@ -1,5 +1,6 @@
 package webscraper.reterivers;
 
+import content.Attribute;
 import model.Group;
 import content.Item;
 import model.Data;
@@ -36,8 +37,11 @@ public class EbayGetter implements Getter {
         for (String link : links) {
             Document res = DocumentLoader.load(new URL(link));
             EbayItemScraper ebayScraper = new EbayItemScraper(res);
+            Item it = ebayScraper.scrapeDocument();
+            it.addAttribute(new Attribute<>("link", new URL(link)));
 
-            whatYouWant.add(ebayScraper.scrapeDocument());
+
+            whatYouWant.add(it);
 
         }
         d.add(new Group(whatYouWant));

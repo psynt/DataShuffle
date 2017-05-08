@@ -1,8 +1,11 @@
 package webscraper.reterivers;
 
+import content.Attribute;
+import content.Item;
 import model.Group;
 import javafx.scene.control.ChoiceDialog;
 import model.Data;
+import org.jsoup.Connection;
 import webscraper.CourseScraper;
 import webscraper.DocumentLoader;
 import webscraper.ModuleScraper;
@@ -61,7 +64,11 @@ public class ModuleGetter implements Getter {
             if(e.matches("G5\\d...")){
                 try {
 //                    System.out.println(currentGroup.getName() + " << " + e);
-                    currentGroup.add(new ModuleScraper(new ModulePOSTReq().courseCode(e)).scrapeDocument());
+                    Connection.Response r = new ModulePOSTReq().courseCode(e);
+                    Item it = new ModuleScraper(r.parse()).scrapeDocument();
+                    it.addAttribute(new Attribute<>("link", r.url()));
+
+                    currentGroup.add(it);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
