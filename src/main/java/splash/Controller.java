@@ -3,6 +3,7 @@ package splash;
 import cards.CardState;
 import cards.SecondMain;
 import content.Attribute;
+import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +22,7 @@ import model.Data;
 import webscraper.reterivers.EbayGetter;
 import webscraper.reterivers.ModuleGetter;
 
+import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -47,6 +49,9 @@ public class Controller {
 	public static Data getData(){
 		return d;
 	}
+
+	@Inject
+	private HostServices hostServices ;
 
 	@FXML
 	public void initialize() {
@@ -112,6 +117,8 @@ public class Controller {
 	public void moduleEvent(ActionEvent actionEvent){
 		d.setType("Module");
 		clickEvent(actionEvent);
+
+//		hostServices.showDocument("google.com");
 	}
 
 	@FXML

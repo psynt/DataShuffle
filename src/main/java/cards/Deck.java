@@ -59,6 +59,9 @@ public class Deck extends TabPane implements Serializable {
 
 		getStyleClass().add(gr.getColour());
 
+
+		setMinSize(1,1);
+
 		setPrefHeight(300);
 		setPrefWidth(300);
 
@@ -71,7 +74,10 @@ public class Deck extends TabPane implements Serializable {
 		Menu editDeckCard = new Menu("Size");
 		MenuItem incSize = new MenuItem("Increase Size");
 		MenuItem decSize = new MenuItem("Decrease Size");
-		editDeckCard.getItems().addAll(incSize, decSize);
+		MenuItem small = new MenuItem("Small");
+		MenuItem medium = new MenuItem("Medium");
+		MenuItem big = new MenuItem("Big");
+		editDeckCard.getItems().addAll(incSize, decSize,small,medium,big);
 
 		Menu deleteMenu = new Menu("Delete");
 		MenuItem deleteDeck = new MenuItem("Delete Deck");
@@ -79,6 +85,7 @@ public class Deck extends TabPane implements Serializable {
 		deleteMenu.getItems().addAll(deleteDeck, deleteCard);
 		rightClickMenu.getItems().addAll(editDeckCard, deleteMenu);
 
+		System.err.println(isPickOnBounds());
 
 
 		incSize.setOnAction(event -> {
@@ -89,6 +96,21 @@ public class Deck extends TabPane implements Serializable {
             this.setPrefHeight(getHeight() - 30);
             this.setPrefWidth(getWidth() - 50);
         });
+		small.setOnAction(event -> {
+            this.setPrefHeight(300);
+            this.setPrefWidth(300);
+        });
+		medium.setOnAction(event -> {
+            this.setPrefHeight(450);
+            this.setPrefWidth(450);
+        });
+		big.setOnAction(event -> {
+            this.setPrefHeight(600);
+            this.setPrefWidth(600);
+        });
+
+
+
 		deleteDeck.setOnAction(event ->
 			{
 				gr.forEach(Item::unSelect);

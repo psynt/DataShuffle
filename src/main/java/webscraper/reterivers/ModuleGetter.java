@@ -67,12 +67,13 @@ public class ModuleGetter implements Getter {
 //                    System.out.println(currentGroup.getName() + " << " + e);
                     Connection.Response r = new ModulePOSTReq().courseCode(e);
                     Item it = new ModuleScraper(r.parse()).scrapeDocument();
-                    it.addAttribute(new Attribute<>("link", r.url()));
 
                     Item act = new Item(Selected.Yes);
 
                     act.addAttribute(new Attribute<>("Module Code",it.get("Module Code")));
                     it.entrySet().stream().filter(el -> !el.getKey().equals("Module Code")).forEachOrdered(el -> act.addAttribute(new Attribute<>(el.getKey(),el.getValue())));
+
+                    act.addAttribute(new Attribute<>("link", r.url()));
 
                     currentGroup.add(act);
                 } catch (IOException e1) {

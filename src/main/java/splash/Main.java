@@ -1,8 +1,10 @@
 package splash;
 
+import com.airhacks.afterburner.injection.Injector;
 import com.sun.javafx.application.PlatformImpl;
 import com.sun.javafx.css.StyleManager;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	private static Scene scene;
+
 
 	public static Scene getScene(){
 		return scene;
@@ -34,6 +37,8 @@ public class Main extends Application {
 
 			primaryStage.setTitle("Data Shuffle");
 			primaryStage.setScene(scene);
+			Injector.setModelOrService(HostServices.class, getHostServices());
+			primaryStage.getProperties().put("hostServices", this.getHostServices());
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();

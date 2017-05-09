@@ -1,10 +1,7 @@
 package content;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Item will be the interface that all the different types of entries that we
@@ -15,7 +12,7 @@ import java.util.Map;
  *
  */
 
-public class Item extends HashMap<String, String> implements Serializable {
+public class Item extends LinkedHashMap<String, String> implements Serializable {
 	private static final long serialVersionUID = 5922686108268054895L;
 	private Selected sel;
 

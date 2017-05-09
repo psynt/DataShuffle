@@ -1,6 +1,7 @@
 package cards;
 
 import content.Attribute;
+import javafx.event.ActionEvent;
 import model.Group;
 import content.Item;
 import javafx.animation.PauseTransition;
@@ -11,7 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import sidebar.SideMenuItems;
+import javafx.application.HostServices;
 
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -25,12 +28,14 @@ public class Card extends Tab implements Observer, Serializable{
 	private static final long serialVersionUID = -630866289349768478L;
 	private Item item;
 	private Group parent;
-	private boolean mouseSelected = false;
 	private VBox layoutManager;
-	private HashMap <String,Label> labels = new HashMap<>();
+	private HashMap <String,Labeled> labels = new HashMap<>();
 	private final Label label = new Label();
 	private final TextField tabTitle = new TextField();
 	private Controller ob;
+
+	@Inject
+    private HostServices hostServices ;
 
 	public Card(Group g, Item i, SideMenuItems subjectSidebar, String name) {
 		parent = g;
@@ -41,7 +46,30 @@ public class Card extends Tab implements Observer, Serializable{
 		layoutManager.setMinHeight(50);
 		layoutManager.setMinWidth(120);
 
-		Attribute.getAtts().forEach((key, value) -> addLabel(key, i.get(key)));
+
+		for (String it:Attribute.getAtts().keySet()) {
+			if(it.matches("([Ii])mage")) continue;
+			if(it.matches("([Ll])ink")){
+//				Hyperlink l = new Hyperlink(i.get(it));
+				Hyperlink hl = new Hyperlink("Link");
+				hl.setTooltip(new Tooltip(i.get(it)));
+				hl.setOnAction((ActionEvent event) -> {
+//					Hyperlink h = (Hyperlink) event.getTarget();
+//					String s = h.getTooltip().getText();
+//					System.out.println(s);
+//					System.out.println(hostServices.toString());
+					HostServices hs = (HostServices)(((Hyperlink)(event.getSource())).getScene().getWindow().getProperties().get("hostServices"));
+					hs.showDocument(i.get(it));
+					event.consume();
+				});
+
+				labels.put(it,hl);
+				continue;
+			}
+			addLabel(it,i.get(it));
+
+		}
+
 
 		label.setText(name);
 		setGraphic(label);
@@ -89,7 +117,6 @@ public class Card extends Tab implements Observer, Serializable{
 		
 		//method to detect if card is left clicked
 		layoutManager.setOnMouseClicked(e ->{
-			mouseSelected=true;
 			System.out.print("Save as test");
 		});
 
@@ -129,6 +156,10 @@ public class Card extends Tab implements Observer, Serializable{
 	private void addLabel(String key, String val) {
 		labels.put(key,new Label(key + "\t:\t" + val));
 	}
+
+//	private void addLabeled(String key, Labeled l) {
+//		labels.put(key,l);
+//	}
 
 	public void addComponent(Node n) {
 		layoutManager.getChildren().add(n);
