@@ -33,6 +33,11 @@ public class Group extends ArrayList<Item> implements Serializable {
         super(c);
     }
 
+    public Group(Collection<? extends Item> c, String s) {
+        super(c);
+        this.name = s;
+    }
+
     public void setColour(String c){
         col=c;
     }

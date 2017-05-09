@@ -25,25 +25,10 @@
             <Button fx:id="newGreenPaneButton" mnemonicParsing="false" onAction="#newGreenDeck" styleClass="green" text="New Green Deck" />
             <Button fx:id="newYellowPaneButton" mnemonicParsing="false" onAction="#newYellowDeck" styleClass="yellow" text="New Yellow Deck" />
             <Button fx:id="newRedPaneButton" mnemonicParsing="false" onAction="#newRedDeck" styleClass="red" text="New Red Deck" />
-            <!--<Button fx:id="saveButton" mnemonicParsing="false" text="Save" onAction="#saveState" />-->
         </items>
       </ToolBar>
    </top>
    <right>
       <BorderPane fx:id="sideMenuContainer" BorderPane.alignment="CENTER" />
    </right>
-   <!--<right>
-      <VBox fx:id="sideMenuContainer" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
-   </right>
-    <right>
-      -<GridPane fx:id="sideMenuContainer" BorderPane.alignment="CENTER">
-         <columnConstraints>
-           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-       </GridPane>
-   </right>-->
 </BorderPane>

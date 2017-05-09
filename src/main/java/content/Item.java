@@ -12,7 +12,7 @@ import java.util.*;
  *
  */
 
-public class Item extends LinkedHashMap<String, String> implements Serializable {
+public class Item extends HashMap<String, String> implements Serializable {
 	private static final long serialVersionUID = 5922686108268054895L;
 	private Selected sel;
 

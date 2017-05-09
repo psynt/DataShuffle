@@ -44,7 +44,7 @@ public class EbayGetter implements Getter {
             whatYouWant.add(it);
 
         }
-        d.add(new Group(whatYouWant));
+        d.add(new Group(whatYouWant,"Jimmy the search results"));
         d.get(0).setColour("green");
         return d;
     }

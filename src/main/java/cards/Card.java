@@ -44,7 +44,7 @@ public class Card extends Tab implements Observer, Serializable{
 
 		layoutManager = new VBox();
 		layoutManager.setMinHeight(50);
-		layoutManager.setMinWidth(120);
+		layoutManager.setMinWidth(50);
 
 
 		for (String it:Attribute.getAtts().keySet()) {
@@ -113,7 +113,7 @@ public class Card extends Tab implements Observer, Serializable{
 		Menu addCardMenu = new Menu("Delete");
 		MenuItem noCard = new MenuItem("Remove Card");
 		addCardMenu.getItems().addAll(noCard);
-		noCard.setOnAction(this::deleteCard);
+		noCard.setOnAction(it -> deleteCard(it,false));
 		
 		//method to detect if card is left clicked
 		layoutManager.setOnMouseClicked(e ->{
@@ -137,15 +137,17 @@ public class Card extends Tab implements Observer, Serializable{
 		setContent(layoutManager);
 		setClosable(true);
 
-		setOnCloseRequest(this::deleteCard);
+		setOnCloseRequest(it -> deleteCard(it,false));
 		
 		//add sidebar subject
 		subjectSidebar.attach(this);
 	}
 
-	public void deleteCard(Event e){
+	public void deleteCard(Event e, boolean notify){
 		item.unSelect();
-		ob.notifyObserver();
+		if (notify) {
+			ob.notifyObserver();
+		}
 	}
 
 	public void setListener(Controller c){

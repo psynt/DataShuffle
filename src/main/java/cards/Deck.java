@@ -85,7 +85,7 @@ public class Deck extends TabPane implements Serializable {
 		deleteMenu.getItems().addAll(deleteDeck, deleteCard);
 		rightClickMenu.getItems().addAll(editDeckCard, deleteMenu);
 
-		System.err.println(isPickOnBounds());
+//		System.err.println(isPickOnBounds());
 
 
 		incSize.setOnAction(event -> {
@@ -116,13 +116,15 @@ public class Deck extends TabPane implements Serializable {
 				gr.forEach(Item::unSelect);
 				Card se = (Card) this.getSelectionModel().getSelectedItem();
 				((Pane)this.getParent()).getChildren().remove(this);
-				se.deleteCard(event);
+				se.deleteCard(event,false);
 			}
 
 		);
 		deleteCard.setOnAction(event -> {
 			Card se = (Card) this.getSelectionModel().getSelectedItem();
-			se.deleteCard(event);
+
+			se.deleteCard(event,false);
+			getTabs().remove(se);
 			if (this.getTabs().size() == 0)
 				((Pane)this.getParent()).getChildren().remove(this);
 		});
