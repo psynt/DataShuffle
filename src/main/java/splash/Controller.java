@@ -182,7 +182,7 @@ public class Controller {
 
 		} else {// IF Module is selected
 
-			scenetitle.setText("Search by module code:");
+			scenetitle.setText("Search by course name:");
 
 			label1.setText("Or use a Course Code:");
 			minTextField.setPrefWidth(110.0);

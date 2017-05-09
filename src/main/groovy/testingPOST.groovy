@@ -31,4 +31,4 @@ import java.util.stream.Collectors
 //
 //println new ModuleScraper(new ModulePOSTReq().courseCode("g52afp")).scrapeDocument()//.map(ModuleScraper::new).map(ModuleScraper::scrapeDocument).collect(Collectors.toList())
 
-//println new ModulePOSTReq().cC("g52afp")
+println new ModuleScraper(new ModulePOSTReq().courseCode("g52afp").parse()).scrapeDocument();
