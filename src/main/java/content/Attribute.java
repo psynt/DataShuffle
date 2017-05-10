@@ -57,14 +57,24 @@ public class Attribute<T> implements Map.Entry<String,T>, Serializable {
 		return getKey() + ":" + getValue();
 	}
 
+	/**
+	 * Clears the internal state of the attributes.
+	 */
 	public static void reset() {
 		selectedAtts.clear();
 	}
 
+	/**
+	 * @return the state of all of the attributes that this class manages
+	 */
 	public static Map<String,Boolean> getAtts() {
 		return selectedAtts;
 	}
 
+	/**
+	 * Quickly add a bunch of attributes to the state manager. Useful for loading a state
+	 * @param arr collection of attributes to be added. These will be set to selected
+	 */
 	public static void addAtts(Collection<String> arr){
 		arr.forEach(it -> selectedAtts.put(it,true));
 	}

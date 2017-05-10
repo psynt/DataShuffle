@@ -79,6 +79,10 @@ public class Item extends HashMap<String, String> implements Serializable {
 		return "\n\t\t[" + sb.toString() + "]\n";
 	}
 
+	/**
+	 *
+	 * @return true if this item is selected
+	 */
     public boolean isSelected() {
 		return sel;
     }

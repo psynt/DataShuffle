@@ -27,22 +27,18 @@ public class Group extends ArrayList<Item> implements Serializable {
         this.name = name;
         col = colour;
     }
-    public Group(int initialCapacity) {
-        super(initialCapacity);
-    }
 
-    public Group() {
-    }
-
-    public Group(Collection<? extends Item> c) {
-        super(c);
-    }
+    public Group() {}
 
     public Group(Collection<? extends Item> c, String s) {
         super(c);
         this.name = s;
     }
 
+    /**
+     * Colour is used as a css class for this group's deck
+     * @param c string representing the colour
+     */
     public void setColour(String c){
         col=c;
     }
@@ -72,17 +68,13 @@ public class Group extends ArrayList<Item> implements Serializable {
         return "\n\t[" + sb.toString() + "]\n";
     }
 
-    public static boolean isSelected(Group items) {
-        return items.stream().anyMatch(Item::isSelected);
+    /**
+     * if no items are selected, this group might as well not even be selected.
+     * @return true if at least one item is selected, false otherwise
+     */
+    public boolean isSelected() {
+        return stream().anyMatch(Item::isSelected);
     }
 
-    //    @Override
-//    public Stream<Item> stream() {
-//        return super.stream();
-//    }
-//
-//    @Override
-//    public Stream<Item> parallelStream() {
-//        return super.parallelStream();
-//    }
+
 }

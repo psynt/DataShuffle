@@ -17,17 +17,17 @@ public class Data extends ArrayList<Group> implements Serializable {
         type = s;
     }
 
-    public Data(Data d){
+    public Data() { }
+
+    /**
+     * copy constructor :)
+     * @param d other data
+     */
+    public Data(Data d) {
         super(d);
         type = d.type;
     }
 
-    public Data() {
-    }
-
-    public Data(Collection<? extends Group> c) {
-        super(c);
-    }
 
     @Override
     public void clear() {
@@ -43,6 +43,10 @@ public class Data extends ArrayList<Group> implements Serializable {
         return type;
     }
 
+    /**
+     *
+     * @return returns the last group. Useful if you quickly want to change its colour, or name, or something else
+     */
     public Group last(){
         return get(size()-1);
     }
