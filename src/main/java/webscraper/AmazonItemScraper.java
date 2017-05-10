@@ -30,7 +30,6 @@ public class AmazonItemScraper extends PageScraper {
 	}
 
 	private void addShipping() {
-		// TODO Auto-generated method stub
 		
 	}
 
