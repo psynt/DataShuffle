@@ -1,8 +1,5 @@
 package sidebar;
 
-import java.util.ArrayList;
-
-import cards.Card;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Pos;
@@ -13,7 +10,6 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class SideMenu extends VBox {
@@ -23,8 +19,8 @@ public class SideMenu extends VBox {
 		return displayMenuButton;
 	}
 
-	double buttonWidth = 60;
-	double buttonHeight = 50;
+	double buttonWidth = 15;
+	double buttonHeight = 25;
 
 
 	Rectangle2D croppedImage = new Rectangle2D(1, 1, 100, 100);
@@ -53,7 +49,7 @@ public class SideMenu extends VBox {
 		displayMenuButton.getStyleClass().add("hide-left");
 		displayMenuButton.setContentDisplay(ContentDisplay.CENTER);
 		displayMenuButton.setRotate(180);
-		displayMenuButton.setMinWidth(60);
+		displayMenuButton.setPrefSize(buttonWidth+5,buttonHeight+5);
 		
 				
 	}
