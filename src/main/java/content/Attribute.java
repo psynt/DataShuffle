@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * Represents each attribute of an Item, along with a getSelected
+ * Represents each attribute of an Item, along with storing the selected/not selected state of each of the attributes
  * @author nichita, zane
  *
  */
@@ -13,53 +13,33 @@ public class Attribute<T> implements Map.Entry<String,T>, Serializable {
 	private static final long serialVersionUID = 393482718211080790L;
 	private T t;
 	private String name;
-	private static Map<String,Selected> selectedAtts = new HashMap<>();
+	private static Map<String,Boolean> selectedAtts = new HashMap<>();
 	
-	public Attribute(String name, T t, Selected s){
+	public Attribute(String name, T t, Boolean s){
 		this.name = name;
 		this.t = t;
 		selectedAtts.putIfAbsent(name,s);
 	}
 	public Attribute(String name, T t){
-		this(name,t,Selected.Yes);
-	}
-	public Attribute(Map.Entry<String,T> x){
-		this(x.getKey(),x.getValue());
+		this(name,t,true);
 	}
 
-	public static Selected getSel(String k){
-		return selectedAtts.get(k);
-	}
-
-	public static boolean isSel(String k, Selected x){
-		selectedAtts.putIfAbsent(k,Selected.Yes);
-		return selectedAtts.getOrDefault(k,Selected.Never).value() >= x.value();
-	}
-
-	public static boolean isSel(String k, int x){
-		selectedAtts.putIfAbsent(k,Selected.Yes);
-		return selectedAtts.getOrDefault(k,Selected.Never).value() >= x;
-	}
-
-	public static void setSel(String k, Selected v){
-		if(selectedAtts.containsKey(k)) {
-			selectedAtts.replace(k, v);
-		} else {
-			selectedAtts.put(k,v);
-		}
+	public static boolean isSel(String k){
+		selectedAtts.putIfAbsent(k,true);
+		return selectedAtts.getOrDefault(k,false);
 	}
 
 	public static void setSel(String k, boolean v){
 		if(selectedAtts.containsKey(k)) {
-			selectedAtts.replace(k, v?Selected.Yes:Selected.No);
+			selectedAtts.replace(k, v);
 		} else {
-			selectedAtts.put(k, v?Selected.Yes:Selected.No);
+			selectedAtts.put(k, v);
 		}
 	}
 
 	@Override
 	public String getKey() {
-		return getName();
+		return name;
 	}
 
 	public T getValue() {
@@ -71,9 +51,6 @@ public class Attribute<T> implements Map.Entry<String,T>, Serializable {
 		return t=value;
 	}
 
-	public String getName() {
-		return name;
-	}
 
 	@Override
 	public String toString() {
@@ -84,11 +61,11 @@ public class Attribute<T> implements Map.Entry<String,T>, Serializable {
 		selectedAtts.clear();
 	}
 
-	public static Map<String,Selected> getAtts() {
+	public static Map<String,Boolean> getAtts() {
 		return selectedAtts;
 	}
 
 	public static void addAtts(Collection<String> arr){
-		arr.forEach(it -> selectedAtts.put(it,Selected.Yes));
+		arr.forEach(it -> selectedAtts.put(it,true));
 	}
 }

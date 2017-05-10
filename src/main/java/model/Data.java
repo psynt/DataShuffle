@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
+ * One of the model classes. Represents the entire data of the app, in one object
  * Created by nichita on 04/05/17.
  */
 
@@ -55,7 +56,6 @@ public class Data extends ArrayList<Group> implements Serializable {
 
     @Override
     public int size() {
-//        System.out.println("Size = " + super.size());
         return super.size();
     }
 }

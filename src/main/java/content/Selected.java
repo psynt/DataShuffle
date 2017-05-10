@@ -3,8 +3,9 @@ package content;
 /**
  * values that the selected-ness of an Item or Attibute may have
  * @author nichita
- *
+ * @deprecated not too useful
  */
+@Deprecated
 public enum Selected {
 	Yes,No,Maybe,Never;
 	

@@ -16,6 +16,5 @@ class AttributeSpec extends Specification {
         expect:
         a.name == "Name"
         a.value == "foo"
-        Attribute.getSel(a.key) == Selected.No
     }
 }

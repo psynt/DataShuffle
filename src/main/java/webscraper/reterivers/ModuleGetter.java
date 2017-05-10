@@ -2,7 +2,6 @@ package webscraper.reterivers;
 
 import content.Attribute;
 import content.Item;
-import content.Selected;
 import model.Group;
 import javafx.scene.control.ChoiceDialog;
 import model.Data;
@@ -68,7 +67,7 @@ public class ModuleGetter implements Getter {
                     Connection.Response r = new ModulePOSTReq().courseCode(e);
                     Item it = new ModuleScraper(r.parse()).scrapeDocument();
 
-                    Item act = new Item(Selected.Yes);
+                    Item act = new Item(true);
 
                     act.addAttribute(new Attribute<>("Module Code",it.get("Module Code")));
                     it.entrySet().stream().filter(el -> !el.getKey().equals("Module Code")).forEachOrdered(el -> act.addAttribute(new Attribute<>(el.getKey(),el.getValue())));

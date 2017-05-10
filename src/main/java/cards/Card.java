@@ -111,7 +111,7 @@ public class Card extends Tab implements Observer, Serializable{
 		Menu addCardMenu = new Menu("Delete");
 		MenuItem noCard = new MenuItem("Remove Card");
 		addCardMenu.getItems().addAll(noCard);
-		noCard.setOnAction(it -> deleteCard(it));
+		noCard.setOnAction(this::deleteCard);
 		
 		//method to detect if card is left clicked
 		layoutManager.setOnMouseClicked(e ->{
@@ -135,7 +135,7 @@ public class Card extends Tab implements Observer, Serializable{
 		setContent(layoutManager);
 		setClosable(true);
 
-		setOnCloseRequest(it -> deleteCard(it));
+		setOnCloseRequest(this::deleteCard);
 		
 		//add sidebar subject
 		subjectSidebar.attach(this);
@@ -183,7 +183,7 @@ public class Card extends Tab implements Observer, Serializable{
 
 		Attribute.getAtts().forEach((key, value) -> {
 			try {
-				labels.get(key).setVisible(Attribute.isSel(key, 0));
+				labels.get(key).setVisible(Attribute.isSel(key));
 			} catch (NullPointerException ex) {
 				System.out.println(key + " " + labels.get(key));
 			}

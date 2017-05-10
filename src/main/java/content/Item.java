@@ -14,27 +14,27 @@ import java.util.*;
 
 public class Item extends HashMap<String, String> implements Serializable {
 	private static final long serialVersionUID = 5922686108268054895L;
-	private Selected sel;
+	private boolean sel;
 
-	public Item(Selected sel) {
+	public Item(boolean sel) {
 		super();
 		this.sel = sel;
 	}
 
 	public Item() {
-		this(Selected.Yes);
+		this(true);
 	}
 
 
 	public void unSelect(){
-		sel = Selected.Never;
+		sel = false;
 	}
 
 	/**
 	 * 
 	 * @return User's classification of this item, either yes, no, or maybe
 	 */
-	public Selected getSelected() {
+	public boolean getSelected() {
 		return sel;
 	}
 
@@ -60,10 +60,6 @@ public class Item extends HashMap<String, String> implements Serializable {
 		put(a.getKey(), a.getValue());
 	}
 
-	private void addAttribute(String k, String v) {
-		put(k, v);
-	}
-
 	/**
 	 * Adds attributes to list
 	 * 
@@ -74,13 +70,6 @@ public class Item extends HashMap<String, String> implements Serializable {
 		a.parallelStream().forEach(this::addAttribute);
 	}
 
-	public void addAttributes(Map<String, String> a) {
-		a.entrySet().parallelStream().forEach(this::addAttribute);
-	}
-
-    public ArrayList<String> keys() {
-		return new ArrayList<>(super.keySet());
-    }
 
 	@Override
 	public String toString() {
@@ -91,6 +80,6 @@ public class Item extends HashMap<String, String> implements Serializable {
 	}
 
     public boolean isSelected() {
-		return sel.value()>Selected.Maybe.value();
+		return sel;
     }
 }
