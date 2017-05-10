@@ -7,6 +7,7 @@ import content.Item;
 import sidebar.SideMenuItems;
 
 /**
+ * Cards for the course&module screpaer. Not too different from normal cards
  * Created by nichita on 02/04/17.
  */
 public class ModuleCard extends Card implements Serializable {

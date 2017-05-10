@@ -16,6 +16,12 @@ public class EbayCard extends Card implements Serializable {
 
 	private static final long serialVersionUID = 3385480495404743216L;
 
+	/**
+	 * Constructor for ebay items
+	 * @param g group that card will be part of
+	 * @param cardItem item that will be the model of this card
+	 * @param sidebarSubject sidebar to listen to
+	 */
 	public EbayCard(Group g, Item cardItem, SideMenuItems sidebarSubject) {
 		super(g, cardItem, sidebarSubject, cardItem.get("name"));
 

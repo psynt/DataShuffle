@@ -18,6 +18,11 @@ public class Deck extends TabPane implements Serializable {
 
 	private Group gr;
 
+	/**
+	 * Decks represent the view element of a group
+	 * @param draggingTab used for dragon drop
+	 * @param g group that is the model of this deck
+	 */
 	public Deck(ObjectProperty<Tab> draggingTab, Group g){
 		System.out.println(super.isResizable());
 		gr = g;
@@ -25,8 +30,6 @@ public class Deck extends TabPane implements Serializable {
 		setOnDragOver(event -> {
 			final Dragboard dragboard = event.getDragboard();
 			if (dragboard.hasString() && TAB_DRAG_KEY.equals(dragboard.getString()) && draggingTab.get() != null) {
-				// this was breaking it so I just removed it for now
-				// && draggingTab.get().getTabPane() != tabPane)
 				event.acceptTransferModes(TransferMode.MOVE);
 				event.consume();
 
@@ -37,8 +40,6 @@ public class Deck extends TabPane implements Serializable {
 		setOnDragDropped(event -> {
 			final Dragboard dragboard = event.getDragboard();
 			if (dragboard.hasString() && TAB_DRAG_KEY.equals(dragboard.getString()) && draggingTab.get() != null) {
-				// this was breaking it so I just removed it for now
-				// && draggingTab.get().getTabPane() != tabPane)
 				final Tab tab = draggingTab.get();
 				tab.getTabPane().getTabs().remove(tab);
 				getTabs().add(tab);
@@ -48,12 +49,6 @@ public class Deck extends TabPane implements Serializable {
 				event.consume();
 				requestLayout();
 				((Card) tab).move(gr);
-
-
-				//need to find a way to 'REPAINT' the tabs once theyre dragged, as sometimes they become blank
-				// i have tried changing the height / then reverting back, as resizing tehe empty decks repaints them, but also doesnt work
-
-
 			}
 		});
 
@@ -85,7 +80,6 @@ public class Deck extends TabPane implements Serializable {
 		deleteMenu.getItems().addAll(deleteDeck, deleteCard);
 		rightClickMenu.getItems().addAll(editDeckCard, deleteMenu);
 
-//		System.err.println(isPickOnBounds());
 
 
 		incSize.setOnAction(event -> {
@@ -131,8 +125,6 @@ public class Deck extends TabPane implements Serializable {
 
 
 		super.setContextMenu(rightClickMenu);
-
-
 
 		setBorder(new Border(
 				new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
