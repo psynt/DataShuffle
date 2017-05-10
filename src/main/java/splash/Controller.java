@@ -3,7 +3,6 @@ package splash;
 import cards.CardState;
 import cards.SecondMain;
 import content.Attribute;
-import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,21 +35,13 @@ public class Controller {
 	@FXML
 	Button ebayButton;
 
-
 	@FXML
 	Button moduleButton;
-
-	private static boolean loadFlag = false;
 
 	private static Data d = new Data();
 
 	public static Data getData(){
 		return d;
-	}
-
-
-	@FXML
-	public void initialize() {
 	}
 
 	@FXML
@@ -59,15 +50,16 @@ public class Controller {
 		stage.close();
 	}
 
+	/**
+	 * Open file, for the Load user action
+	 * @param actionEvent triggered by the load button
+	 */
 	@FXML
 	public void openFile(ActionEvent actionEvent) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Load file");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-//		fileChooser.getExtensionFilters().addAll(
-//				new FileChooser.ExtensionFilter("Data Files", "*.data")
-//				);
 		File file = fileChooser.showOpenDialog(pane.getScene().getWindow());
 		ObjectInputStream obj_in = null;
 		if(file != null){
@@ -82,16 +74,13 @@ public class Controller {
 		Object obj = null;
 		try {
 			obj = obj_in.readObject();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
 
 		if (obj instanceof CardState) {
 			d = ((CardState) obj).getData();
 			try {
-				loadFlag = true;
 				if (!d.isEmpty()) {
 					Attribute.addAtts(d.get(0).get(0).getAttributes().keySet());
 					SecondMain.start1((Stage) pane.getScene().getWindow());
@@ -113,12 +102,10 @@ public class Controller {
 	public void moduleEvent(ActionEvent actionEvent){
 		d.setType("Module");
 		clickEvent(actionEvent);
-
-//		hostServices.showDocument("google.com");
 	}
 
 	@FXML
-	public void clickEvent(ActionEvent actionEvent) {
+	private void clickEvent(ActionEvent actionEvent) {
 		Button source = (Button) (actionEvent.getSource());
 		String type = source.getText();
 		System.err.println(type);
@@ -234,6 +221,13 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Calls ModuleGetter after setting up the argument list
+	 * @param keyword search by keyword
+	 * @param code ucas code
+	 * @return data object
+	 * @throws MalformedURLException
+	 */
 	private Data modules(String keyword, String code) throws MalformedURLException {
 		Map<String,String> args = new HashMap<>();
 		if (code != null) args.put("code",code);
@@ -241,6 +235,15 @@ public class Controller {
 		return new ModuleGetter().getTheStuff(args);
 	}
 
+	/**
+	 * Calls EbayGetter after setting up the argument list
+	 * @param searchTerm user's search terms:
+	 * @param min
+	 * @param max
+	 * @param auctionType
+	 * @return returns data object
+	 * @throws MalformedURLException
+	 */
 	private Data ebay(String searchTerm, String min, String max, String auctionType) throws MalformedURLException {
 		Map<String,String> args = new HashMap<>();
 		args.put("searchTerm",searchTerm);
@@ -250,7 +253,9 @@ public class Controller {
 		return new EbayGetter().getTheStuff(args);
 	}
 
-
+	/**
+	 * resets all values, called when, user clicks "New project"
+	 */
 	public static void reset() {
 		d = new Data();
 		Attribute.reset();

@@ -25,13 +25,4 @@ public class ModulePOSTReq extends POSTRequest {
         return getTheGoodies(args,secondUrl);
 
     }
-//    public URL cC(String code) throws IOException {
-//        Map<String,String> args = new HashMap<>();
-//        String secondUrl = "http://modulecatalogue.nottingham.ac.uk/nottingham/asp/FindModule.asp";
-//
-//        args.put("mnem",code);
-//
-//        return getTheGoodies(args,secondUrl).url();
-//
-//    }
 }

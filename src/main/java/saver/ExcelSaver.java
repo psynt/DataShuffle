@@ -43,7 +43,10 @@ public class ExcelSaver implements Saver {
 	}
 
 
-	
+	/**
+	 * sets the headers of the output excel spreadsheet
+	 * @param a list of headers
+	 */
 	private void setHeaders(List<String> a){
 		Font hfont = wb.createFont();
 		hfont.setBold(true);

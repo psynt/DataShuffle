@@ -48,8 +48,6 @@ public class ModuleGetter implements Getter {
         }
         String selCourse = res.get(userChoice.getSelectedItem());
 
-//        String selCourse = new ArrayList<>(res.values()).get(0);
-
         if (selCourse.length()<2){
             throw new NullPointerException("User selected nothing");
         }
@@ -63,7 +61,6 @@ public class ModuleGetter implements Getter {
         for (String e:modules ) {
             if(e.matches("G5\\d...")){
                 try {
-//                    System.out.println(currentGroup.getName() + " << " + e);
                     Connection.Response r = new ModulePOSTReq().courseCode(e);
                     Item it = new ModuleScraper(r.parse()).scrapeDocument();
 
@@ -80,7 +77,6 @@ public class ModuleGetter implements Getter {
                 }
             }else{
                 if(e.matches("Students completing .*")) continue;
-//                System.out.println("New group on " + e);
                 d.add(currentGroup);
                 currentGroup = new Group(e + " " + d.size());
                 if (e.contains("all")){
@@ -92,8 +88,6 @@ public class ModuleGetter implements Getter {
         }
         d.add(currentGroup);
         d.remove(0);
-//        d.forEach(e -> System.out.println(e.getName()));
-//        System.err.println(d.size());
         return d;
     }
 }

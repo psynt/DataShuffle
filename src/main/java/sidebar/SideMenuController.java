@@ -21,7 +21,7 @@ import static splash.Controller.getData;
 public class SideMenuController extends SideMenuItems
 {
 
-	Stage fileMenu;
+	private Stage fileMenu;
 
 	public void Initialize(int sideMenuWidth, SideMenu sideMenu, Pane menuPane, Data d){
 
@@ -81,7 +81,6 @@ public class SideMenuController extends SideMenuItems
 	}
 
 	public void addShowTickBox(String key) {
-		// TODO Auto-generated method stub
 		CheckBox newCheckBox = new CheckBox(key);
 		newCheckBox.setSelected(true);
 		newCheckBox.setOnAction(event -> {
