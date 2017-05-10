@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Class that scrapes a list of links from an ebay search results page
- * @author zane
+ * @author Zane
  *
  */
 
@@ -18,6 +18,9 @@ public class EbayResultScraper extends LinkScraper {
 		super(doc);
 	}
 
+	/* (non-Javadoc)
+	 * @see webscraper.LinkScraper#scrapeLinks()
+	 */
 	@Override
 	public ArrayList<String> scrapeLinks() {
 

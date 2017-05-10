@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Abstract class for scraping webpages for links
  *
- * @author zane
+ * @author Zane
  */
 
 public class LinkScraper implements ILinkScraper {
@@ -20,6 +20,9 @@ public class LinkScraper implements ILinkScraper {
 		this.doc = doc;
 	}
 	
+	/* (non-Javadoc)
+	 * @see webscraper.ILinkScraper#scrapeLinks()
+	 */
 	@Override
 	public List<String> scrapeLinks(){
 		ArrayList<String> links = new ArrayList<>();

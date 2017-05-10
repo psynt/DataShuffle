@@ -9,5 +9,8 @@ import java.util.List;
  */
 
 public interface ILinkScraper {
+	/**
+	 * @return A list of links to webpages to be passed on to a page scraper.
+	 */
 	List<String> scrapeLinks();
 }
