@@ -116,14 +116,14 @@ public class Deck extends TabPane implements Serializable {
 				gr.forEach(Item::unSelect);
 				Card se = (Card) this.getSelectionModel().getSelectedItem();
 				((Pane)this.getParent()).getChildren().remove(this);
-				se.deleteCard(event,false);
+				se.deleteCard(event);
 			}
 
 		);
 		deleteCard.setOnAction(event -> {
 			Card se = (Card) this.getSelectionModel().getSelectedItem();
 
-			se.deleteCard(event,false);
+			se.deleteCard(event);
 			getTabs().remove(se);
 			if (this.getTabs().size() == 0)
 				((Pane)this.getParent()).getChildren().remove(this);

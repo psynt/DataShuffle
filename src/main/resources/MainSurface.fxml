@@ -22,9 +22,9 @@
    <top>
       <ToolBar fx:id="toolBar" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-            <Button fx:id="newGreenPaneButton" mnemonicParsing="false" onAction="#newGreenDeck" styleClass="green" text="New Green Deck" />
-            <Button fx:id="newYellowPaneButton" mnemonicParsing="false" onAction="#newYellowDeck" styleClass="yellow" text="New Yellow Deck" />
-            <Button fx:id="newRedPaneButton" mnemonicParsing="false" onAction="#newRedDeck" styleClass="red" text="New Red Deck" />
+            <Button fx:id="newGreenPaneButton" mnemonicParsing="false" onAction="#newDeck" styleClass="green" text="New Green Deck" />
+            <Button fx:id="newYellowPaneButton" mnemonicParsing="false" onAction="#newDeck" styleClass="yellow" text="New Yellow Deck" />
+            <Button fx:id="newRedPaneButton" mnemonicParsing="false" onAction="#newDeck" styleClass="red" text="New Red Deck" />
         </items>
       </ToolBar>
    </top>

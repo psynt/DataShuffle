@@ -12,8 +12,14 @@ import sidebar.SideMenuItems;
  */
 public class CardFactory {
 
-    public static final String[] VERSIONS = { "Ebay", "Module" };
-
+    /**
+     * Creates a new card with the appropriate type
+     * @param g group that the card will belong to
+     * @param item Item that will serve as the card's model
+     * @param type the type of card
+     * @param sidebarSubject the sidebar, so that the cards can observe it
+     * @return returns a new card that is ready to be added to its appropriate Deck
+     */
     public static Card createCard(Group g, Item item, String type, SideMenuItems sidebarSubject){
 		final Card card;
 		switch (type) {

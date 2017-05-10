@@ -14,12 +14,11 @@ import javafx.util.Duration;
 import sidebar.SideMenuItems;
 import javafx.application.HostServices;
 
-import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- * The 'card'
+ * The 'card'. Ignores images
  *
  * Created by nichita on 01/03/17.
  *
@@ -34,9 +33,13 @@ public class Card extends Tab implements Observer, Serializable{
 	private final TextField tabTitle = new TextField();
 	private Controller ob;
 
-	@Inject
-    private HostServices hostServices ;
-
+	/**
+	 * Construct a card
+	 * @param g group that this card's item is part of
+	 * @param i Item model of this card
+	 * @param subjectSidebar sidebar
+	 * @param name The text that will be on the tab header
+	 */
 	public Card(Group g, Item i, SideMenuItems subjectSidebar, String name) {
 		parent = g;
 		item = i;
@@ -50,14 +53,9 @@ public class Card extends Tab implements Observer, Serializable{
 		for (String it:Attribute.getAtts().keySet()) {
 			if(it.matches("([Ii])mage")) continue;
 			if(it.matches("([Ll])ink")){
-//				Hyperlink l = new Hyperlink(i.get(it));
 				Hyperlink hl = new Hyperlink("Link");
 				hl.setTooltip(new Tooltip(i.get(it)));
 				hl.setOnAction((ActionEvent event) -> {
-//					Hyperlink h = (Hyperlink) event.getTarget();
-//					String s = h.getTooltip().getText();
-//					System.out.println(s);
-//					System.out.println(hostServices.toString());
 					HostServices hs = (HostServices)(((Hyperlink)(event.getSource())).getScene().getWindow().getProperties().get("hostServices"));
 					hs.showDocument(i.get(it));
 					event.consume();
@@ -113,7 +111,7 @@ public class Card extends Tab implements Observer, Serializable{
 		Menu addCardMenu = new Menu("Delete");
 		MenuItem noCard = new MenuItem("Remove Card");
 		addCardMenu.getItems().addAll(noCard);
-		noCard.setOnAction(it -> deleteCard(it,false));
+		noCard.setOnAction(it -> deleteCard(it));
 		
 		//method to detect if card is left clicked
 		layoutManager.setOnMouseClicked(e ->{
@@ -137,36 +135,49 @@ public class Card extends Tab implements Observer, Serializable{
 		setContent(layoutManager);
 		setClosable(true);
 
-		setOnCloseRequest(it -> deleteCard(it,false));
+		setOnCloseRequest(it -> deleteCard(it));
 		
 		//add sidebar subject
 		subjectSidebar.attach(this);
 	}
 
-	public void deleteCard(Event e, boolean notify){
+	/**
+	 * Sets the backing Item to be unselected
+	 * @param e Event that triggered this
+	 */
+	public void deleteCard(Event e){
 		item.unSelect();
-		if (notify) {
-			ob.notifyObserver();
-		}
 	}
 
+	/**
+	 * Sets a listener that will be notified of changes
+	 * @param c controller that this card reports to
+	 */
 	public void setListener(Controller c){
 		ob = c;
 	}
 
 
+	/**
+	 * Add a label to the resulting card
+	 * @param key Attribute.getKey()
+	 * @param val Item.get(key)
+	 */
 	private void addLabel(String key, String val) {
 		labels.put(key,new Label(key + "\t:\t" + val));
 	}
 
-//	private void addLabeled(String key, Labeled l) {
-//		labels.put(key,l);
-//	}
-
-	public void addComponent(Node n) {
+	/**
+	 * for descendants that might want to add different types of components
+	 * @param n component to be added
+	 */
+	protected void addComponent(Node n) {
 		layoutManager.getChildren().add(n);
 	}
 
+	/**
+	 * called when the sidemenu's checkboxes' states changes
+	 */
 	@Override
 	public void update() {
 
@@ -180,6 +191,10 @@ public class Card extends Tab implements Observer, Serializable{
 
 	}
 
+	/**
+	 * move this card's item to a different group (when the user drags this tab to a different tabpane)
+	 * @param newg new group that this card's item will belong to
+	 */
 	public void move(Group newg){
 		parent.remove(item);
 		newg.add(item);

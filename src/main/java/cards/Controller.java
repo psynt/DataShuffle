@@ -12,6 +12,7 @@ import content.Attribute;
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
@@ -38,12 +39,10 @@ import sidebar.SideMenuController;
 public class Controller {
 	private static final String TAB_DRAG_KEY = "tab";
 	private ObjectProperty<Tab> draggingTab;
-//	static boolean cardSelected = true;
 
 	@FXML
 	BorderPane mainPane;
 	@FXML
-	//static
 	FlowPane centerPane;
 	@FXML
 	ScrollPane scrollPane;
@@ -51,8 +50,7 @@ public class Controller {
 	@FXML
 	BorderPane sideMenuContainer;
 
-	SideMenu sideMenu;
-	SideMenuController sideMenuController;
+	private SideMenuController sideMenuController;
 
 	@FXML
 	public void initialize() {
@@ -66,7 +64,7 @@ public class Controller {
 		sideMenuController = new SideMenuController();
 		final Pane menuPane = sideMenuController.createSidebarItems();
 		menuPane.setId("menuPane");
-		sideMenu = new SideMenu(sideMenuWidth, menuPane);
+		SideMenu sideMenu = new SideMenu(sideMenuWidth, menuPane);
 		VBox.setVgrow(menuPane, Priority.ALWAYS);
 
 		Attribute.getAtts().keySet().forEach(e->sideMenuController.addShowTickBox(e));
@@ -93,6 +91,9 @@ public class Controller {
 
 	}
 
+	/**
+	 * (re)makes the decks, according to the groups that the cards belong to, and according to which exact items are selected and which aren't
+	 */
 	private void makeDecks(){
 		centerPane.getChildren().clear();
 		getData().stream().filter(Group::isSelected).forEach(e -> {
@@ -106,26 +107,17 @@ public class Controller {
 
 	}
 
-	@FXML public void newGreenDeck() {
-		incNumDecks();
-		getData().last().setColour("green");
-		Deck newDeck = new Deck(draggingTab, getData().last());
-		centerPane.getChildren().add(newDeck);
-	}
-	
-	@FXML public void newYellowDeck() {
-		incNumDecks();
-		getData().last().setColour("yellow");
-		Deck newDeck = new Deck(draggingTab, getData().last());
-		centerPane.getChildren().add(newDeck);
-	}
-	
-	@FXML public void newRedDeck() {
-		incNumDecks();
-		getData().last().setColour("red");
-		Deck newDeck = new Deck(draggingTab, getData().last());
-		centerPane.getChildren().add(newDeck);
-	}
+//	@FXML public void newGreenDeck() {
+//		newDeck("green");
+//	}
+//
+//	@FXML public void newYellowDeck() {
+//		newDeck("yellow");
+//	}
+//
+//	@FXML public void newRedDeck() {
+//		newDeck("red");
+//	}
 
 
 	private Card newCard(Group g, Item item, String type) {
@@ -147,6 +139,13 @@ public class Controller {
 		return getData().size();
 	}
 
+	@FXML public void newDeck(ActionEvent actionEvent){
+		incNumDecks();
+		getData().last().setColour(colour);
+		Deck newDeck = new Deck(draggingTab, getData().last());
+		centerPane.getChildren().add(newDeck);
+	}
+
 	private void incNumDecks(){
 		getData().add(new Group("Deck "+getData().size()));
 	}
@@ -155,4 +154,5 @@ public class Controller {
 	public void notifyObserver() {
 		makeDecks();
 	}
+
 }
