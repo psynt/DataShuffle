@@ -2,7 +2,7 @@ package webscraper;
 
 /**
  * Abstract class for scraping webpages for data
- * @author zane
+ * @author Zane
  *
  */
 
@@ -19,6 +19,9 @@ public abstract class PageScraper implements IPageScraper{
 		this.doc = doc;
 	}
 	
+	/* (non-Javadoc)
+	 * @see webscraper.IPageScraper#scrapeDocument()
+	 */
 	@Override
 	public abstract Item scrapeDocument();
 

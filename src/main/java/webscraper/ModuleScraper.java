@@ -10,7 +10,7 @@ import content.Item;
 /**
  * Scraper for individual Module pages form the module catalog.
  * Loads all data into an Item object.
- * @author zane
+ * @author Zane
  *
  */
 public class ModuleScraper extends PageScraper {
@@ -19,6 +19,9 @@ public class ModuleScraper extends PageScraper {
 		super(doc);
 	}
 	
+	/* (non-Javadoc)
+	 * @see webscraper.PageScraper#scrapeDocument()
+	 */
 	@Override
 	public Item scrapeDocument() {
 

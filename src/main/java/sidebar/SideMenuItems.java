@@ -67,6 +67,9 @@ public class SideMenuItems {
 		observerCards.add(observer);
 	}
 
+	/**
+	 * Notifies all cards to update their fields based on changes to tick boxes.
+	 */
 	public void notifyAllObservers(){
 		System.out.println("Update all cards");
 		for (Card observer : observerCards) {

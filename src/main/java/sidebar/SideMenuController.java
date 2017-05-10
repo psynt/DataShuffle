@@ -38,6 +38,7 @@ public class SideMenuController extends SideMenuItems
 			
 		});
 
+		
 		saveAsButton.setOnAction(event -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Save file as..");
@@ -80,8 +81,10 @@ public class SideMenuController extends SideMenuItems
 
 	}
 
+	/**
+	 * @param key Name of the parameter this tickbox will control the visibility of.
+	 */
 	public void addShowTickBox(String key) {
-		// TODO Auto-generated method stub
 		CheckBox newCheckBox = new CheckBox(key);
 		newCheckBox.setSelected(true);
 		newCheckBox.setOnAction(event -> {
