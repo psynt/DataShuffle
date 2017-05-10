@@ -1,6 +1,5 @@
 package splash;
 
-import com.airhacks.afterburner.injection.Injector;
 import com.sun.javafx.application.PlatformImpl;
 import com.sun.javafx.css.StyleManager;
 import javafx.application.Application;
@@ -37,7 +36,6 @@ public class Main extends Application {
 
 			primaryStage.setTitle("Data Shuffle");
 			primaryStage.setScene(scene);
-			Injector.setModelOrService(HostServices.class, getHostServices());
 			primaryStage.getProperties().put("hostServices", this.getHostServices());
 			primaryStage.show();
 		} catch (Exception e) {

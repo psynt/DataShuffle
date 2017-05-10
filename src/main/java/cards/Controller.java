@@ -12,6 +12,7 @@ import content.Attribute;
 import content.Item;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.css.Styleable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -87,8 +88,6 @@ public class Controller {
 
 		makeDecks();
 
-
-
 	}
 
 	/**
@@ -107,21 +106,14 @@ public class Controller {
 
 	}
 
-//	@FXML public void newGreenDeck() {
-//		newDeck("green");
-//	}
-//
-//	@FXML public void newYellowDeck() {
-//		newDeck("yellow");
-//	}
-//
-//	@FXML public void newRedDeck() {
-//		newDeck("red");
-//	}
-
-
+	/**
+	 * Wraps up the creation of a card, adding the sidemenu observable, as well as the dragon drop functionality
+	 * @param g group that the new card is part of
+	 * @param item Item that represents the model of the new card
+	 * @param type the type of card that needs to be returned
+	 * @return a card of the appropriate type
+	 */
 	private Card newCard(Group g, Item item, String type) {
-		System.out.println(type);
 		final Card card = createCard(g, item, type, sideMenuController);
 		card.getGraphic().setOnDragDetected(event -> {
 			Dragboard dragboard = card.getGraphic().startDragAndDrop(TransferMode.MOVE);
@@ -135,24 +127,18 @@ public class Controller {
 		return card;
 	}
 
-	private int getNumDecks(){
-		return getData().size();
-	}
 
+	/**
+	 * adds a new deck with the same CSS class (colour) as the node that fired this event
+	 * !!!! update this if the order of style classes on the "new deck" buttons changes
+	 * @param actionEvent event that was fired
+	 */
 	@FXML public void newDeck(ActionEvent actionEvent){
-		incNumDecks();
-		getData().last().setColour(colour);
+		String colour = ((Styleable)(actionEvent.getSource())).getStyleClass().get(1);
+		getData().add(new Group("Deck "+getData().size(),colour));
 		Deck newDeck = new Deck(draggingTab, getData().last());
 		centerPane.getChildren().add(newDeck);
 	}
 
-	private void incNumDecks(){
-		getData().add(new Group("Deck "+getData().size()));
-	}
-
-
-	public void notifyObserver() {
-		makeDecks();
-	}
 
 }

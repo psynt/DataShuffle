@@ -22,6 +22,11 @@ public class Group extends ArrayList<Item> implements Serializable {
         this.name = name;
     }
 
+    public Group(String name, String colour){
+        super();
+        this.name = name;
+        col = colour;
+    }
     public Group(int initialCapacity) {
         super(initialCapacity);
     }

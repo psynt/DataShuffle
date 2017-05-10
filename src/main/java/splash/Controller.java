@@ -22,10 +22,8 @@ import model.Data;
 import webscraper.reterivers.EbayGetter;
 import webscraper.reterivers.ModuleGetter;
 
-import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.MalformedURLException;
@@ -50,8 +48,6 @@ public class Controller {
 		return d;
 	}
 
-	@Inject
-	private HostServices hostServices ;
 
 	@FXML
 	public void initialize() {
