@@ -1,6 +1,7 @@
 package splash;
 
 import javafx.concurrent.Task;
+import javafx.css.Styleable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -18,7 +19,8 @@ public class ProgressDialog extends VBox {
     public ProgressDialog(Task<Data> t) {
         Label l = new Label("Searching...");
         ProgressBar pb = new ProgressBar();
-        pb.setId("Proabar");
+
+        pb.getStyleClass().add("Probar");
         pb.setPrefSize(200, 24);
         pb.progressProperty().bind(t.progressProperty());
         
@@ -28,7 +30,7 @@ public class ProgressDialog extends VBox {
         HBox box = new HBox();
 
         Button ok = new Button("ok");
-        ok.setId("ProBut");
+        ok.getStyleClass().add("Probut");
         ok.setOnAction(e-> ok.getScene().getWindow().hide());
         ok.disableProperty().bind(t.runningProperty());
         Button cancel = new Button("cancel");
@@ -36,6 +38,7 @@ public class ProgressDialog extends VBox {
             t.cancel();
             cancel.getScene().getWindow().hide();
         });
+        cancel.getStyleClass().add("Probut");
         box.getChildren().addAll(ok,cancel);
         getChildren().addAll(l,pb,box);
     }

@@ -2,13 +2,6 @@
 
 
 
-#Probar { -fx-box-border: goldenrod; }
-
-#Probut{
-	-fx-font: 100px "Serif";
-    -fx-padding: 10;
-    -fx-background-color: #CCFF99;
-}
 
 
 #welcome-text {  
@@ -155,4 +148,13 @@
 }
 .red{
     -fx-background-color: #d28f8f;
+}
+
+
+.Probar { -fx-box-border: goldenrod; }
+
+.Probut{
+    -fx-font: 100px "Serif";
+    -fx-padding: 10;
+    -fx-background-color: #CCFF99;
 }

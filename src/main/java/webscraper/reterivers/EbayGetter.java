@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Abstracts away the process of getting ebay data
  * Created by nichita on 06/05/17.
  */
 public class EbayGetter implements Getter {
