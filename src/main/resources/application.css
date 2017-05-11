@@ -2,10 +2,10 @@
 
 
 
-.progress-bar { -fx-box-border: goldenrod; }
+#Probar { -fx-box-border: goldenrod; }
 
 #Probut{
-	-fx-font: 50px "Serif";
+	-fx-font: 100px "Serif";
     -fx-padding: 10;
     -fx-background-color: #CCFF99;
 }

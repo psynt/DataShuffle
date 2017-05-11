@@ -18,15 +18,15 @@ public class ProgressDialog extends VBox {
     public ProgressDialog(Task<Data> t) {
         Label l = new Label("Searching...");
         ProgressBar pb = new ProgressBar();
-<<<<<<< HEAD
+        pb.setId("Proabar");
         pb.setPrefSize(200, 24);
         pb.progressProperty().bind(t.progressProperty());
         
-=======
+
         pb.setPrefWidth(150);
         pb.progressProperty().bind(t.progressProperty());
         HBox box = new HBox();
->>>>>>> dev
+
         Button ok = new Button("ok");
         ok.setId("ProBut");
         ok.setOnAction(e-> ok.getScene().getWindow().hide());
