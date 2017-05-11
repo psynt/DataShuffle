@@ -76,6 +76,7 @@ public class ModuleGetter implements Getter {
                 Data d = new Data("Module");
                 for (int i = 0 ; i<modules.size() ; i++ ) {
                     String e = modules.get(i);
+                    if (isCancelled()){ return null;}
                     if(e.matches("G5\\d...")){
                         try {
                             Connection.Response r = new ModulePOSTReq().courseCode(e);
