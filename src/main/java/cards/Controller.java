@@ -83,7 +83,6 @@ public class Controller {
 
 		mainPane.setRight(sideMenuContainer);
 		mainPane.setCenter(scrollPane);
-		sideMenuContainer.setBorder(new Border( new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 
 
 		makeDecks();
