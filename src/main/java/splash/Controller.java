@@ -264,9 +264,10 @@ public class Controller {
 		args.put("auctionType",auctionType);
 		Task<Data> t = new EbayGetter().getTask(args);
 		VBox pr = new ProgressDialog(t);
+		
 		Stage s = new Stage();
 		s.setTitle("Progress");
-		Scene sc = new Scene(pr);
+		Scene sc = new Scene(pr,250,150);
 		sc.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 		s.setScene(sc);
 		new Thread(t).start();

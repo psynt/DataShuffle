@@ -4,12 +4,8 @@
 
 
 
-#welcome-text {  
-   -fx-font-size: 20px;  
-   -fx-font-family: "Segoe UI Light";  
-   -fx-fill: #818181;  
-   -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );  
-}
+
+
 
 .mainPane {
     -fx-background-color: #2f4f4f;
@@ -149,12 +145,11 @@
 .red{
     -fx-background-color: #d28f8f;
 }
-
-
-.Probar { -fx-box-border: goldenrod; }
-
-.Probut{
-    -fx-font: 100px "Serif";
-    -fx-padding: 10;
-    -fx-background-color: #CCFF99;
+.p {
+    -fx-padding: 10 ;
+    -fx-alignment: center ;
 }
+
+
+
+

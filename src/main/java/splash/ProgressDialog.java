@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import model.Data;
 import webscraper.reterivers.ModuleGetter;
 
@@ -18,19 +19,18 @@ import webscraper.reterivers.ModuleGetter;
 public class ProgressDialog extends VBox {
     public ProgressDialog(Task<Data> t) {
         Label l = new Label("Searching...");
-        ProgressBar pb = new ProgressBar();
-
-        pb.getStyleClass().add("Probar");
-        pb.setPrefSize(200, 24);
-        pb.progressProperty().bind(t.progressProperty());
         
-
+        ProgressBar pb = new ProgressBar();
+        pb.getStyleClass().add("Probar");
+        pb.setPrefSize(150, 24);   
+        pb.progressProperty().bind(t.progressProperty());
+     
         pb.setPrefWidth(150);
         pb.progressProperty().bind(t.progressProperty());
         HBox box = new HBox();
 
         Button ok = new Button("ok");
-        ok.getStyleClass().add("Probut");
+       // ok.getStyleClass().add("Probut");
         ok.setOnAction(e-> ok.getScene().getWindow().hide());
         ok.disableProperty().bind(t.runningProperty());
         Button cancel = new Button("cancel");
