@@ -1,6 +1,7 @@
 package webscraper.reterivers;
 
 import content.Attribute;
+import javafx.concurrent.Task;
 import model.Group;
 import content.Item;
 import model.Data;
@@ -12,16 +13,15 @@ import webscraper.EbayResultScraper;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by nichita on 06/05/17.
  */
 public class EbayGetter implements Getter {
-    @Override
-    public Data getTheStuff(Map<String, String> args) throws MalformedURLException {
 
-        Data d = new Data("Ebay");
+    private List<String> decide(Map<String, String> args) throws MalformedURLException {
 
         if(args.get("auctionType").equals("Buy It Now!")) {args.put("auctionType", "BIN");}
 
@@ -29,23 +29,61 @@ public class EbayGetter implements Getter {
                 .replace("datashuffle", args.get("searchTerm")).replace("minprice", args.get("min"))
                 .replace("maxprice", args.get("max")).replace("AUCTYPE", args.get("auctionType"));
 
-        ArrayList<Item> whatYouWant = new ArrayList<>();
         Document guitarSearch = DocumentLoader.load(new URL(searchUrl));
         EbayResultScraper thing1 = new EbayResultScraper(guitarSearch);
-        ArrayList<String> links = thing1.scrapeLinks();
+        return thing1.scrapeLinks();
 
-        for (String link : links) {
-            Document res = DocumentLoader.load(new URL(link));
-            EbayItemScraper ebayScraper = new EbayItemScraper(res);
-            Item it = ebayScraper.scrapeDocument();
-            it.addAttribute(new Attribute<>("link", new URL(link)));
+    }
+
+    public Task<Data> getTask(Map<String, String> args) throws MalformedURLException {
+        List<String> links = decide(args);
+        return new Task<Data>() {
+            @Override
+            protected Data call() throws Exception {
+
+                Data d = new Data("Ebay");
+
+                ArrayList<Item> whatYouWant = new ArrayList<>();
+                for (int i = 0 ; i<links.size() ; i++) {
+                    String link = links.get(i);
+                    Document res = DocumentLoader.load(new URL(link));
+                    EbayItemScraper ebayScraper = new EbayItemScraper(res);
+                    Item it = ebayScraper.scrapeDocument();
+                    it.addAttribute(new Attribute<>("link", new URL(link)));
 
 
-            whatYouWant.add(it);
+                    whatYouWant.add(it);
+                    updateProgress(i,links.size());
 
-        }
-        d.add(new Group(whatYouWant,"Jimmy the search results"));
-        d.get(0).setColour("green");
+                }
+                d.add(new Group(whatYouWant,"Jimmy the search results"));
+                d.get(0).setColour("green");
+                return d;
+            }
+        };
+    }
+
+    @Override
+    public Data getTheStuff(Map<String, String> args) throws MalformedURLException {
+
+        List<String> links = decide(args);
+
+        Data d = new Data("Ebay");
+//
+//        ArrayList<Item> whatYouWant = new ArrayList<>();
+//        for (int i = 0 ; i<links.size() ; i++) {
+//            String link = links.get(i);
+//            Document res = DocumentLoader.load(new URL(link));
+//            EbayItemScraper ebayScraper = new EbayItemScraper(res);
+//            Item it = ebayScraper.scrapeDocument();
+//            it.addAttribute(new Attribute<>("link", new URL(link)));
+//
+//
+//            whatYouWant.add(it);
+//
+//        }
+//        d.add(new Group(whatYouWant,"Jimmy the search results"));
+//        d.get(0).setColour("green");
         return d;
     }
 }

@@ -6,6 +6,7 @@ import javafx.scene.control.ProgressBar
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import model.Data
+import webscraper.reterivers.EbayGetter
 import webscraper.reterivers.ModuleGetter
 
 /**
@@ -25,7 +26,7 @@ class Mainc extends VBox{
     Mainc(){
 //        VBox v = new VBox()
         ProgressBar pb = new ProgressBar();
-        Task<Data> t = new ModuleGetter().getTask(["code":"g404"])
+        Task<Data> t = new EbayGetter().getTask(["searchTerm":"guitar","min":"","max":"","auctionType":"Buy It Now"])
         pb.progressProperty().bind(t.progressProperty())
         Button ok = new Button("ok")
         ok.setOnAction{

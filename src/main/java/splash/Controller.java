@@ -181,17 +181,8 @@ public class Controller {
 
 			searchButton.setOnAction(e -> {
 				try {
-//					d = modules(userTextField.getText()
-//							   , minTextField.getText());
-					Task<Data> t = modules(userTextField.getText()
-							   			 , minTextField.getText());
-					VBox pr = new ProgressDialog(t);
-					Stage s = new Stage();
-					s.setTitle("Progress");
-					s.setScene(new Scene(pr));
-					new Thread(t).start();
-					s.showAndWait();
-					d = t.get();
+					d = modules(userTextField.getText()
+							   , minTextField.getText());
 					window.close();
 				} catch (MalformedURLException ex) {
 					System.out.println("Bad url:");
@@ -237,13 +228,20 @@ public class Controller {
 	 * @param keyword search by keyword
 	 * @param code ucas code
 	 * @return data object
-	 * @throws MalformedURLException
+	 * @throws Exception
 	 */
-	private Task<Data> modules(String keyword, String code) throws Exception {
+	private Data modules(String keyword, String code) throws Exception {
 		Map<String,String> args = new HashMap<>();
 		if (code != null) args.put("code",code);
 		if (keyword != null) args.put("keyword",keyword);
-		return new ModuleGetter().getTask(args);
+		Task<Data> t = new ModuleGetter().getTask(args);
+		VBox pr = new ProgressDialog(t);
+		Stage s = new Stage();
+		s.setTitle("Progress");
+		s.setScene(new Scene(pr));
+		new Thread(t).start();
+		s.showAndWait();
+		return t.get();
 	}
 
 	/**
@@ -253,15 +251,22 @@ public class Controller {
 	 * @param max
 	 * @param auctionType
 	 * @return returns data object
-	 * @throws MalformedURLException
+	 * @throws Exception
 	 */
-	private Data ebay(String searchTerm, String min, String max, String auctionType) throws MalformedURLException {
+	private Data ebay(String searchTerm, String min, String max, String auctionType) throws Exception {
 		Map<String,String> args = new HashMap<>();
 		args.put("searchTerm",searchTerm);
 		args.put("min",min);
 		args.put("max",max);
 		args.put("auctionType",auctionType);
-		return new EbayGetter().getTheStuff(args);
+		Task<Data> t = new EbayGetter().getTask(args);
+		VBox pr = new ProgressDialog(t);
+		Stage s = new Stage();
+		s.setTitle("Progress");
+		s.setScene(new Scene(pr));
+		new Thread(t).start();
+		s.showAndWait();
+		return t.get();
 	}
 
 	/**
