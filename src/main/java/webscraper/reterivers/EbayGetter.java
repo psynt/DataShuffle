@@ -55,6 +55,7 @@ public class EbayGetter implements Getter {
 
                     whatYouWant.add(it);
                     updateProgress(i,links.size());
+                    if (isCancelled()){ return null;}
 
                 }
                 d.add(new Group(whatYouWant,"Jimmy the search results"));
