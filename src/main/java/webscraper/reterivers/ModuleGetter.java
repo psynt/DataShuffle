@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import static splash.Controller.getData;
@@ -32,7 +33,7 @@ import static splash.Controller.getData;
 public class ModuleGetter implements Getter {
 
 
-    static Data d;
+//    static Data d;
 
     static class MyTask extends Task<Data>{
 
@@ -87,7 +88,7 @@ public class ModuleGetter implements Getter {
 //                System.out.println("returning");
             d.add(currentGroup);
             d.remove(0);
-            ModuleGetter.d=d;
+//            ModuleGetter.d=d;
             return d;
 //            return null;
         }
@@ -124,7 +125,7 @@ public class ModuleGetter implements Getter {
 
     }
 
-    private void getMeModules(final List<String> modules) throws InterruptedException {
+    private Data getMeModules(final List<String> modules) throws InterruptedException, ExecutionException {
 
 //        Task<Data> getter = new Task<Data>() {
 //            Data d;
@@ -153,7 +154,7 @@ public class ModuleGetter implements Getter {
 //        Data d = getter.getValue();
 ////        System.out.println(d);
 //
-//        return d;
+        return getter.get();
     }
 
 
@@ -166,10 +167,11 @@ public class ModuleGetter implements Getter {
 
         List<String> modules = decide(args);
 
-        getMeModules(modules);
+//        getMeModules(modules);
 //        return getMeModules(modules);
 //        while (d == null);
 //        System.out.println(d);
-        return d;
+
+        return getMeModules(modules);
     }
 }
