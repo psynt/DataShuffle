@@ -4,6 +4,7 @@ import cards.CardState;
 import cards.SecondMain;
 import content.Attribute;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -13,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -179,8 +181,17 @@ public class Controller {
 
 			searchButton.setOnAction(e -> {
 				try {
-					d = modules(userTextField.getText()
-							   , minTextField.getText());
+//					d = modules(userTextField.getText()
+//							   , minTextField.getText());
+					Task<Data> t = modules(userTextField.getText()
+							   			 , minTextField.getText());
+					VBox pr = new ProgressDialog(t);
+					Stage s = new Stage();
+					s.setTitle("Progress");
+					s.setScene(new Scene(pr));
+					new Thread(t).start();
+					s.showAndWait();
+					d = t.get();
 					window.close();
 				} catch (MalformedURLException ex) {
 					System.out.println("Bad url:");
@@ -228,11 +239,11 @@ public class Controller {
 	 * @return data object
 	 * @throws MalformedURLException
 	 */
-	private Data modules(String keyword, String code) throws Exception {
+	private Task<Data> modules(String keyword, String code) throws Exception {
 		Map<String,String> args = new HashMap<>();
 		if (code != null) args.put("code",code);
 		if (keyword != null) args.put("keyword",keyword);
-		return new ModuleGetter().getTheStuff(args);
+		return new ModuleGetter().getTask(args);
 	}
 
 	/**
