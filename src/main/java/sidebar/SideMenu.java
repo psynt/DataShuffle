@@ -1,15 +1,21 @@
 package sidebar;
 
+import java.io.IOException;
+
 import javafx.animation.Animation;
 import javafx.animation.Transition;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class SideMenu extends VBox {
@@ -18,7 +24,7 @@ public class SideMenu extends VBox {
 	public Button getDisplayMenuButton() {
 		return displayMenuButton;
 	}
-
+	
 	double buttonWidth = 15;
 	double buttonHeight = 25;
 
@@ -31,7 +37,8 @@ public class SideMenu extends VBox {
 	final static Button displayMenuButton = new Button(" ", arrowImage);
 
 	// create a Vbox panel to contain the side menu, set to the width passed in
-	public SideMenu(final double newWidth, Node... nodes) {
+	public SideMenu(final double newWidth, Node... nodes )  {
+	
 		getStyleClass().add("sideMenu");//for CSS styling
 		this.setPrefWidth(newWidth);
 		this.setMinWidth(0);
@@ -50,6 +57,7 @@ public class SideMenu extends VBox {
 		displayMenuButton.setContentDisplay(ContentDisplay.CENTER);
 		displayMenuButton.setRotate(180);
 		displayMenuButton.setPrefSize(buttonWidth+5,buttonHeight+5);
+		
 		
 				
 	}

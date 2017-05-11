@@ -1,10 +1,13 @@
 package sidebar;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import cards.Card;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -27,8 +30,9 @@ public class SideMenuItems {
 
 	/**This function creates the item inside the side menu and places them in a pane, the menupane. This menupane is
      * returned when the function is called, to be put inside the side menu.
+	 * @throws IOException 
      */
-	public BorderPane createSidebarItems()
+	public BorderPane createSidebarItems() throws IOException
     {
 		final BorderPane menuPane = new BorderPane();
 
@@ -37,7 +41,7 @@ public class SideMenuItems {
 		projectButtonLayout.setAlignment(Pos.CENTER);
 
 		
-		//Create layout for select items to show button and add buttons
+		//Create layout for selecgetChildren().add(content);t items to show button and add buttons
 		showItemsCheckBoxLayout = new VBox();
 		showItemsCheckBoxLayout.setAlignment(Pos.CENTER_LEFT);
 		

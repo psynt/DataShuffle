@@ -13,8 +13,11 @@ import webscraper.reterivers.ModuleGetter;
 public class ProgressDialog extends VBox {
     public ProgressDialog(Task<Data> t) {
         ProgressBar pb = new ProgressBar();
+        pb.setPrefSize(200, 24);
         pb.progressProperty().bind(t.progressProperty());
+        
         Button ok = new Button("ok");
+        ok.setId("ProBut");
         ok.setOnAction(e-> ok.getScene().getWindow().hide());
         ok.disableProperty().bind(t.runningProperty());
         getChildren().addAll(pb,ok);

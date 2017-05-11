@@ -1,5 +1,16 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
+
+
+.progress-bar { -fx-box-border: goldenrod; }
+
+#Probut{
+	-fx-font: 50px "Serif";
+    -fx-padding: 10;
+    -fx-background-color: #CCFF99;
+}
+
+
 #welcome-text {  
    -fx-font-size: 20px;  
    -fx-font-family: "Segoe UI Light";  

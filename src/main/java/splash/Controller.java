@@ -236,6 +236,7 @@ public class Controller {
 		if (keyword != null) args.put("keyword",keyword);
 		Task<Data> t = new ModuleGetter().getTask(args);
 		VBox pr = new ProgressDialog(t);
+	
 		Stage s = new Stage();
 		s.setTitle("Progress");
 		Scene sc = new Scene(pr);

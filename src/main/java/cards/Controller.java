@@ -54,7 +54,7 @@ public class Controller {
 	private SideMenuController sideMenuController;
 
 	@FXML
-	public void initialize() {
+	public void initialize() throws IOException {
         
 		draggingTab = new SimpleObjectProperty<>();
 
