@@ -35,6 +35,7 @@ public class EbayGetter implements Getter {
 
     }
 
+    @Override
     public Task<Data> getTask(Map<String, String> args) throws MalformedURLException {
         List<String> links = decide(args);
         return new Task<Data>() {
@@ -63,27 +64,4 @@ public class EbayGetter implements Getter {
         };
     }
 
-    @Override
-    public Data getTheStuff(Map<String, String> args) throws MalformedURLException {
-
-        List<String> links = decide(args);
-
-        Data d = new Data("Ebay");
-//
-//        ArrayList<Item> whatYouWant = new ArrayList<>();
-//        for (int i = 0 ; i<links.size() ; i++) {
-//            String link = links.get(i);
-//            Document res = DocumentLoader.load(new URL(link));
-//            EbayItemScraper ebayScraper = new EbayItemScraper(res);
-//            Item it = ebayScraper.scrapeDocument();
-//            it.addAttribute(new Attribute<>("link", new URL(link)));
-//
-//
-//            whatYouWant.add(it);
-//
-//        }
-//        d.add(new Group(whatYouWant,"Jimmy the search results"));
-//        d.get(0).setColour("green");
-        return d;
-    }
 }
