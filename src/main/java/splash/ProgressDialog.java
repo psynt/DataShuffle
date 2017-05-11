@@ -10,6 +10,8 @@ import model.Data;
 import webscraper.reterivers.ModuleGetter;
 
 /**
+ * This is just a vbox containing a progress bar, an ok and a cancel button.
+ * Give it a task to bind the progress bar too
  * Created by nichita on 11/05/17.
  */
 public class ProgressDialog extends VBox {
