@@ -238,7 +238,9 @@ public class Controller {
 		VBox pr = new ProgressDialog(t);
 		Stage s = new Stage();
 		s.setTitle("Progress");
-		s.setScene(new Scene(pr));
+		Scene sc = new Scene(pr);
+		sc.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+		s.setScene(sc);
 		new Thread(t).start();
 		s.showAndWait();
 		return t.get();
@@ -263,7 +265,9 @@ public class Controller {
 		VBox pr = new ProgressDialog(t);
 		Stage s = new Stage();
 		s.setTitle("Progress");
-		s.setScene(new Scene(pr));
+		Scene sc = new Scene(pr);
+		sc.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+		s.setScene(sc);
 		new Thread(t).start();
 		s.showAndWait();
 		return t.get();
