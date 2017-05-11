@@ -228,7 +228,7 @@ public class Controller {
 	 * @return data object
 	 * @throws MalformedURLException
 	 */
-	private Data modules(String keyword, String code) throws MalformedURLException {
+	private Data modules(String keyword, String code) throws Exception {
 		Map<String,String> args = new HashMap<>();
 		if (code != null) args.put("code",code);
 		if (keyword != null) args.put("keyword",keyword);

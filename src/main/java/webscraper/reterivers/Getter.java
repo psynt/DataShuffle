@@ -15,7 +15,7 @@ public interface Getter {
      * This method goes and gathers all of the needed data
      * @param args a map containing all of the arguments that are to help in getting the desired results
      * @return returns a Data object, which is the Model of this application
-     * @throws MalformedURLException if the url can't be accessed
+     * @throws Exception
      */
-    Data getTheStuff(Map<String,String> args) throws MalformedURLException;
+    Data getTheStuff(Map<String,String> args) throws Exception;
 }

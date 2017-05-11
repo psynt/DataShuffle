@@ -30,5 +30,7 @@ import java.util.stream.Collectors
 //println new EbayGetter().getTheStuff(["searchTerm":"guitar"])
 //
 //println new ModuleScraper(new ModulePOSTReq().courseCode("g52afp")).scrapeDocument()//.map(ModuleScraper::new).map(ModuleScraper::scrapeDocument).collect(Collectors.toList())
+//
+//println new ModuleScraper(new ModulePOSTReq().courseCode("g52afp").parse()).scrapeDocument();
 
-println new ModuleScraper(new ModulePOSTReq().courseCode("g52afp").parse()).scrapeDocument();
+
