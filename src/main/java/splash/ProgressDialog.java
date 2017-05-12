@@ -30,7 +30,7 @@ public class ProgressDialog extends VBox {
         HBox box = new HBox();
 
         Button ok = new Button("ok");
-       // ok.getStyleClass().add("Probut");
+        ok.getStyleClass().add("Probut");
         ok.setOnAction(e-> ok.getScene().getWindow().hide());
         ok.disableProperty().bind(t.runningProperty());
         Button cancel = new Button("cancel");
