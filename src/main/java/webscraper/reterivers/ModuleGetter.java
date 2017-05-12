@@ -81,7 +81,7 @@ public class ModuleGetter implements Getter {
                 for (int i = 0 ; i<modules.size() ; i++ ) {
                     String e = modules.get(i);
                     if (isCancelled()){ return null;}
-                    if(e.matches("G5\\d...")){
+                    if(e.matches("......")){
                         try {
                             Connection.Response r = new ModulePOSTReq().courseCode(e);
                             Item it = new ModuleScraper(r.parse()).scrapeDocument();
