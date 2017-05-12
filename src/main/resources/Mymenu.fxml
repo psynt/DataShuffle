@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="background" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="splash.Controller">
+   <children>
+      <MenuBar layoutY="-2.0" prefHeight="33.0" prefWidth="400.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open" />
+              <MenuItem mnemonicParsing="false" onAction="#closeWindow" text="Close" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Button fx:id="moduleButton" layoutX="121.0" layoutY="373.0" mnemonicParsing="false" onAction="#moduleEvent" prefHeight="76.0" prefWidth="159.0" stylesheets="@application.css" text="Search&#10;Courses">
+         <graphic>
+            <ImageView fitHeight="57.0" fitWidth="61.0" preserveRatio="true">
+               <image>
+                  <Image url="@module.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="ebayButton" layoutX="120.0" layoutY="457.0" mnemonicParsing="false" onAction="#ebayEvent" prefHeight="73.0" prefWidth="159.0" stylesheets="@application.css" text="Search&#10;Ebay">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="65.0">
+               <image>
+                  <Image url="@ebay.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <ImageView fitHeight="200.0" fitWidth="136.0" layoutX="131.0" layoutY="108.0">
+         <image>
+            <Image url="@ds.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

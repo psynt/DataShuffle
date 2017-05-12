@@ -106,8 +106,6 @@ acs-*.bib
 # gnuplottex
 *-gnuplottex-*
 
-# hyperref
-*.brf
 
 # knitr
 *-concordance.tex
@@ -139,8 +137,6 @@ _minted*
 # morewrites
 *.mw
 
-# mylatexformat
-*.fmt
 
 # nomencl
 *.nlo
@@ -200,3 +196,14 @@ TSWLatexianTemp*
 
 # KBibTeX
 *~[0-9]*
+/.idea/
+.idea/modules/
+HoloDesk.ipr
+HoloDesk.iws
+/classes/
+HoloDesk.iml
+/groupFour/
+/G52GRP_TEAM4_2016_Softwarecide-Squad-GITLAB.iml
+/src/main/main.iml
+*.iml
+G52GRP_TEAM4_2016_Softwarecide-Squad

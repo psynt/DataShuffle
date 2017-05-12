@@ -6,9 +6,23 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at https://docs.gradle.org/2.14.1/userguide/tutorial_java_projects.html
  */
-
 // Apply the java plugin to add support for Java
+buildscript {
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.0'
+	}
+}
+
 apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: "com.github.johnrengelman.shadow"
+
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -23,10 +37,26 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.21'
     // jsoup HTML parser library @ http://jsoup.org/
 	compile 'org.jsoup:jsoup:1.10.1'
+	// https://mvnrepository.com/artifact/org.apache.poi/poi
+	compile group: 'org.apache.poi', name: 'poi', version: '3.15'
+	// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
+	// https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.7'
+	// https://mvnrepository.com/artifact/com.airhacks/afterburner.fx
+	compile group: 'com.airhacks', name: 'afterburner.fx', version: '1.7.0'
 
-    // Declare the dependency for your favourite test framework you want to use in your tests.
-    // TestNG is also supported by the Gradle Test task. Just change the
-    // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
-    // 'test.useTestNG()' to your build script.
+
+	// Declare the dependency for your favourite test framework you want to use in your tests.
     testCompile 'junit:junit:4.12'
+	testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+}
+
+
+mainClassName = 'splash.Main'
+
+shadowJar {
+	baseName = 'DataShuffle'
+	classifier = null
+	version = null
 }

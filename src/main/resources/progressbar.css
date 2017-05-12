@@ -1,0 +1,13 @@
+	@CHARSET "UTF-8";
+
+.progress-bar{
+   -fx-skin: "com.sun.javafx.scene.control.skin.ProgressBarSkin";
+    -fx-background-color:
+        -fx-box-border,
+        linear-gradient(to bottom, derive(-fx-color,30%) 5%, derive(-fx-color,-17%));
+    -fx-background-insets: 0, 1;
+    -fx-indeterminate-bar-length: 60;
+    -fx-indeterminate-bar-escape: true;
+    -fx-indeterminate-bar-flip: true;
+    -fx-indeterminate-bar-animation-time: 2;
+}
