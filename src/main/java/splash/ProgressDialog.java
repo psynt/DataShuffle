@@ -18,14 +18,17 @@ import webscraper.reterivers.ModuleGetter;
  */
 public class ProgressDialog extends VBox {
     public ProgressDialog(Task<Data> t) {
-        Label l = new Label("Searching...");
-        
+        Label l = new Label();
+        l.setPrefWidth(300);
+
+        l.textProperty().bind(t.titleProperty());
+
         ProgressBar pb = new ProgressBar();
         pb.getStyleClass().add("Probar");
         pb.setPrefSize(150, 24);   
         pb.progressProperty().bind(t.progressProperty());
      
-        pb.setPrefWidth(150);
+        pb.setPrefWidth(300);
         pb.progressProperty().bind(t.progressProperty());
         HBox box = new HBox();
 

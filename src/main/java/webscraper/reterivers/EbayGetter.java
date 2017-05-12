@@ -21,6 +21,7 @@ import java.util.Map;
  * Created by nichita on 06/05/17.
  */
 public class EbayGetter implements Getter {
+    private String name;
 
     private List<String> decide(Map<String, String> args) throws MalformedURLException {
 
@@ -32,6 +33,7 @@ public class EbayGetter implements Getter {
 
         Document guitarSearch = DocumentLoader.load(new URL(searchUrl));
         EbayResultScraper thing1 = new EbayResultScraper(guitarSearch);
+        name = args.get("searchTerm");
         return thing1.scrapeLinks();
 
     }
@@ -42,6 +44,7 @@ public class EbayGetter implements Getter {
         return new Task<Data>() {
             @Override
             protected Data call() throws Exception {
+                updateTitle(name);
 
                 Data d = new Data("Ebay");
 

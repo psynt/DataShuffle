@@ -32,6 +32,8 @@ import static splash.Controller.getData;
  */
 public class ModuleGetter implements Getter {
 
+    private String name;
+
     private List<String> decide(Map<String, String> args) throws MalformedURLException {
         CoursePOSTReq courseGetter = new CoursePOSTReq();
 
@@ -50,6 +52,7 @@ public class ModuleGetter implements Getter {
             userChoice.showAndWait();
         }
         String selCourse = res.get(userChoice.getSelectedItem());
+        name = userChoice.getSelectedItem();
 
 //        String selCourse = res.get(courses.get(0));
 
@@ -71,6 +74,7 @@ public class ModuleGetter implements Getter {
         return new Task<Data>() {
             @Override
             protected Data call() throws Exception {
+                updateTitle(name);
                 Group currentGroup = new Group();
                 currentGroup.setColour("red");
                 Data d = new Data("Module");
@@ -110,6 +114,7 @@ public class ModuleGetter implements Getter {
                 return d;
             }
         };
+
     }
 
 }
