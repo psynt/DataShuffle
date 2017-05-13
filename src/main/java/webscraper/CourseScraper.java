@@ -82,9 +82,12 @@ public class CourseScraper extends PageScraper {
 	public List<String> getReqModules(){
 		ArrayList<String> atts = new ArrayList<>();
 
-		for (Element row : doc.select(":contains(Part)~tr:not(:contains(Assessment criteria)~tr)")) {
+//		System.err.println(doc.select(":root"));//.select(":contains(Part)"));//:not(:contains(Assessment criteria)~tr)"));
+
+		for (Element row : doc.select(":root")) {
 			row.select("td").forEach (it -> {
-				if (it.text().matches("[A-Z]\\d\\d[A-Z][A-Z][A-Z]") || it.text().matches("Students.*")) {
+				if (it.text().matches("([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])") || it.text().matches("Students.*")) {
+//					System.err.println("adding" + it.text());
 					atts.add(it.text());
 				}
 			});

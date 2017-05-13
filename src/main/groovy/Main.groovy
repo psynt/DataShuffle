@@ -24,9 +24,9 @@ class Main extends Application{
 
 class Mainc extends VBox{
     Mainc(){
-//        VBox v = new VBox()
+        VBox v = new VBox()
         ProgressBar pb = new ProgressBar();
-        Task<Data> t = new EbayGetter().getTask(["searchTerm":"guitar","min":"","max":"","auctionType":"Buy It Now"])
+        Task<Data> t = new ModuleGetter().getTask(["code":"H300"])
         pb.progressProperty().bind(t.progressProperty())
         Button ok = new Button("ok")
         ok.setOnAction{
@@ -35,13 +35,13 @@ class Mainc extends VBox{
 
         }
 
-        ok.disableProperty().bind(t.runningProperty())
-        getChildren().addAll(pb,ok);
+//        ok.disableProperty().bind(t.runningProperty())
+//        getChildren().addAll(pb,ok);
 
         Thread th = new Thread(t)
         th.start()
-//        th.join()
-//        println t.get()
+        th.join()
+        println t.get()
 
     }
 }

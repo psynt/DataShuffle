@@ -32,5 +32,6 @@ import java.util.stream.Collectors
 //println new ModuleScraper(new ModulePOSTReq().courseCode("g52afp")).scrapeDocument()//.map(ModuleScraper::new).map(ModuleScraper::scrapeDocument).collect(Collectors.toList())
 //
 //println new ModuleScraper(new ModulePOSTReq().courseCode("g52afp").parse()).scrapeDocument();
+//"a".matches("([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])")
 
-
+//println new ModuleScraper(new ModulePOSTReq().courseCode("H300").parse())

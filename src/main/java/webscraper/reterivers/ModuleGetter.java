@@ -70,7 +70,7 @@ public class ModuleGetter implements Getter {
 
     @Override
     public Task<Data> getTask(Map<String, String> args) throws MalformedURLException {
-        List <String> modules = decide(args);
+        List <String> modules = decide(args);//.stream().distinct().collect(Collectors.toList());
         return new Task<Data>() {
             @Override
             protected Data call() throws Exception {
@@ -78,13 +78,15 @@ public class ModuleGetter implements Getter {
                 Group currentGroup = new Group();
                 currentGroup.setColour("red");
                 Data d = new Data("Module");
+//                System.out.println(modules.size());
                 for (int i = 0 ; i<modules.size() ; i++ ) {
                     String e = modules.get(i);
                     if (isCancelled()){ return null;}
-                    if(e.matches("......")){
+                    if(e.matches("([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])")){
                         try {
                             Connection.Response r = new ModulePOSTReq().courseCode(e);
                             Item it = new ModuleScraper(r.parse()).scrapeDocument();
+//                            System.err.println(it);
 
                             Item act = new Item(true);
 
@@ -96,6 +98,9 @@ public class ModuleGetter implements Getter {
                             currentGroup.add(act);
                         } catch (IOException e1) {
                             e1.printStackTrace();
+                        } catch (ArrayIndexOutOfBoundsException e2){
+                            System.err.println("null module");
+                            continue;
                         }
                     }else{
                         if(e.matches("Students completing .*")) continue;

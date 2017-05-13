@@ -29,12 +29,14 @@ public class ModuleScraper extends PageScraper {
 			return item;
 		}
 
+
 		item = new Item();
 		Elements modTitle = doc.select("H2");
 		String myString[] = modTitle.text().split(" ", 2);
-		item.addAttribute(new Attribute<String>("Module Code", myString[0]));
+//		System.err.println(modTitle + " " + myString);
+		item.addAttribute(new Attribute<>("Module Code", myString[0]));
 		myString[1] = myString[1].replaceAll("\\(.*\\)","");
-		item.addAttribute(new Attribute<String>("Module Name", myString[1]));
+		item.addAttribute(new Attribute<>("Module Name", myString[1]));
 		
 		Elements paras = doc.select("p");
 
