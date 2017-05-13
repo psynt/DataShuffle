@@ -1,7 +1,12 @@
 package splash;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WeakChangeListener;
 import javafx.concurrent.Task;
 import javafx.css.Styleable;
+import javafx.event.EventType;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -27,6 +32,7 @@ public class ProgressDialog extends VBox {
         pb.getStyleClass().add("Probar");
         pb.setPrefSize(150, 24);   
         pb.progressProperty().bind(t.progressProperty());
+        setCursor(Cursor.WAIT);
      
         pb.setPrefWidth(300);
         pb.progressProperty().bind(t.progressProperty());
@@ -36,6 +42,17 @@ public class ProgressDialog extends VBox {
         ok.getStyleClass().add("Probut");
         ok.setOnAction(e-> ok.getScene().getWindow().hide());
         ok.disableProperty().bind(t.runningProperty());
+
+        ok.disabledProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue){
+                    setCursor(Cursor.DEFAULT);
+                    ok.disabledProperty().removeListener(this);
+                }
+            }
+        });
+
         Button cancel = new Button("cancel");
         cancel.setOnAction(e -> {
             t.cancel();
