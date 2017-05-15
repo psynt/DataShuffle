@@ -27,7 +27,9 @@ public class SecondMain {
         scene.getStylesheets().add(SecondMain.class.getResource("/application.css").toExternalForm());
 
         primaryStage.setScene(scene);
-        primaryStage.sizeToScene();
+//        primaryStage.sizeToScene();
+        primaryStage.setMaximized(true);
+        primaryStage.resizableProperty().setValue(true);
         
         primaryStage.show();
         

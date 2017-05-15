@@ -34,7 +34,10 @@ public class SideMenuController extends SideMenuItems
 			splash.Controller.reset();
 			Stage stage = (Stage) newProjectButton.getScene().getWindow();
 
+			stage.hide();
 			stage.setScene(splash.Main.getScene());
+			stage.setResizable(false);
+			stage.show();
 			
 		});
 

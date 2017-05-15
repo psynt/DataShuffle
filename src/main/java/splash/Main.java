@@ -19,6 +19,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			primaryStage.hide();
 			AnchorPane layout = new AnchorPane();
 
 			scene = new Scene(layout, 400, 600);
@@ -32,6 +33,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Data Shuffle");
 			primaryStage.setScene(scene);
 			primaryStage.getProperties().put("hostServices", this.getHostServices());
+			primaryStage.resizableProperty().setValue(false);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
