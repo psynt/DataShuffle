@@ -78,7 +78,7 @@ public class ModuleGetter implements Getter {
                 Group currentGroup = new Group();
                 currentGroup.setColour("red");
                 Data d = new Data("Module");
-//                System.out.println(modules.size());
+                System.out.println(modules.size());
                 for (int i = 0 ; i<modules.size() ; i++ ) {
                     String e = modules.get(i);
                     if (isCancelled()){ return null;}
@@ -86,7 +86,7 @@ public class ModuleGetter implements Getter {
                         try {
                             Connection.Response r = new ModulePOSTReq().courseCode(e);
                             Item it = new ModuleScraper(r.parse()).scrapeDocument();
-//                            System.err.println(it);
+                            System.err.println(it);
 
                             Item act = new Item(true);
 
@@ -103,7 +103,7 @@ public class ModuleGetter implements Getter {
                             continue;
                         }
                     }else{
-                        if(e.matches("Students completing .*")) continue;
+                        if(!e.contains("this group")) continue;
                         d.add(currentGroup);
                         currentGroup = new Group(e + " " + d.size());
                         if (e.contains("all")){

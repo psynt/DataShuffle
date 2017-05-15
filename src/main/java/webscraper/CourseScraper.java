@@ -86,8 +86,8 @@ public class CourseScraper extends PageScraper {
 
 		for (Element row : doc.select(":root")) {
 			row.select("td").forEach (it -> {
-				if (it.text().matches("([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])") || it.text().matches("Students.*")) {
-//					System.err.println("adding" + it.text());
+				if (it.text().matches("([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])([A-Z]|[0-9])") || it.text().contains("this group")) {
+					System.err.println("adding" + it.text());
 					atts.add(it.text());
 				}
 			});

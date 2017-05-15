@@ -15,7 +15,11 @@ import webscraper.reterivers.ModuleGetter
 class Main extends Application{
     @Override
     void start(Stage primaryStage) throws Exception {
-//        println new ModuleGetter().getTheStuff(["code":"g404"])
+
+//        Thread t = new Thread(new ModuleGetter().getTask(["code":"g4g1"]))
+//        t.start()
+//        t.join()
+//        println
 //        println ModuleGetter.d
         primaryStage.setScene(new Scene(new Mainc()));
         primaryStage.show()
@@ -26,7 +30,7 @@ class Mainc extends VBox{
     Mainc(){
         VBox v = new VBox()
         ProgressBar pb = new ProgressBar();
-        Task<Data> t = new ModuleGetter().getTask(["code":"H300"])
+        Task<Data> t = new ModuleGetter().getTask(["code":"G4G1"])
         pb.progressProperty().bind(t.progressProperty())
         Button ok = new Button("ok")
         ok.setOnAction{
@@ -35,8 +39,8 @@ class Mainc extends VBox{
 
         }
 
-//        ok.disableProperty().bind(t.runningProperty())
-//        getChildren().addAll(pb,ok);
+        ok.disableProperty().bind(t.runningProperty())
+        getChildren().addAll(pb,ok);
 
         Thread th = new Thread(t)
         th.start()
